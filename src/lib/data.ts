@@ -83,7 +83,7 @@ export const consultants = [
 
 export const testimonials = [
   {
-    quote: "在 EduGo 的帮助下，我拿到了梦校的 offer！",
+    quote: "在吴桐树的帮助下，我拿到了梦校的 offer！",
     detail: "顾问老师非常专业，从选校到文书都给了我很大帮助，最终拿到了 UCL 和爱丁堡的录取。",
     student: "张同学",
     result: "UCL 硕士录取",
