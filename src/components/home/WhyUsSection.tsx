@@ -11,7 +11,7 @@ const icons = { landmark: Landmark, trending: TrendingUp, users: UsersRound, sca
 export function WhyUsSection() {
   return (
     <motion.section initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.7 }}>
-      <SectionHeader title="选择 EduGo 的理由" />
+      <SectionHeader title="选择吴桐树的理由" />
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
         {whyUsItems.map((item) => {
           const Icon = icons[item.icon as keyof typeof icons];
