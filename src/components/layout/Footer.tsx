@@ -4,7 +4,7 @@ export function Footer() {
   return (
     <footer className="rounded-[28px] border border-[#E5E7EB] bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] md:p-8">
       <div className="mb-8">
-        <p className="text-xl font-semibold tracking-[-0.04em]">吴桐shu留学教育机构</p>
+        <p className="text-xl font-semibold tracking-[-0.04em]">吴桐树</p>
         <p className="mt-3 max-w-sm text-sm leading-6 text-[#6B7280]">专注全球留学申请规划，助力学生走向世界名校。</p>
       </div>
       <div className="grid gap-7 sm:grid-cols-2 xl:grid-cols-3">
@@ -24,7 +24,7 @@ export function Footer() {
         <p>上海市静安区南京西路 1266 号</p>
       </div>
       <div className="mt-8 flex flex-col gap-3 border-t border-[#E5E7EB] pt-6 text-xs text-[#6B7280] sm:flex-row sm:items-center sm:justify-between">
-        <p>© 2026 吴桐shu留学教育机构. All rights reserved.</p>
+        <p>© 2026 吴桐树. All rights reserved.</p>
         <div className="flex gap-4"><a href="#">隐私政策</a><a href="#">服务条款</a><a href="#">网站地图</a></div>
       </div>
     </footer>
