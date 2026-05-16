@@ -11,7 +11,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-[#E5E7EB]/80 bg-white/78 backdrop-blur-2xl">
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:px-8">
-        <a href="#" className="text-lg font-semibold tracking-[-0.04em] text-[#0A0A0A]">吴桐shu留学教育机构</a>
+        <a href="#" className="text-lg font-semibold tracking-[-0.04em] text-[#0A0A0A]">吴桐树</a>
         <nav className="hidden items-center gap-7 lg:flex">
           {navItems.map((item) => (
             <a key={item} href="#" className="text-sm font-medium text-[#0A0A0A]/70 transition duration-300 hover:-translate-y-0.5 hover:text-[#0A0A0A]">
