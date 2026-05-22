@@ -2,7 +2,6 @@ export const navItems = [
   { label: "首页", href: "#home" },
   { label: "留学服务", href: "#services" },
   { label: "快速咨询", href: "#consultation" },
-  { label: "国家/地区", href: "#countries" },
   { label: "成功案例", href: "#offers" },
   { label: "关于我们", href: "#consultants" },
   { label: "常见问题", href: "#faq" }
@@ -23,34 +22,6 @@ export const services = [
   { icon: "send", title: "申请递交", description: "把控材料与节点进度" },
   { icon: "badge", title: "签证服务", description: "材料审核与面签辅导" },
   { icon: "plane", title: "行前指导", description: "住宿、注册与落地事项" }
-];
-
-export const countries = [
-  {
-    name: "英国",
-    english: "United Kingdom",
-    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=85"
-  },
-  {
-    name: "美国",
-    english: "United States",
-    image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1200&q=85"
-  },
-  {
-    name: "澳大利亚",
-    english: "Australia",
-    image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1200&q=85"
-  },
-  {
-    name: "加拿大",
-    english: "Canada",
-    image: "https://images.unsplash.com/photo-1517935706615-2717063c2225?auto=format&fit=crop&w=1200&q=85"
-  },
-  {
-    name: "日本",
-    english: "Japan",
-    image: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=1200&q=85"
-  }
 ];
 
 export const offers = [
@@ -108,7 +79,14 @@ export const offers = [
   }
 ];
 
-export const partners = ["Harvard University", "Stanford University", "MIT", "University of Oxford", "The University of Melbourne", "NUS"];
+export const partners = [
+  { name: "哈佛大学", english: "Harvard University", mark: "H" },
+  { name: "斯坦福大学", english: "Stanford University", mark: "S" },
+  { name: "麻省理工学院", english: "MIT", mark: "MIT" },
+  { name: "牛津大学", english: "University of Oxford", mark: "OX" },
+  { name: "墨尔本大学", english: "The University of Melbourne", mark: "M" },
+  { name: "新加坡国立大学", english: "NUS", mark: "NUS" }
+];
 
 export const consultants = [
   {
