@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  tree-education-webofficialpage:
+    container_name: tree-education-webofficialpage
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3001:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+    networks:
+      - tree-education-network
+
+networks:
+  tree-education-network:
+    external: true
