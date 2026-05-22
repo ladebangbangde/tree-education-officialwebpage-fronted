@@ -24,6 +24,34 @@ export const services = [
   { icon: "plane", title: "行前指导", description: "住宿、注册与落地事项" }
 ];
 
+export const countries = [
+  {
+    name: "英国",
+    english: "United Kingdom",
+    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=85"
+  },
+  {
+    name: "美国",
+    english: "United States",
+    image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1200&q=85"
+  },
+  {
+    name: "澳大利亚",
+    english: "Australia",
+    image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1200&q=85"
+  },
+  {
+    name: "加拿大",
+    english: "Canada",
+    image: "https://images.unsplash.com/photo-1517935706615-2717063c2225?auto=format&fit=crop&w=1200&q=85"
+  },
+  {
+    name: "日本",
+    english: "Japan",
+    image: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=1200&q=85"
+  }
+];
+
 export const offers = [
   {
     tag: "双非逆袭",
