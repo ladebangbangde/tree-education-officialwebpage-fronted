@@ -108,12 +108,12 @@ export const offers = [
 ];
 
 export const partners = [
-  { name: "哈佛大学", english: "Harvard University", mark: "H" },
-  { name: "斯坦福大学", english: "Stanford University", mark: "S" },
-  { name: "麻省理工学院", english: "MIT", mark: "MIT" },
-  { name: "牛津大学", english: "University of Oxford", mark: "OX" },
-  { name: "墨尔本大学", english: "The University of Melbourne", mark: "M" },
-  { name: "新加坡国立大学", english: "NUS", mark: "NUS" }
+  { name: "哈佛大学", english: "Harvard University", logo: "https://logo.clearbit.com/harvard.edu" },
+  { name: "斯坦福大学", english: "Stanford University", logo: "https://logo.clearbit.com/stanford.edu" },
+  { name: "麻省理工学院", english: "Massachusetts Institute of Technology", logo: "https://logo.clearbit.com/mit.edu" },
+  { name: "牛津大学", english: "University of Oxford", logo: "https://logo.clearbit.com/ox.ac.uk" },
+  { name: "墨尔本大学", english: "The University of Melbourne", logo: "https://logo.clearbit.com/unimelb.edu.au" },
+  { name: "新加坡国立大学", english: "National University of Singapore", logo: "https://logo.clearbit.com/nus.edu.sg" }
 ];
 
 export const consultants = [
@@ -145,11 +145,22 @@ export const consultants = [
 
 export const testimonials = [
   {
-    quote: "在吴桐树的帮助下，我拿到了梦校的 offer！",
-    detail: "顾问老师非常专业，从选校到文书都给了我很大帮助，最终拿到了 UCL 和爱丁堡的录取。",
-    student: "张同学",
-    result: "UCL 硕士录取",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=85"
+    quote: "双非背景，也能冲进 QS 前 30。",
+    detail: "原本只计划申请 QS100，顾问重新梳理经历后，最终拿到英国名校录取。",
+    student: "林同学",
+    result: "英国商科硕士录取"
+  },
+  {
+    quote: "GPA 不高，也能进入澳洲八大。",
+    detail: "顾问用课程匹配、实习证明和职业目标重构材料，让普通背景变得更有说服力。",
+    student: "陈同学",
+    result: "澳洲八大商科录取"
+  },
+  {
+    quote: "跨专业申请，也能转数据方向。",
+    detail: "文科背景通过项目包装和技能路线设计，成功拿到数据分析方向录取。",
+    student: "王同学",
+    result: "数据分析硕士录取"
   }
 ];
 
