@@ -23,8 +23,13 @@ export function PartnerSchoolsSection() {
             key={partner.name}
             className="group flex items-center gap-4 rounded-[24px] border border-[#E5E7EB] bg-[#F8F8FA] p-5 transition hover:border-[#0A0A0A]/15 hover:bg-white"
           >
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0A0A0A] text-sm font-bold text-white shadow-lg">
-              {partner.mark}
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-[#E5E7EB] bg-white p-3 shadow-sm">
+              <img
+                src={partner.logo}
+                alt={`${partner.name}校徽`}
+                className="h-full w-full object-contain"
+                loading="lazy"
+              />
             </div>
 
             <div>
