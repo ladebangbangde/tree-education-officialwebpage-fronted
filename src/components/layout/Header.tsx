@@ -11,33 +11,50 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-[#E5E7EB]/80 bg-white/78 backdrop-blur-2xl">
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:px-8">
-        <a href="#" className="text-lg font-semibold tracking-[-0.04em] text-[#0A0A0A]">吴桐树</a>
+        <a href="#home" className="text-lg font-semibold tracking-[-0.04em] text-[#0A0A0A]">
+          吴桐树
+        </a>
+
         <nav className="hidden items-center gap-7 lg:flex">
           {navItems.map((item) => (
-            <a key={item} href="#" className="text-sm font-medium text-[#0A0A0A]/70 transition duration-300 hover:-translate-y-0.5 hover:text-[#0A0A0A]">
-              {item}
+            <a
+              key={item.label}
+              href={item.href}
+              className="text-sm font-medium text-[#0A0A0A]/70 transition duration-300 hover:-translate-y-0.5 hover:text-[#0A0A0A]"
+            >
+              {item.label}
             </a>
           ))}
         </nav>
-        <div className="hidden items-center gap-3 md:flex">
-          <motion.a whileHover={{ y: -1 }} whileTap={{ scale: 0.98 }} href="#" className="rounded-full bg-[#050505] px-5 py-2.5 text-sm font-medium text-white shadow-[0_10px_30px_rgba(0,0,0,0.12)]">
-            免费评估
-          </motion.a>
-        </div>
-        <button className="inline-flex size-10 items-center justify-center rounded-full border border-[#E5E7EB] bg-white lg:hidden" onClick={() => setOpen((value) => !value)} aria-label="切换导航菜单">
+
+        <button
+          className="inline-flex size-10 items-center justify-center rounded-full border border-[#E5E7EB] bg-white lg:hidden"
+          onClick={() => setOpen((value) => !value)}
+          aria-label="切换导航菜单"
+        >
           {open ? <X className="size-4" /> : <Menu className="size-4" />}
         </button>
       </div>
+
       <AnimatePresence>
         {open ? (
-          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden border-t border-[#E5E7EB] bg-white lg:hidden">
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="overflow-hidden border-t border-[#E5E7EB] bg-white lg:hidden"
+          >
             <div className="mx-auto grid max-w-[1440px] gap-1 px-5 py-4">
               {navItems.map((item) => (
-                <a key={item} href="#" onClick={() => setOpen(false)} className="rounded-2xl px-3 py-3 text-sm font-medium text-[#0A0A0A]/75 hover:bg-[#F5F5F7]">
-                  {item}
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="rounded-2xl px-3 py-3 text-sm font-medium text-[#0A0A0A]/75 hover:bg-[#F5F5F7]"
+                >
+                  {item.label}
                 </a>
               ))}
-              <a href="#" className="mt-2 rounded-full bg-[#050505] px-5 py-3 text-center text-sm font-medium text-white">免费评估</a>
             </div>
           </motion.div>
         ) : null}
