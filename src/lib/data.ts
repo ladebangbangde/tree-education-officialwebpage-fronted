@@ -108,12 +108,12 @@ export const offers = [
 ];
 
 export const partners = [
-  { name: "哈佛大学", english: "Harvard University", logo: "https://logo.clearbit.com/harvard.edu" },
-  { name: "斯坦福大学", english: "Stanford University", logo: "https://logo.clearbit.com/stanford.edu" },
-  { name: "麻省理工学院", english: "Massachusetts Institute of Technology", logo: "https://logo.clearbit.com/mit.edu" },
-  { name: "牛津大学", english: "University of Oxford", logo: "https://logo.clearbit.com/ox.ac.uk" },
-  { name: "墨尔本大学", english: "The University of Melbourne", logo: "https://logo.clearbit.com/unimelb.edu.au" },
-  { name: "新加坡国立大学", english: "National University of Singapore", logo: "https://logo.clearbit.com/nus.edu.sg" }
+  { name: "哈佛大学", english: "Harvard University", logo: "/logos/harvard.png" },
+  { name: "斯坦福大学", english: "Stanford University", logo: "/logos/stanford.png" },
+  { name: "麻省理工学院", english: "Massachusetts Institute of Technology", logo: "/logos/mit.png" },
+  { name: "牛津大学", english: "University of Oxford", logo: "/logos/oxford.png" },
+  { name: "墨尔本大学", english: "The University of Melbourne", logo: "/logos/melbourne.png" },
+  { name: "新加坡国立大学", english: "National University of Singapore", logo: "/logos/nus.png" }
 ];
 
 export const consultants = [
