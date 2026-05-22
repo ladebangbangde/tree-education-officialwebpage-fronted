@@ -1,4 +1,12 @@
-export const navItems = ["首页", "留学服务", "国家/地区", "院校库", "成功案例", "关于我们", "资讯"];
+export const navItems = [
+  { label: "首页", href: "#home" },
+  { label: "留学服务", href: "#services" },
+  { label: "快速咨询", href: "#consultation" },
+  { label: "国家/地区", href: "#countries" },
+  { label: "成功案例", href: "#offers" },
+  { label: "关于我们", href: "#consultants" },
+  { label: "常见问题", href: "#faq" }
+];
 
 export const whyUsItems = [
   { icon: "landmark", title: "名校申请经验", description: "覆盖英美澳加日与亚洲顶尖院校申请路径。" },
@@ -46,10 +54,58 @@ export const countries = [
 ];
 
 export const offers = [
-  { school: "Imperial College London", chinese: "帝国理工学院", rank: "QS #6", program: "电子电气工程硕士", intake: "2024 Fall", status: "Offer" },
-  { school: "The University of Melbourne", chinese: "墨尔本大学", rank: "QS #14", program: "教育学硕士", intake: "2024 Fall", status: "Offer" },
-  { school: "The University of Chicago", chinese: "芝加哥大学", rank: "US News #11", program: "经济学硕士", intake: "2024 Fall", status: "Offer" },
-  { school: "UCL", chinese: "伦敦大学学院", rank: "QS #9", program: "建筑学硕士", intake: "2024 Fall", status: "Offer" }
+  {
+    tag: "双非逆袭",
+    student: "林同学",
+    background: "双非 · 均分82 · 普通实习",
+    school: "University of Manchester",
+    chinese: "曼彻斯特大学",
+    rank: "QS #32",
+    program: "MSc Marketing",
+    result: "从只敢申QS100，到拿下曼大Offer",
+    strategy: "顾问重构实习叙事，突出商业增长逻辑。",
+    detail: "原方案过于分散，我们把经历压缩成“品牌增长+数据复盘”主线，让普通实习变成可被招生官理解的申请优势。",
+    status: "Offer"
+  },
+  {
+    tag: "低GPA突破",
+    student: "陈同学",
+    background: "三本 · GPA 3.1 · 无科研",
+    school: "University of Sydney",
+    chinese: "悉尼大学",
+    rank: "QS #19",
+    program: "Master of Commerce",
+    result: "低起点背景，进入澳洲八大",
+    strategy: "用课程匹配和实习证明补齐短板。",
+    detail: "顾问弱化院校背景，强化课程关联、职业目标和推荐信证据，最终把“不够亮眼”的背景变成稳定申请材料。",
+    status: "Offer"
+  },
+  {
+    tag: "跨专业申请",
+    student: "王同学",
+    background: "文科背景 · 编程基础弱",
+    school: "University of Glasgow",
+    chinese: "格拉斯哥大学",
+    rank: "QS #76",
+    program: "MSc Data Analytics",
+    result: "文科生转数据方向成功录取",
+    strategy: "用项目和补课路径证明转专业能力。",
+    detail: "我们没有硬讲“热爱数据”，而是用可验证的小项目、课程计划和职业场景建立可信转专业逻辑。",
+    status: "Offer"
+  },
+  {
+    tag: "大龄重启",
+    student: "赵同学",
+    background: "工作5年 · 语言一般",
+    school: "University of Leeds",
+    chinese: "利兹大学",
+    rank: "QS #75",
+    program: "MA Education",
+    result: "工作多年后重启名校申请",
+    strategy: "把工作经历转化为教育管理优势。",
+    detail: "顾问把年龄和工作年限转化为成熟度、管理经验和目标稳定性，避开单纯拼分数的劣势。",
+    status: "Offer"
+  }
 ];
 
 export const partners = ["Harvard University", "Stanford University", "MIT", "University of Oxford", "The University of Melbourne", "NUS"];
