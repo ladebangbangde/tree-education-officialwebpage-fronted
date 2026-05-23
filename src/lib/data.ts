@@ -2,6 +2,7 @@ export const navItems = [
   { label: "首页", href: "#home" },
   { label: "留学服务", href: "#services" },
   { label: "快速咨询", href: "#consultation" },
+  { label: "国家/地区", href: "#countries" },
   { label: "成功案例", href: "#offers" },
   { label: "关于我们", href: "#consultants" },
   { label: "常见问题", href: "#faq" }
@@ -26,29 +27,24 @@ export const services = [
 
 export const countries = [
   {
-    name: "英国",
-    english: "United Kingdom",
-    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=85"
-  },
-  {
     name: "美国",
     english: "United States",
-    image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1200&q=85"
+    image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1400&q=85"
   },
   {
     name: "澳大利亚",
     english: "Australia",
-    image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1200&q=85"
+    image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1400&q=85"
   },
   {
-    name: "加拿大",
-    english: "Canada",
-    image: "https://images.unsplash.com/photo-1517935706615-2717063c2225?auto=format&fit=crop&w=1200&q=85"
+    name: "欧洲各国",
+    english: "Europe",
+    image: "https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=1400&q=85"
   },
   {
-    name: "日本",
-    english: "Japan",
-    image: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=1200&q=85"
+    name: "英国",
+    english: "United Kingdom",
+    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1400&q=85"
   }
 ];
 
@@ -108,12 +104,12 @@ export const offers = [
 ];
 
 export const partners = [
-  { name: "哈佛大学", english: "Harvard University", logo: "/pics/harvard.png" },
-  { name: "斯坦福大学", english: "Stanford University", logo: "/pics/stanford.png" },
-  { name: "麻省理工学院", english: "Massachusetts Institute of Technology", logo: "/pics/mit.png" },
-  { name: "牛津大学", english: "University of Oxford", logo: "/pics/oxford.png" },
-  { name: "墨尔本大学", english: "The University of Melbourne", logo: "/pics/melbourne.png" },
-  { name: "新加坡国立大学", english: "National University of Singapore", logo: "/pics/nus.png" }
+  { name: "悉尼大学", english: "University of Sydney", logo: "/pics/悉尼大学.png" },
+  { name: "斯坦福大学", english: "Stanford University", logo: "/pics/斯坦福大学.png" },
+  { name: "麻省理工学院", english: "Massachusetts Institute of Technology", logo: "/pics/麻省理工.png" },
+  { name: "牛津大学", english: "University of Oxford", logo: "/pics/牛津大学.png" },
+  { name: "墨尔本大学", english: "The University of Melbourne", logo: "/pics/墨尔本大学.png" },
+  { name: "新加坡国立大学", english: "National University of Singapore", logo: "/pics/新加坡国立.png" }
 ];
 
 export const consultants = [
@@ -173,7 +169,7 @@ export const faqs = [
 
 export const footerColumns = [
   { title: "服务", links: ["留学规划", "选校定位", "文书制作", "申请递交", "签证服务", "行前指导"] },
-  { title: "国家/地区", links: ["英国", "美国", "澳大利亚", "加拿大", "日本", "更多国家"] },
+  { title: "国家/地区", links: ["美国", "澳大利亚", "欧洲各国", "英国"] },
   { title: "关于我们", links: ["公司简介", "顾问团队", "成功案例", "新闻资讯", "加入我们"] }
 ];
 
