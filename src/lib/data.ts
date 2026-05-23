@@ -45,6 +45,11 @@ export const countries = [
     name: "英国",
     english: "United Kingdom",
     image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1400&q=85"
+  },
+  {
+    name: "亚洲",
+    english: "Asia",
+    image: "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=1400&q=85"
   }
 ];
 
@@ -169,7 +174,7 @@ export const faqs = [
 
 export const footerColumns = [
   { title: "服务", links: ["留学规划", "选校定位", "文书制作", "申请递交", "签证服务", "行前指导"] },
-  { title: "国家/地区", links: ["美国", "澳大利亚", "欧洲各国", "英国"] },
+  { title: "国家/地区", links: ["美国", "澳大利亚", "欧洲各国", "英国", "亚洲"] },
   { title: "关于我们", links: ["公司简介", "顾问团队", "成功案例", "新闻资讯", "加入我们"] }
 ];
 
