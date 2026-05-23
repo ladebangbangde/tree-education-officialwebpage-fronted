@@ -17,26 +17,33 @@ export function PartnerSchoolsSection() {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {partners.map((partner) => (
-          <motion.div
-            whileHover={{ y: -4, scale: 1.02 }}
-            transition={{ duration: 0.2 }}
+          <motion.article
             key={partner.name}
-            className="group flex items-center gap-4 rounded-[24px] border border-[#E5E7EB] bg-[#F8F8FA] p-5 transition hover:border-[#0A0A0A]/15 hover:bg-white"
+            whileHover={{ y: -6, scale: 1.025 }}
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            className="group overflow-hidden rounded-[24px] border border-[#E5E7EB] bg-[#F8F8FA] p-5 transition-all duration-300 hover:border-[#0A0A0A]/15 hover:bg-white hover:shadow-[0_20px_48px_rgba(0,0,0,0.08)]"
           >
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-[#E5E7EB] bg-white p-3 shadow-sm">
-              <img
-                src={partner.logo}
-                alt={`${partner.name}校徽`}
-                className="h-full w-full object-contain"
-                loading="lazy"
-              />
+            <div className="flex items-center gap-4">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-[#E5E7EB] bg-white p-3 shadow-sm">
+                <img src={partner.logo} alt={`${partner.name}校徽`} className="h-full w-full object-contain" loading="lazy" />
+              </div>
+
+              <div className="min-w-0 flex-1">
+                <div className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-[#0A0A0A] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
+                  <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
+                  QS {partner.rank}
+                </div>
+                <p className="truncate text-base font-semibold tracking-[-0.03em] text-[#0A0A0A]">{partner.name}</p>
+                <p className="mt-1 truncate text-sm font-medium tracking-[-0.02em] text-[#6B7280]">{partner.english}</p>
+              </div>
             </div>
 
-            <div>
-              <p className="text-base font-semibold text-[#0A0A0A]">{partner.name}</p>
-              <p className="mt-1 text-sm text-[#6B7280]">{partner.english}</p>
+            <div className="grid max-h-0 grid-rows-[0fr] opacity-0 transition-all duration-300 group-hover:mt-4 group-hover:max-h-40 group-hover:grid-rows-[1fr] group-hover:opacity-100">
+              <p className="overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white px-4 py-3 text-sm leading-6 text-[#6B7280]">
+                {partner.intro}
+              </p>
             </div>
-          </motion.div>
+          </motion.article>
         ))}
       </div>
     </motion.section>
