@@ -68,7 +68,9 @@ export function AiEvaluationSection() {
   useEffect(() => {
     if (!orbRef.current) return;
     const tween = gsap.to(orbRef.current, { rotate: 360, duration: 38, repeat: -1, ease: "none" });
-    return () => tween.kill();
+    return () => {
+      tween.kill();
+    };
   }, []);
 
   useEffect(() => {
