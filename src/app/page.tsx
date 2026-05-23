@@ -2,6 +2,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { AiEvaluationSection } from "@/components/home/AiEvaluationSection";
 import { ConsultantsPanel } from "@/components/home/ConsultantsPanel";
+import { CountriesSection } from "@/components/home/CountriesSection";
 import { FaqPanel } from "@/components/home/FaqPanel";
 import { FinalCtaPanel } from "@/components/home/FinalCtaPanel";
 import { HeroSection } from "@/components/home/HeroSection";
@@ -22,6 +23,7 @@ export default function Home() {
           <HeroSection />
           <WhyUsSection />
           <AiEvaluationSection />
+          <CountriesSection />
           <OfferShowcaseSection />
           <PartnerSchoolsSection />
         </div>
