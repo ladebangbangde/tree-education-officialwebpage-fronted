@@ -60,7 +60,10 @@ export function AiEvaluationSection() {
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState("");
 
-  const requiredReady = useMemo(() => Boolean(form.name.trim() && form.age.trim() && form.education.trim() && form.city.trim() && form.phone.trim() && form.destination.trim() && form.budget.trim()), [form]);
+  const requiredReady = useMemo(
+    () => Boolean(form.name.trim() && form.age.trim() && form.education.trim() && form.city.trim() && form.phone.trim() && form.destination.trim() && form.budget.trim()),
+    [form]
+  );
 
   useEffect(() => {
     if (!orbRef.current) return;
@@ -161,57 +164,48 @@ export function AiEvaluationSection() {
         {open ? (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[999] flex items-center justify-center overflow-y-auto bg-black/65 p-4 backdrop-blur-md" onClick={() => setOpen(false)}>
             <motion.form
-              initial={{ opacity: 0, scale: 0.94, y: 18 }}
+              initial={{ opacity: 0, scale: 0.95, y: 14 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.94, y: 18 }}
-              transition={{ duration: 0.22 }}
+              exit={{ opacity: 0, scale: 0.95, y: 14 }}
+              transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
               onSubmit={submitLead}
-              className="relative my-5 w-full max-w-[980px] overflow-hidden rounded-[30px] border border-white/10 bg-[#090909] p-5 text-white shadow-[0_40px_120px_rgba(0,0,0,0.5)] md:p-6"
+              className="relative my-4 w-full max-w-[760px] overflow-hidden rounded-[28px] border border-white/10 bg-[#090909] p-5 text-white shadow-[0_40px_120px_rgba(0,0,0,0.5)] md:p-6"
             >
-              <button type="button" onClick={() => setOpen(false)} className="absolute right-5 top-5 z-10 flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/80 transition hover:bg-white/10">
+              <button type="button" onClick={() => setOpen(false)} className="absolute right-4 top-4 z-10 flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/80 transition hover:bg-white/10">
                 <X className="size-4" />
               </button>
 
-              <div className="grid gap-6 lg:grid-cols-[0.72fr_1.28fr]">
-                <div className="rounded-[24px] border border-white/10 bg-white/[0.035] p-5">
-                  <p className="text-xs tracking-[0.24em] text-white/45">CONSULTATION</p>
-                  <h3 className="mt-4 text-3xl font-semibold tracking-[-0.06em] md:text-4xl">开启你的留学规划</h3>
-                  <p className="mt-4 text-sm leading-7 text-white/60">填写基础信息后，我们会根据目标地区、预算和当前背景，为你安排更合适的顾问。</p>
-                  <div className="mt-6 space-y-3 text-sm text-white/72">
-                    <p className="rounded-2xl bg-white/[0.04] px-4 py-3">必填：姓名 / 年龄 / 学历 / 城市 / 电话</p>
-                    <p className="rounded-2xl bg-white/[0.04] px-4 py-3">选填：微信号 / 备注</p>
-                    <p className="rounded-2xl bg-white/[0.04] px-4 py-3">提交后进入后台线索池</p>
-                  </div>
-                </div>
+              <div className="mx-auto max-w-[660px] text-center">
+                <p className="text-xs tracking-[0.24em] text-white/45">CONSULTATION</p>
+                <h3 className="mt-3 text-3xl font-semibold tracking-[-0.06em] md:text-4xl">开启你的留学规划</h3>
+                <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-white/58">填写基础信息后，我们会根据目标地区、预算和当前背景，为你安排更合适的顾问。</p>
+              </div>
 
+              <div className="mx-auto mt-6 grid max-w-[660px] gap-3 md:grid-cols-2">
+                <FormInput label="姓名" value={form.name} onChange={(value) => updateForm("name", value)} required />
+                <FormInput label="年龄" value={form.age} onChange={(value) => updateForm("age", value)} required />
+                <FormInput label="学历" value={form.education} onChange={(value) => updateForm("education", value)} required />
+                <FormInput label="所在城市" value={form.city} onChange={(value) => updateForm("city", value)} required />
+                <FormInput label="电话号码" value={form.phone} onChange={(value) => updateForm("phone", value)} required />
                 <div>
-                  <div className="grid gap-3 md:grid-cols-3">
-                    <FormInput label="姓名" value={form.name} onChange={(value) => updateForm("name", value)} required />
-                    <FormInput label="年龄" value={form.age} onChange={(value) => updateForm("age", value)} required />
-                    <FormInput label="学历" value={form.education} onChange={(value) => updateForm("education", value)} required />
-                    <FormInput label="所在城市" value={form.city} onChange={(value) => updateForm("city", value)} required />
-                    <FormInput label="电话号码" value={form.phone} onChange={(value) => updateForm("phone", value)} required />
-                    <div>
-                      <label className="mb-2 block text-xs font-medium text-white/70">微信号</label>
-                      <input value={form.wechat} onChange={(event) => updateForm("wechat", event.target.value)} placeholder="选填，建议留下微信" className="h-12 w-full rounded-2xl border border-white/10 bg-white/[0.035] px-4 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-white/[0.06]" />
-                      <motion.p initial={{ opacity: 0.55 }} animate={{ opacity: [0.55, 1, 0.55] }} transition={{ duration: 2.2, repeat: Infinity }} className="mt-1.5 text-[11px] leading-4 text-blue-100/80">建议留下微信，便于发送选校清单。</motion.p>
-                    </div>
-                    <FormSelect label="意向国家/地区" value={form.destination} onChange={(value) => updateForm("destination", value)} options={destinationOptions} required />
-                    <FormSelect label="留学预算" value={form.budget} onChange={(value) => updateForm("budget", value)} options={budgetOptions.map((item) => ({ label: item, value: item }))} required />
-                    <div className="md:col-span-3">
-                      <label className="mb-2 block text-xs font-medium text-white/70">备注</label>
-                      <textarea rows={3} value={form.remark} onChange={(event) => updateForm("remark", event.target.value)} placeholder="可以补充目标专业、目前成绩、语言情况或其他顾虑" className="w-full rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-3 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-white/[0.06]" />
-                    </div>
-                  </div>
-
-                  {message ? <p className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-white/72">{message}</p> : null}
-
-                  <button type="submit" disabled={submitting} className="mx-auto mt-5 flex h-15 min-h-15 w-full max-w-[460px] items-center justify-center rounded-full bg-white px-8 py-4 text-base font-semibold text-[#050505] shadow-[0_0_44px_rgba(255,255,255,0.16)] transition hover:scale-[1.015] disabled:cursor-not-allowed disabled:opacity-60">
-                    {submitting ? "提交中..." : "提交咨询信息"}
-                  </button>
+                  <label className="mb-2 block text-xs font-medium text-white/70">微信号</label>
+                  <input value={form.wechat} onChange={(event) => updateForm("wechat", event.target.value)} placeholder="选填，建议留下微信" className="h-11 w-full rounded-2xl border border-white/10 bg-white/[0.035] px-4 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-white/[0.06]" />
+                  <motion.p initial={{ opacity: 0.55 }} animate={{ opacity: [0.55, 1, 0.55] }} transition={{ duration: 2.2, repeat: Infinity }} className="mt-1.5 text-[11px] leading-4 text-blue-100/80">温馨建议：留下微信更方便发送选校清单。</motion.p>
+                </div>
+                <FormSelect label="意向国家/地区" value={form.destination} onChange={(value) => updateForm("destination", value)} options={destinationOptions} required />
+                <FormSelect label="留学预算" value={form.budget} onChange={(value) => updateForm("budget", value)} options={budgetOptions.map((item) => ({ label: item, value: item }))} required />
+                <div className="md:col-span-2">
+                  <label className="mb-2 block text-xs font-medium text-white/70">备注</label>
+                  <textarea rows={2} value={form.remark} onChange={(event) => updateForm("remark", event.target.value)} placeholder="可以补充目标专业、目前成绩、语言情况或其他顾虑" className="w-full rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-3 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-white/[0.06]" />
                 </div>
               </div>
+
+              {message ? <p className="mx-auto mt-4 max-w-[660px] rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-center text-sm leading-6 text-white/72">{message}</p> : null}
+
+              <button type="submit" disabled={submitting} className="mx-auto mt-5 flex h-14 w-full max-w-[360px] items-center justify-center rounded-full bg-white px-8 text-base font-semibold text-[#050505] shadow-[0_0_44px_rgba(255,255,255,0.18)] transition hover:scale-[1.015] disabled:cursor-not-allowed disabled:opacity-60">
+                {submitting ? "提交中..." : "提交咨询信息"}
+              </button>
             </motion.form>
           </motion.div>
         ) : null}
@@ -226,7 +220,7 @@ function FormInput({ label, value, required, onChange }: FormInputProps) {
   return (
     <div>
       <label className="mb-2 block text-xs font-medium text-white/70">{label}{required ? " *" : ""}</label>
-      <input required={required} value={value} onChange={(event) => onChange(event.target.value)} placeholder={`请输入${label}`} className="h-12 w-full rounded-2xl border border-white/10 bg-white/[0.035] px-4 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-white/[0.06]" />
+      <input required={required} value={value} onChange={(event) => onChange(event.target.value)} placeholder={`请输入${label}`} className="h-11 w-full rounded-2xl border border-white/10 bg-white/[0.035] px-4 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-white/[0.06]" />
     </div>
   );
 }
@@ -237,7 +231,7 @@ function FormSelect({ label, value, required, options, onChange }: FormSelectPro
   return (
     <div>
       <label className="mb-2 block text-xs font-medium text-white/70">{label}{required ? " *" : ""}</label>
-      <select required={required} value={value} onChange={(event) => onChange(event.target.value)} className="h-12 w-full rounded-2xl border border-white/10 bg-[#151515] px-4 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-[#171717]">
+      <select required={required} value={value} onChange={(event) => onChange(event.target.value)} className="h-11 w-full rounded-2xl border border-white/10 bg-[#151515] px-4 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-[#171717]">
         <option value="">请选择{label}</option>
         {options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
       </select>
