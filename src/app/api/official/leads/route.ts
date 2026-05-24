@@ -24,7 +24,7 @@ function cleanBaseUrl(value?: string) {
 function getBackendBaseUrl() {
   return cleanBaseUrl(process.env.IOAS_API_BASE_URL)
     || cleanBaseUrl(process.env.NEXT_PUBLIC_IOAS_API_BASE_URL)
-    || "http://localhost:1201";
+    || "http://tree-education-ioas:8080";
 }
 
 function text(value: unknown) {
