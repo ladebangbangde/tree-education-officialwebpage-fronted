@@ -53,6 +53,13 @@ const initialForm: LeadForm = {
   remark: ""
 };
 
+function getApiMessage(data: unknown) {
+  if (data && typeof data === "object" && "message" in data && typeof (data as { message?: unknown }).message === "string") {
+    return (data as { message: string }).message;
+  }
+  return "";
+}
+
 export function AiEvaluationSection() {
   const orbRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
@@ -111,19 +118,21 @@ export function AiEvaluationSection() {
     };
 
     try {
-      const apiBaseUrl = process.env.NEXT_PUBLIC_IOAS_API_BASE_URL || "";
-      const response = await fetch(`${apiBaseUrl}/api/official/leads`, {
+      const response = await fetch("/api/official/leads", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(payload)
       });
+      const data = await response.json().catch(() => null);
 
-      if (!response.ok) throw new Error("submit failed");
+      if (!response.ok) {
+        throw new Error(getApiMessage(data) || "线索提交失败，请稍后重试");
+      }
 
       setMessage("已收到你的咨询信息，吴桐树顾问会尽快联系你。");
       setForm(initialForm);
-    } catch {
-      setMessage("当前暂未连接后台接口。表单结构已准备好，后端需要对齐 POST /api/official/leads。");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "线索提交失败，请稍后重试");
     } finally {
       setSubmitting(false);
     }
