@@ -10,6 +10,9 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3000
+      # Server-side BFF proxy target. Inside Docker, localhost means this frontend container,
+      # so the official website must call the IOAS backend through the shared Docker network.
+      IOAS_API_BASE_URL: ${IOAS_API_BASE_URL:-http://tree-education-ioas:8080}
     networks:
       - tree-education-network
 
