@@ -84,9 +84,20 @@ function CaseCard({ item }: { item: ShowcaseCase }) {
 }
 
 export function OfferShowcaseSection() {
-  const [activeTab, setActiveTab] = useState<CaseTab>("study");
-  const activeCases = activeTab === "study" ? offers : workCases;
-  const activeDescription = tabs.find((tab) => tab.key === activeTab)?.description;
+  const [activeTab, setActiveTab] = useState<CaseTab | null>(null);
+  const [expanded, setExpanded] = useState(false);
+  const isDefaultView = activeTab === null;
+  const activeCases = isDefaultView
+    ? [...offers.slice(0, 2), ...workCases.slice(0, 2)]
+    : (activeTab === "study" ? offers : workCases).slice(0, expanded ? undefined : 2);
+  const activeDescription = isDefaultView
+    ? "默认精选 4 个案例：留学案例 2 个，跨国就业案例 2 个。你也可以切换分类查看更多细节。"
+    : tabs.find((tab) => tab.key === activeTab)?.description;
+
+  const handleTabChange = (tab: CaseTab) => {
+    setActiveTab(tab);
+    setExpanded(false);
+  };
 
   return (
     <motion.section
@@ -106,7 +117,7 @@ export function OfferShowcaseSection() {
               <button
                 key={tab.key}
                 type="button"
-                onClick={() => setActiveTab(tab.key)}
+                onClick={() => handleTabChange(tab.key)}
                 className={`relative rounded-[22px] px-4 py-4 text-left transition-all duration-300 ${
                   active ? "text-white" : "text-[#475569] hover:bg-white/70 hover:text-[#0A0A0A]"
                 }`}
@@ -133,10 +144,22 @@ export function OfferShowcaseSection() {
       <motion.div layout className="grid gap-4 md:grid-cols-2">
         <AnimatePresence>
           {activeCases.map((item) => (
-            <CaseCard key={`${activeTab}-${item.student}-${item.program}`} item={item} />
+            <CaseCard key={`${activeTab || "featured"}-${item.student}-${item.program}`} item={item} />
           ))}
         </AnimatePresence>
       </motion.div>
+
+      {!isDefaultView ? (
+        <div className="mt-8 text-center">
+          <button
+            type="button"
+            onClick={() => setExpanded((value) => !value)}
+            className="rounded-full border border-[#E5E7EB] bg-white px-6 py-3 text-sm font-semibold text-[#0A0A0A] shadow-[0_12px_30px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(15,23,42,0.12)]"
+          >
+            {expanded ? "收起案例" : "查看更多案例"}
+          </button>
+        </div>
+      ) : null}
     </motion.section>
   );
 }
