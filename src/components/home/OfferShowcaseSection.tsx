@@ -131,7 +131,7 @@ export function OfferShowcaseSection() {
       <p className="mx-auto mb-6 max-w-2xl text-center text-sm leading-6 text-[#6B7280]">{activeDescription}</p>
 
       <motion.div layout className="grid gap-4 md:grid-cols-2">
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence>
           {activeCases.map((item) => (
             <CaseCard key={`${activeTab}-${item.student}-${item.program}`} item={item} />
           ))}
