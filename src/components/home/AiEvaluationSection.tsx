@@ -2,10 +2,12 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
+import Image from "next/image";
 import { ArrowUpRight, Check, X } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
 const features = ["热门地区精准匹配", "顾问1对1沟通", "预算方案建议", "专属留学路径"];
+const chinaPhonePattern = /^1[3-9]\d{9}$/;
 
 const fallbackRegionOptions = [
   { label: "英国", value: "UK" },
@@ -69,6 +71,7 @@ const provinceOptions = provinceCityOptions.map((item) => ({ label: item.provinc
 const budgetOptions = ["2万-5万", "5万-10万", "10万-15万", "15万-20万", "20万-30万", "30万-40万", "40万-50万", "50万以上"];
 
 type RegionOption = { label: string; value: string };
+type AssignedConsultant = { name?: string; publicTitle?: string; publicBio?: string; qrUrl?: string; regionName?: string };
 
 type LeadForm = {
   name: string;
@@ -117,6 +120,13 @@ function unwrapRegionOptions(payload: unknown): RegionOption[] {
     .filter(Boolean) as RegionOption[];
 }
 
+function unwrapAssignedConsultant(payload: unknown): AssignedConsultant | null {
+  const data = payload && typeof payload === "object" && "data" in payload ? (payload as { data?: unknown }).data : payload;
+  if (!data || typeof data !== "object") return null;
+  const row = data as { assignedConsultant?: unknown };
+  return row.assignedConsultant && typeof row.assignedConsultant === "object" ? row.assignedConsultant as AssignedConsultant : null;
+}
+
 export function AiEvaluationSection() {
   const orbRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
@@ -124,6 +134,8 @@ export function AiEvaluationSection() {
   const [regionOptions, setRegionOptions] = useState<RegionOption[]>(fallbackRegionOptions);
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [assignedConsultant, setAssignedConsultant] = useState<AssignedConsultant | null>(null);
 
   const selectedRegion = useMemo(
     () => regionOptions.find((item) => item.value === form.intentionRegionCode),
@@ -176,6 +188,11 @@ export function AiEvaluationSection() {
       return { ...current, [key]: value };
     });
     setMessage("");
+    setAssignedConsultant(null);
+    if (key === "phone") {
+      const cleanPhone = value.trim();
+      setPhoneError(cleanPhone && !chinaPhonePattern.test(cleanPhone) ? "请输入正确的中国大陆手机号，例如 13812345678" : "");
+    }
   };
 
   const submitLead = async (event: FormEvent<HTMLFormElement>) => {
@@ -185,9 +202,15 @@ export function AiEvaluationSection() {
       setMessage("请先完整填写必填信息，我们才能为你安排合适的顾问。微信号可选填。");
       return;
     }
+    if (!chinaPhonePattern.test(form.phone.trim())) {
+      setPhoneError("请输入正确的中国大陆手机号，例如 13812345678");
+      setMessage("手机号格式不正确，请检查后再提交。");
+      return;
+    }
 
     setSubmitting(true);
     setMessage("");
+    setAssignedConsultant(null);
 
     const payload = {
       name: form.name.trim(),
@@ -216,8 +239,11 @@ export function AiEvaluationSection() {
         throw new Error(getApiMessage(data) || "线索提交失败，请稍后重试");
       }
 
-      setMessage("已收到你的咨询信息，吴桐树顾问会尽快联系你。");
+      const consultant = unwrapAssignedConsultant(data);
+      setAssignedConsultant(consultant);
+      setMessage(consultant?.qrUrl ? "已为你匹配专属顾问，请扫码添加企业微信。" : "已收到你的咨询信息，吴桐树顾问会尽快联系你。");
       setForm(initialForm);
+      setPhoneError("");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "线索提交失败，请稍后重试");
     } finally {
@@ -240,7 +266,7 @@ export function AiEvaluationSection() {
 
         <div className="relative max-w-2xl">
           <p className="mb-5 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium tracking-[0.18em] text-blue-100">快速咨询</p>
-          <h2 className="text-3xl font-semibold leading-tight tracking-[-0.05em] md:text-4xl xl:text-5xl">1分钟详细咨询</h2>
+          <h2 className="text-2xl font-semibold leading-tight tracking-[-0.04em] md:text-3xl xl:text-4xl">1分钟详细咨询</h2>
           <p className="mt-5 max-w-2xl text-sm leading-7 text-white/62 md:text-base">告诉我们姓名、年龄、学历、所在地区、电话、意向区域和预算，我们会为你提供更贴合的留学规划建议。</p>
 
           <motion.button whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} onClick={() => setOpen(true)} className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-[#050505]">
@@ -276,7 +302,7 @@ export function AiEvaluationSection() {
 
               <div className="mx-auto max-w-[660px] text-center">
                 <p className="text-xs tracking-[0.24em] text-white/45">CONSULTATION</p>
-                <h3 className="mt-3 text-3xl font-semibold tracking-[-0.06em] md:text-4xl">开启你的留学规划</h3>
+                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.05em] md:text-3xl">开启你的留学规划</h3>
                 <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-white/58">填写基础信息后，我们会根据目标地区、预算和当前背景，为你安排更合适的顾问。</p>
               </div>
 
@@ -286,7 +312,7 @@ export function AiEvaluationSection() {
                 <FormSelect label="学历" value={form.education} onChange={(value) => updateForm("education", value)} options={educationOptions} required />
                 <FormSelect label="所在省份" value={form.province} onChange={(value) => updateForm("province", value)} options={provinceOptions} required />
                 <FormSelect label="所在城市" value={form.city} onChange={(value) => updateForm("city", value)} options={cityOptions} required disabled={!form.province} />
-                <FormInput label="电话号码" value={form.phone} onChange={(value) => updateForm("phone", value)} required />
+                <FormInput label="电话号码" value={form.phone} onChange={(value) => updateForm("phone", value)} required inputMode="tel" error={phoneError} />
                 <div>
                   <label className="mb-2 block text-xs font-medium text-white/70">微信号</label>
                   <input value={form.wechat} onChange={(event) => updateForm("wechat", event.target.value)} placeholder="选填，建议留下微信" className="h-11 w-full rounded-2xl border border-white/10 bg-white/[0.035] px-4 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-white/[0.06]" />
@@ -300,7 +326,19 @@ export function AiEvaluationSection() {
                 </div>
               </div>
 
-              {message ? <p className="mx-auto mt-4 max-w-[660px] rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-center text-sm leading-6 text-white/72">{message}</p> : null}
+              {(assignedConsultant?.qrUrl || message) ? <div className="mx-auto mt-4 max-w-[660px] rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4 text-center text-sm leading-6 text-white/72">
+                {message ? <p>{message}</p> : null}
+                {assignedConsultant?.qrUrl ? <div className="mt-4 grid gap-4 rounded-2xl bg-white/[0.04] p-4 sm:grid-cols-[120px_1fr] sm:text-left">
+                  <div className="relative mx-auto size-[120px] overflow-hidden rounded-2xl bg-white p-2 sm:mx-0">
+                    <Image src={assignedConsultant.qrUrl} alt={`${assignedConsultant.name || "顾问"} 企业微信二维码`} fill unoptimized className="object-contain p-2" />
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <p className="text-base font-semibold text-white">{assignedConsultant.name || "专属顾问"}</p>
+                    <p className="mt-1 text-xs text-blue-100/80">{assignedConsultant.publicTitle || `${assignedConsultant.regionName || "留学"}规划顾问`}</p>
+                    <p className="mt-2 text-xs leading-5 text-white/58">请扫码添加企业微信，顾问会根据你的信息继续沟通方案。</p>
+                  </div>
+                </div> : null}
+              </div> : null}
 
               <button type="submit" disabled={submitting} className="mx-auto mt-5 flex h-14 w-full max-w-[360px] items-center justify-center rounded-full bg-white px-8 text-base font-semibold text-[#050505] shadow-[0_0_44px_rgba(255,255,255,0.18)] transition hover:scale-[1.015] disabled:cursor-not-allowed disabled:opacity-60">
                 {submitting ? "提交中..." : "提交咨询信息"}
@@ -313,13 +351,14 @@ export function AiEvaluationSection() {
   );
 }
 
-type FormInputProps = { label: string; value: string; required?: boolean; onChange: (value: string) => void };
+type FormInputProps = { label: string; value: string; required?: boolean; inputMode?: "tel" | "text"; error?: string; onChange: (value: string) => void };
 
-function FormInput({ label, value, required, onChange }: FormInputProps) {
+function FormInput({ label, value, required, inputMode, error, onChange }: FormInputProps) {
   return (
     <div>
       <label className="mb-2 block text-xs font-medium text-white/70">{label}{required ? " *" : ""}</label>
-      <input required={required} value={value} onChange={(event) => onChange(event.target.value)} placeholder={`请输入${label}`} className="h-11 w-full rounded-2xl border border-white/10 bg-white/[0.035] px-4 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-white/[0.06]" />
+      <input required={required} inputMode={inputMode || "text"} value={value} onChange={(event) => onChange(event.target.value)} placeholder={`请输入${label}`} className={`h-11 w-full rounded-2xl border bg-white/[0.035] px-4 text-sm text-white outline-none transition focus:bg-white/[0.06] ${error ? "border-red-400/70 focus:border-red-300" : "border-white/10 focus:border-blue-400/60"}`} />
+      {error ? <p className="mt-1.5 text-[11px] leading-4 text-red-200">{error}</p> : null}
     </div>
   );
 }
