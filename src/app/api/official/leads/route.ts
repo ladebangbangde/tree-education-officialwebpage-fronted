@@ -10,12 +10,14 @@ type OfficialLeadPayload = {
   phone?: string;
   wechat?: string;
   destination?: string;
+  intentionRegionCode?: string;
+  intentionRegionName?: string;
   budget?: string;
   remark?: string;
   source?: string;
 };
 
-const requiredFields: Array<keyof OfficialLeadPayload> = ["name", "phone", "destination", "budget"];
+const requiredFields: Array<keyof OfficialLeadPayload> = ["name", "phone", "intentionRegionCode", "budget"];
 
 function cleanBaseUrl(value?: string) {
   return value?.trim().replace(/\/+$/, "");
@@ -51,7 +53,9 @@ export async function POST(request: NextRequest) {
     city: text(body.city),
     phone: text(body.phone),
     wechat: text(body.wechat),
-    destination: text(body.destination),
+    destination: text(body.destination) || text(body.intentionRegionName),
+    intentionRegionCode: text(body.intentionRegionCode),
+    intentionRegionName: text(body.intentionRegionName),
     budget: text(body.budget),
     remark: text(body.remark),
     source: text(body.source) || "official_website_home_consultation"
