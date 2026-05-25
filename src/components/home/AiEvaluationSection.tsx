@@ -15,6 +15,57 @@ const fallbackRegionOptions = [
   { label: "其他", value: "OTHER" }
 ];
 
+const educationOptions = [
+  "高中在读",
+  "高中毕业",
+  "大专在读",
+  "大专毕业",
+  "本科在读",
+  "本科毕业",
+  "硕士在读",
+  "硕士毕业",
+  "博士在读",
+  "博士毕业",
+  "其他"
+].map((item) => ({ label: item, value: item }));
+
+const provinceCityOptions = [
+  { province: "北京", cities: ["北京"] },
+  { province: "上海", cities: ["上海"] },
+  { province: "天津", cities: ["天津"] },
+  { province: "重庆", cities: ["重庆"] },
+  { province: "福建", cities: ["福州", "厦门", "泉州", "漳州", "莆田", "三明", "南平", "龙岩", "宁德"] },
+  { province: "广东", cities: ["广州", "深圳", "珠海", "佛山", "东莞", "中山", "惠州", "汕头", "江门", "湛江"] },
+  { province: "浙江", cities: ["杭州", "宁波", "温州", "嘉兴", "湖州", "绍兴", "金华", "台州", "舟山", "丽水"] },
+  { province: "江苏", cities: ["南京", "苏州", "无锡", "常州", "南通", "扬州", "镇江", "徐州", "盐城", "泰州"] },
+  { province: "山东", cities: ["济南", "青岛", "烟台", "潍坊", "威海", "临沂", "淄博", "济宁", "泰安", "日照"] },
+  { province: "河南", cities: ["郑州", "洛阳", "开封", "许昌", "新乡", "南阳", "商丘", "安阳", "焦作"] },
+  { province: "湖北", cities: ["武汉", "宜昌", "襄阳", "荆州", "黄石", "十堰", "孝感", "黄冈"] },
+  { province: "湖南", cities: ["长沙", "株洲", "湘潭", "衡阳", "岳阳", "常德", "益阳", "郴州"] },
+  { province: "四川", cities: ["成都", "绵阳", "德阳", "宜宾", "泸州", "南充", "乐山", "眉山"] },
+  { province: "陕西", cities: ["西安", "咸阳", "宝鸡", "渭南", "延安", "汉中", "榆林"] },
+  { province: "辽宁", cities: ["沈阳", "大连", "鞍山", "抚顺", "锦州", "营口", "丹东"] },
+  { province: "吉林", cities: ["长春", "吉林", "四平", "延边", "通化"] },
+  { province: "黑龙江", cities: ["哈尔滨", "齐齐哈尔", "大庆", "牡丹江", "佳木斯"] },
+  { province: "河北", cities: ["石家庄", "唐山", "保定", "秦皇岛", "邯郸", "廊坊"] },
+  { province: "山西", cities: ["太原", "大同", "临汾", "运城", "晋中", "长治"] },
+  { province: "安徽", cities: ["合肥", "芜湖", "蚌埠", "阜阳", "安庆", "马鞍山"] },
+  { province: "江西", cities: ["南昌", "赣州", "九江", "上饶", "宜春", "景德镇"] },
+  { province: "广西", cities: ["南宁", "柳州", "桂林", "北海", "玉林", "梧州"] },
+  { province: "云南", cities: ["昆明", "大理", "丽江", "曲靖", "玉溪", "红河"] },
+  { province: "贵州", cities: ["贵阳", "遵义", "六盘水", "安顺", "毕节", "黔南"] },
+  { province: "海南", cities: ["海口", "三亚", "儋州", "琼海", "文昌"] },
+  { province: "内蒙古", cities: ["呼和浩特", "包头", "赤峰", "鄂尔多斯", "通辽"] },
+  { province: "新疆", cities: ["乌鲁木齐", "克拉玛依", "喀什", "伊犁", "昌吉"] },
+  { province: "西藏", cities: ["拉萨", "日喀则", "林芝", "昌都"] },
+  { province: "宁夏", cities: ["银川", "石嘴山", "吴忠", "固原"] },
+  { province: "青海", cities: ["西宁", "海东", "海西", "海南州"] },
+  { province: "甘肃", cities: ["兰州", "天水", "酒泉", "张掖", "庆阳"] },
+  { province: "港澳台", cities: ["香港", "澳门", "台北", "高雄", "台中"] },
+  { province: "海外", cities: ["海外城市"] }
+];
+
+const provinceOptions = provinceCityOptions.map((item) => ({ label: item.province, value: item.province }));
 const budgetOptions = ["2万-5万", "5万-10万", "10万-15万", "15万-20万", "20万-30万", "30万-40万", "40万-50万", "50万以上"];
 
 type RegionOption = { label: string; value: string };
@@ -23,6 +74,7 @@ type LeadForm = {
   name: string;
   age: string;
   education: string;
+  province: string;
   city: string;
   phone: string;
   wechat: string;
@@ -35,6 +87,7 @@ const initialForm: LeadForm = {
   name: "",
   age: "",
   education: "",
+  province: "",
   city: "",
   phone: "",
   wechat: "",
@@ -77,8 +130,13 @@ export function AiEvaluationSection() {
     [form.intentionRegionCode, regionOptions]
   );
 
+  const cityOptions = useMemo(() => {
+    const matched = provinceCityOptions.find((item) => item.province === form.province);
+    return (matched?.cities || []).map((city) => ({ label: city, value: city }));
+  }, [form.province]);
+
   const requiredReady = useMemo(
-    () => Boolean(form.name.trim() && form.age.trim() && form.education.trim() && form.city.trim() && form.phone.trim() && form.intentionRegionCode.trim() && form.budget.trim()),
+    () => Boolean(form.name.trim() && form.age.trim() && form.education.trim() && form.province.trim() && form.city.trim() && form.phone.trim() && form.intentionRegionCode.trim() && form.budget.trim()),
     [form]
   );
 
@@ -113,7 +171,10 @@ export function AiEvaluationSection() {
   }, []);
 
   const updateForm = (key: keyof LeadForm, value: string) => {
-    setForm((current) => ({ ...current, [key]: value }));
+    setForm((current) => {
+      if (key === "province") return { ...current, province: value, city: "" };
+      return { ...current, [key]: value };
+    });
     setMessage("");
   };
 
@@ -132,7 +193,7 @@ export function AiEvaluationSection() {
       name: form.name.trim(),
       age: form.age.trim(),
       education: form.education.trim(),
-      city: form.city.trim(),
+      city: `${form.province.trim()} ${form.city.trim()}`.trim(),
       phone: form.phone.trim(),
       wechat: form.wechat.trim(),
       destination: selectedRegion?.label || form.intentionRegionCode,
@@ -180,7 +241,7 @@ export function AiEvaluationSection() {
         <div className="relative max-w-2xl">
           <p className="mb-5 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium tracking-[0.18em] text-blue-100">快速咨询</p>
           <h2 className="text-4xl font-semibold leading-tight tracking-[-0.06em] md:text-6xl">1分钟快速咨询</h2>
-          <p className="mt-5 max-w-2xl text-sm leading-7 text-white/62 md:text-base">告诉我们姓名、年龄、学历、所在城市、电话、意向区域和预算，我们会为你提供更贴合的留学规划建议。</p>
+          <p className="mt-5 max-w-2xl text-sm leading-7 text-white/62 md:text-base">告诉我们姓名、年龄、学历、所在地区、电话、意向区域和预算，我们会为你提供更贴合的留学规划建议。</p>
 
           <motion.button whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} onClick={() => setOpen(true)} className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-[#050505]">
             立即开始咨询 <ArrowUpRight className="size-4" />
@@ -222,8 +283,9 @@ export function AiEvaluationSection() {
               <div className="mx-auto mt-6 grid max-w-[660px] gap-3 md:grid-cols-2">
                 <FormInput label="姓名" value={form.name} onChange={(value) => updateForm("name", value)} required />
                 <FormInput label="年龄" value={form.age} onChange={(value) => updateForm("age", value)} required />
-                <FormInput label="学历" value={form.education} onChange={(value) => updateForm("education", value)} required />
-                <FormInput label="所在城市" value={form.city} onChange={(value) => updateForm("city", value)} required />
+                <FormSelect label="学历" value={form.education} onChange={(value) => updateForm("education", value)} options={educationOptions} required />
+                <FormSelect label="所在省份" value={form.province} onChange={(value) => updateForm("province", value)} options={provinceOptions} required />
+                <FormSelect label="所在城市" value={form.city} onChange={(value) => updateForm("city", value)} options={cityOptions} required disabled={!form.province} />
                 <FormInput label="电话号码" value={form.phone} onChange={(value) => updateForm("phone", value)} required />
                 <div>
                   <label className="mb-2 block text-xs font-medium text-white/70">微信号</label>
@@ -262,13 +324,13 @@ function FormInput({ label, value, required, onChange }: FormInputProps) {
   );
 }
 
-type FormSelectProps = { label: string; value: string; required?: boolean; options: Array<{ label: string; value: string }>; onChange: (value: string) => void };
+type FormSelectProps = { label: string; value: string; required?: boolean; disabled?: boolean; options: Array<{ label: string; value: string }>; onChange: (value: string) => void };
 
-function FormSelect({ label, value, required, options, onChange }: FormSelectProps) {
+function FormSelect({ label, value, required, disabled, options, onChange }: FormSelectProps) {
   return (
     <div>
       <label className="mb-2 block text-xs font-medium text-white/70">{label}{required ? " *" : ""}</label>
-      <select required={required} value={value} onChange={(event) => onChange(event.target.value)} className="h-11 w-full rounded-2xl border border-white/10 bg-[#151515] px-4 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-[#171717]">
+      <select required={required} disabled={disabled} value={value} onChange={(event) => onChange(event.target.value)} className="h-11 w-full rounded-2xl border border-white/10 bg-[#151515] px-4 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-[#171717] disabled:cursor-not-allowed disabled:opacity-45">
         <option value="">请选择{label}</option>
         {options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
       </select>
