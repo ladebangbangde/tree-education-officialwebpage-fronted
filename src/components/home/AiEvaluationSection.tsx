@@ -240,7 +240,7 @@ export function AiEvaluationSection() {
 
         <div className="relative max-w-2xl">
           <p className="mb-5 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium tracking-[0.18em] text-blue-100">快速咨询</p>
-          <h2 className="text-4xl font-semibold leading-tight tracking-[-0.06em] md:text-6xl">1分钟快速咨询</h2>
+          <h2 className="text-3xl font-semibold leading-tight tracking-[-0.05em] md:text-4xl xl:text-5xl">1分钟详细咨询</h2>
           <p className="mt-5 max-w-2xl text-sm leading-7 text-white/62 md:text-base">告诉我们姓名、年龄、学历、所在地区、电话、意向区域和预算，我们会为你提供更贴合的留学规划建议。</p>
 
           <motion.button whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} onClick={() => setOpen(true)} className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-[#050505]">
