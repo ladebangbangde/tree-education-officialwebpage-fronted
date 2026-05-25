@@ -29,7 +29,7 @@ export function Footer() {
         <h3 className="mb-3 font-semibold text-[#0A0A0A]">联系我们</h3>
         <p>18559690435</p>
         <p>ladebangbangde@gmail.com</p>
-        <p>上海市静安区南京西路 1266 号</p>
+        <p>厦门市集美区软件园F12大楼</p>
       </div>
 
       <div className="mt-8 flex flex-col gap-3 border-t border-[#E5E7EB] pt-6 text-xs text-[#6B7280] sm:flex-row sm:items-center sm:justify-between">
