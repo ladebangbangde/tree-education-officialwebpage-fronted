@@ -75,10 +75,10 @@ export const partners = [
 ];
 
 export const consultants = [
-  { name: "Emily Wu", role: "10年+ 留学规划经验", expertise: "擅长：英国、香港、新加坡", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=85" },
-  { name: "David Zhang", role: "前招生背景", expertise: "擅长：美国、加拿大", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=85" },
-  { name: "Jessica Li", role: "文书导师", expertise: "擅长：文书创作、面试辅导", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=85" },
-  { name: "Michael Chen", role: "资深规划师", expertise: "擅长：签证规划、职业发展", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=85" }
+  { name: "Jora", role: "澳洲留学规划顾问", expertise: "负责澳洲方向。熟悉澳洲八大、商科、数据与工程申请路径，擅长把普通背景拆成清晰可执行的申请时间线。", image: "/consultant/Jora.png" },
+  { name: "Chris", role: "英国留学规划顾问", expertise: "负责英国方向。深耕英国硕士申请，擅长商科、传媒、教育与跨专业方案设计。", image: "/consultant/Chris.png" },
+  { name: "Irene", role: "欧洲留学规划顾问", expertise: "负责欧洲方向。覆盖德国、法国、荷兰、爱尔兰等项目，擅长课程匹配和材料逻辑搭建。", image: "/consultant/Irene.png" },
+  { name: "Dango", role: "美国留学规划顾问", expertise: "负责美国方向。熟悉研究生申请节奏，擅长选校梯度、背景梳理与长期规划。", image: "/consultant/Dango.png" }
 ];
 
 export const testimonials = [
