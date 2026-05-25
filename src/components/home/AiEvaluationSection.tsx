@@ -5,29 +5,19 @@ import gsap from "gsap";
 import { ArrowUpRight, Check, X } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
-const features = ["热门国家精准匹配", "顾问1对1沟通", "预算方案建议", "专属留学路径"];
+const features = ["热门地区精准匹配", "顾问1对1沟通", "预算方案建议", "专属留学路径"];
 
-const destinationOptions = [
-  { label: "🔥 英国", value: "英国" },
-  { label: "🔥 美国", value: "美国" },
-  { label: "🔥 新加坡", value: "新加坡" },
-  { label: "🔥 欧洲", value: "欧洲" },
-  { label: "🔥 澳大利亚", value: "澳大利亚" },
-  { label: "法国", value: "法国" },
-  { label: "加拿大", value: "加拿大" },
-  { label: "中国香港", value: "中国香港" },
-  { label: "中国澳门", value: "中国澳门" },
-  { label: "日本", value: "日本" },
-  { label: "韩国", value: "韩国" },
-  { label: "新西兰", value: "新西兰" },
-  { label: "爱尔兰", value: "爱尔兰" },
-  { label: "德国", value: "德国" },
-  { label: "荷兰", value: "荷兰" },
-  { label: "瑞士", value: "瑞士" },
-  { label: "其他", value: "其他" }
+const fallbackRegionOptions = [
+  { label: "英国", value: "UK" },
+  { label: "美国", value: "US" },
+  { label: "欧洲", value: "EUROPE" },
+  { label: "澳洲", value: "AUSTRALIA" },
+  { label: "其他", value: "OTHER" }
 ];
 
 const budgetOptions = ["2万-5万", "5万-10万", "10万-15万", "15万-20万", "20万-30万", "30万-40万", "40万-50万", "50万以上"];
+
+type RegionOption = { label: string; value: string };
 
 type LeadForm = {
   name: string;
@@ -36,7 +26,7 @@ type LeadForm = {
   city: string;
   phone: string;
   wechat: string;
-  destination: string;
+  intentionRegionCode: string;
   budget: string;
   remark: string;
 };
@@ -48,7 +38,7 @@ const initialForm: LeadForm = {
   city: "",
   phone: "",
   wechat: "",
-  destination: "",
+  intentionRegionCode: "",
   budget: "",
   remark: ""
 };
@@ -60,15 +50,35 @@ function getApiMessage(data: unknown) {
   return "";
 }
 
+function unwrapRegionOptions(payload: unknown): RegionOption[] {
+  const data = payload && typeof payload === "object" && "data" in payload ? (payload as { data?: unknown }).data : payload;
+  if (!Array.isArray(data)) return [];
+  return data
+    .map((item) => {
+      if (!item || typeof item !== "object") return null;
+      const row = item as { code?: unknown; name?: unknown };
+      const code = typeof row.code === "string" ? row.code.trim() : "";
+      const name = typeof row.name === "string" ? row.name.trim() : "";
+      return code && name ? { label: name, value: code } : null;
+    })
+    .filter(Boolean) as RegionOption[];
+}
+
 export function AiEvaluationSection() {
   const orbRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState<LeadForm>(initialForm);
+  const [regionOptions, setRegionOptions] = useState<RegionOption[]>(fallbackRegionOptions);
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState("");
 
+  const selectedRegion = useMemo(
+    () => regionOptions.find((item) => item.value === form.intentionRegionCode),
+    [form.intentionRegionCode, regionOptions]
+  );
+
   const requiredReady = useMemo(
-    () => Boolean(form.name.trim() && form.age.trim() && form.education.trim() && form.city.trim() && form.phone.trim() && form.destination.trim() && form.budget.trim()),
+    () => Boolean(form.name.trim() && form.age.trim() && form.education.trim() && form.city.trim() && form.phone.trim() && form.intentionRegionCode.trim() && form.budget.trim()),
     [form]
   );
 
@@ -86,6 +96,20 @@ export function AiEvaluationSection() {
     };
     window.addEventListener("keydown", close);
     return () => window.removeEventListener("keydown", close);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/public/consultant-regions", { cache: "no-store" })
+      .then((response) => response.json())
+      .then((payload) => {
+        const options = unwrapRegionOptions(payload);
+        if (!cancelled && options.length) setRegionOptions(options);
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const updateForm = (key: keyof LeadForm, value: string) => {
@@ -111,7 +135,9 @@ export function AiEvaluationSection() {
       city: form.city.trim(),
       phone: form.phone.trim(),
       wechat: form.wechat.trim(),
-      destination: form.destination,
+      destination: selectedRegion?.label || form.intentionRegionCode,
+      intentionRegionCode: form.intentionRegionCode,
+      intentionRegionName: selectedRegion?.label || form.intentionRegionCode,
       budget: form.budget,
       remark: form.remark.trim(),
       source: "official_website_home_consultation"
@@ -154,7 +180,7 @@ export function AiEvaluationSection() {
         <div className="relative max-w-2xl">
           <p className="mb-5 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium tracking-[0.18em] text-blue-100">快速咨询</p>
           <h2 className="text-4xl font-semibold leading-tight tracking-[-0.06em] md:text-6xl">1分钟快速咨询</h2>
-          <p className="mt-5 max-w-2xl text-sm leading-7 text-white/62 md:text-base">告诉我们姓名、年龄、学历、所在城市、电话、意向国家/地区和预算，我们会为你提供更贴合的留学规划建议。</p>
+          <p className="mt-5 max-w-2xl text-sm leading-7 text-white/62 md:text-base">告诉我们姓名、年龄、学历、所在城市、电话、意向区域和预算，我们会为你提供更贴合的留学规划建议。</p>
 
           <motion.button whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} onClick={() => setOpen(true)} className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-[#050505]">
             立即开始咨询 <ArrowUpRight className="size-4" />
@@ -204,7 +230,7 @@ export function AiEvaluationSection() {
                   <input value={form.wechat} onChange={(event) => updateForm("wechat", event.target.value)} placeholder="选填，建议留下微信" className="h-11 w-full rounded-2xl border border-white/10 bg-white/[0.035] px-4 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-white/[0.06]" />
                   <motion.p initial={{ opacity: 0.55 }} animate={{ opacity: [0.55, 1, 0.55] }} transition={{ duration: 2.2, repeat: Infinity }} className="mt-1.5 text-[11px] leading-4 text-blue-100/80">温馨建议：留下微信更方便发送选校清单。</motion.p>
                 </div>
-                <FormSelect label="意向国家/地区" value={form.destination} onChange={(value) => updateForm("destination", value)} options={destinationOptions} required />
+                <FormSelect label="意向区域" value={form.intentionRegionCode} onChange={(value) => updateForm("intentionRegionCode", value)} options={regionOptions} required />
                 <FormSelect label="留学预算" value={form.budget} onChange={(value) => updateForm("budget", value)} options={budgetOptions.map((item) => ({ label: item, value: item }))} required />
                 <div className="md:col-span-2">
                   <label className="mb-2 block text-xs font-medium text-white/70">备注</label>
