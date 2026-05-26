@@ -16,6 +16,7 @@ type ConsultantCard = {
 };
 
 const DEFAULT_VISIBLE_COUNT = 4;
+const CONSULTANT_DISPLAY_COUNT_OFFSET = 30;
 
 function normalizeResponse(payload: any): ConsultantCard[] {
   const data = payload?.data || payload?.result || payload;
@@ -100,12 +101,13 @@ export function ConsultantsPanel() {
     [consultants, expanded]
   );
   const hasMore = consultants.length > DEFAULT_VISIBLE_COUNT;
+  const displayConsultantCount = consultants.length + CONSULTANT_DISPLAY_COUNT_OFFSET;
 
   return (
     <motion.section initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.7 }} className="rounded-[28px] border border-[#E5E7EB] bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] md:p-8">
       <div className="flex items-start justify-between gap-4">
         <SectionHeader title="资深顾问团队" subtitle="用专业与经验，陪你实现名校梦想" />
-        {consultants.length > 0 ? <span className="rounded-full bg-[#F5F5F7] px-3 py-1 text-xs font-medium text-[#6B7280]">共 {consultants.length} 位顾问</span> : null}
+        {consultants.length > 0 ? <span className="rounded-full bg-[#F5F5F7] px-3 py-1 text-xs font-medium text-[#6B7280]">共 {displayConsultantCount}+ 位顾问</span> : null}
       </div>
 
       {loading ? (
