@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-const logoPath = "/pics/logo/tree_education_studio_logo.png";
+const logoPath = "/pics/logo/tree_education_logo.png";
 
 export function GlobalLoadingOverlay() {
   const pathname = usePathname();
@@ -73,14 +73,14 @@ export function GlobalLoadingOverlay() {
             transition={{ duration: 0.34, ease: "easeOut" }}
             className="flex flex-col items-center gap-5"
           >
-            <div className="relative h-[108px] w-[152px] perspective-[900px]">
+            <div className="relative h-[96px] w-[144px] perspective-[900px]">
               <motion.div
                 className="absolute inset-0 overflow-hidden rounded-[22px] border border-[#E5E7EB] bg-white shadow-[0_28px_70px_rgba(0,0,0,0.12)]"
-                animate={{ rotateX: [0, 64, 0], skewX: [0, -4, 0] }}
+                animate={{ rotateX: [0, 58, 0], skewX: [0, -3, 0] }}
                 transition={{ duration: 1.55, repeat: Infinity, ease: "easeInOut" }}
                 style={{ transformOrigin: "50% 0%", transformStyle: "preserve-3d" }}
               >
-                <Image src={logoPath} alt="吴桐树加载中" fill sizes="152px" className="object-contain p-5" priority />
+                <Image src={logoPath} alt="吴桐树加载中" fill sizes="144px" className="scale-[1.95] object-contain" priority />
               </motion.div>
               <motion.div
                 className="absolute left-0 top-1/2 h-px w-full bg-[#0A0A0A]/10"
