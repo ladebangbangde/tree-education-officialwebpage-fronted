@@ -14,7 +14,7 @@ const fallbackRegionOptions = [
   { label: "美国", value: "US" },
   { label: "欧洲", value: "EUROPE" },
   { label: "澳洲", value: "AUSTRALIA" },
-  { label: "其他", value: "OTHER" }
+  { label: "其他区域", value: "OTHER" }
 ];
 
 const educationOptions = [
@@ -68,7 +68,7 @@ const provinceCityOptions = [
 ];
 
 const provinceOptions = provinceCityOptions.map((item) => ({ label: item.province, value: item.province }));
-const budgetOptions = ["2万-5万", "5万-10万", "10万-15万", "15万-20万", "20万-30万", "30万-40万", "40万-50万", "50万以上"];
+const budgetOptions = ["5万-10万", "10万-15万", "15万-20万", "20万-30万", "30万-40万", "40万-50万", "50万以上"];
 
 type RegionOption = { label: string; value: string };
 type AssignedConsultant = { name?: string; publicTitle?: string; publicBio?: string; qrUrl?: string; regionName?: string };
@@ -109,15 +109,17 @@ function getApiMessage(data: unknown) {
 function unwrapRegionOptions(payload: unknown): RegionOption[] {
   const data = payload && typeof payload === "object" && "data" in payload ? (payload as { data?: unknown }).data : payload;
   if (!Array.isArray(data)) return [];
-  return data
+  const options = data
     .map((item) => {
       if (!item || typeof item !== "object") return null;
       const row = item as { code?: unknown; name?: unknown };
       const code = typeof row.code === "string" ? row.code.trim() : "";
       const name = typeof row.name === "string" ? row.name.trim() : "";
-      return code && name ? { label: name, value: code } : null;
+      if (!code || !name) return null;
+      return { label: code === "OTHER" ? "其他区域" : name, value: code };
     })
     .filter(Boolean) as RegionOption[];
+  return options.some((item) => item.value === "OTHER") ? options : [...options, { label: "其他区域", value: "OTHER" }];
 }
 
 function unwrapAssignedConsultant(payload: unknown): AssignedConsultant | null {
