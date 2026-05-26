@@ -26,11 +26,13 @@ export const services = [
 ];
 
 export const countries = [
-  { name: "美国", english: "United States", image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1400&q=85" },
-  { name: "澳大利亚", english: "Australia", image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1400&q=85" },
-  { name: "欧洲各国", english: "Europe", image: "https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=1400&q=85" },
-  { name: "英国", english: "United Kingdom", image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1400&q=85" },
-  { name: "亚洲", english: "Asia", image: "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=1400&q=85" }
+  { code: "US", name: "美国", english: "United States", icon: "🇺🇸", image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1400&q=85" },
+  { code: "AU", name: "澳大利亚", english: "Australia", icon: "🇦🇺", image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1400&q=85" },
+  { code: "UK", name: "英国", english: "United Kingdom", icon: "🇬🇧", image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1400&q=85" },
+  { code: "FR", name: "法国", english: "France", icon: "🇫🇷", image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1400&q=85" },
+  { code: "IT", name: "意大利", english: "Italy", icon: "🇮🇹", image: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=1400&q=85" },
+  { code: "DE", name: "德国", english: "Germany", icon: "🇩🇪", image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1400&q=85" },
+  { code: "ES", name: "西班牙", english: "Spain", icon: "🇪🇸", image: "https://images.unsplash.com/photo-1509840841025-9088ba78a826?auto=format&fit=crop&w=1400&q=85" }
 ];
 
 export type ShowcaseCase = {
@@ -62,42 +64,5 @@ export const workCases: ShowcaseCase[] = [
   { tag: "新加坡服务", student: "黄同学", background: "大专 · 酒店前台2年 · 英语基础一般", school: "新加坡", chinese: "酒店与客户服务岗位", rankLabel: "目的地", rank: "新加坡", programLabel: "岗位方向", program: "酒店前台 / 客户服务", result: "把普通酒店前台经历，讲成海外服务岗位竞争力", strategy: "强化服务流程、投诉处理和英文场景表达，让经历更贴近国际岗位。", detail: "她原本的简历只写“负责接待客人、办理入住”，看起来非常普通。我们把工作内容改造成更具体的服务能力：高峰期入住协调、客诉安抚、房态沟通、订单核对，并设计英文自我介绍和常见服务场景回答。", status: "复试准备", highlights: ["英文场景训练", "简历重写", "服务能力提炼"] },
   { tag: "澳洲技能", student: "周同学", background: "技校 · 汽修经验4年 · 想提升技术路径", school: "澳大利亚", chinese: "汽修与技术岗位路径", rankLabel: "目的地", rank: "澳洲", programLabel: "岗位方向", program: "汽修助理 / 技术提升路径", result: "把汽修经验整理成海外雇主看得懂的技能档案", strategy: "用工具、车型、维修流程和安全规范证明真实动手能力。", detail: "学生会做事，但不会表达技术价值。我们把他的经验按发动机基础维护、刹车系统检查、轮胎定位、故障初筛、车间安全规范重新整理，并补充工具使用和案例描述。材料重点放在“做过什么、熟练到什么程度、是否懂规范”。", status: "材料评估", highlights: ["技能清单梳理", "英文技术简历", "路径风险评估"] },
   { tag: "欧洲基础岗", student: "马同学", background: "高中 · 工厂流水线经验5年 · 追求稳定路径", school: "欧洲方向", chinese: "仓储与生产辅助岗位", rankLabel: "目的地", rank: "欧洲方向", programLabel: "岗位方向", program: "仓储 / 包装 / 生产辅助", result: "没有高学历，也能把稳定性和执行力讲清楚", strategy: "突出出勤稳定、体力适应、现场纪律和长期工作意愿。", detail: "他的背景看似普通，但基础岗位非常看重稳定性。我们没有把他包装成高级人才，而是把5年工厂经验转化为岗位关心的信号：能适应重复性工作、能接受排班、熟悉安全规则、服从现场管理、离职频率低。", status: "岗位匹配", highlights: ["岗位筛选", "稳定性表达", "面试问答训练"] },
-  { tag: "护理辅助", student: "孙同学", background: "护理中专 · 养老院经验2年 · 希望长期发展", school: "德国 / 新西兰方向", chinese: "护理辅助与照护岗位", rankLabel: "目的地", rank: "德新方向", programLabel: "岗位方向", program: "护理辅助 / 老年照护", result: "把照护经验从“辛苦工作”升级成长期职业路径", strategy: "围绕照护记录、沟通耐心、基础流程和语言计划建立可信度。", detail: "学生做过养老院照护，但不知道怎么证明专业性。我们帮她整理日常照护流程、老人沟通、异常情况记录、家属反馈协助等具体经历，再设计语言学习和资格提升时间线。她的材料不再只是“我能吃苦”，而是呈现出愿意长期做照护、理解岗位责任、能持续学习的人设。", status: "规划启动", highlights: ["护理经历提炼", "语言计划制定", "长期路线设计"] }
+  { tag: "护理辅助", student: "孙同学", background: "护理中专 · 养老院经验2年 · 希望长期发展", school: "德国 / 新西兰方向", chinese: "护理辅助与照护岗位", rankLabel: "目的地", rank: "德国 / 新西兰", programLabel: "岗位方向", program: "护理辅助 / 照护支持", result: "护理背景不只是经验，更是长期发展入口", strategy: "把照护经验、基础护理流程和沟通耐心转化为海外岗位语言。", detail: "她在养老院做过基础护理，但不知道如何证明自己的价值。我们把经验拆成生命体征记录、老人沟通、日常照护、基础卫生和团队交接，再结合目标国家的语言与证书要求，制定先岗位后提升的路径。", status: "路径规划", highlights: ["护理经历梳理", "语言路径建议", "长期发展设计"] }
 ];
-
-export const partners = [
-  { name: "悉尼大学", english: "University of Sydney", rank: "19", logo: "/pics/悉尼大学.png", intro: "澳洲八大核心成员，商科、教育、数据与工程方向选择丰富，适合希望兼顾学术实力与就业落地的学生。" },
-  { name: "斯坦福大学", english: "Stanford University", rank: "5", logo: "/pics/斯坦福大学.png", intro: "位于硅谷核心区域，创新创业、工程、计算机和商科生态极强，是全球顶尖研究型大学代表。" },
-  { name: "麻省理工学院", english: "MIT", rank: "1", logo: "/pics/麻省理工.png", intro: "理工、计算机、人工智能和工程领域长期处于世界前列，对科研能力和项目经历要求极高。" },
-  { name: "牛津大学", english: "University of Oxford", rank: "3", logo: "/pics/牛津大学.png", intro: "英国历史最悠久的顶尖大学之一，学术声誉极高，适合学术基础扎实、目标明确的申请者。" },
-  { name: "墨尔本大学", english: "The University of Melbourne", rank: "13", logo: "/pics/墨尔本大学.png", intro: "澳洲综合实力领先院校，商科、教育、法律、医学和信息技术方向认可度高。" },
-  { name: "新加坡国立大学", english: "NUS", rank: "8", logo: "/pics/新加坡国立.png", intro: "亚洲顶尖综合研究型大学，地理位置优越，适合关注亚洲就业机会和国际化发展的学生。" }
-];
-
-export const consultants = [
-  { name: "Jora", role: "英国留学规划顾问", expertise: "负责英国方向。深耕英国硕士申请，擅长商科、传媒、教育与跨专业方案设计。", image: "/pics/consultant/Jora.png" },
-  { name: "Christine", role: "澳洲留学规划顾问", expertise: "负责澳洲方向。熟悉澳洲八大、商科、数据与工程申请路径，擅长把普通背景拆成清晰可执行的申请时间线。", image: "/pics/consultant/Christine.png" },
-  { name: "Irene", role: "欧洲留学规划顾问", expertise: "负责欧洲方向。覆盖德国、法国、荷兰、爱尔兰等项目，擅长课程匹配和材料逻辑搭建。", image: "/pics/consultant/Ierene.png" },
-  { name: "Dango", role: "美国留学规划顾问", expertise: "负责美国方向。熟悉研究生申请节奏，擅长选校梯度、背景梳理与长期规划。", image: "/pics/consultant/Dango.png" }
-];
-
-export const testimonials = [
-  { quote: "双非背景，也能冲进 QS 前 30。", detail: "原本只计划申请 QS100，顾问重新梳理经历后，最终拿到英国名校录取。", student: "林同学", result: "英国商科硕士录取" },
-  { quote: "GPA 不高，也能进入澳洲八大。", detail: "顾问用课程匹配、实习证明和职业目标重构材料，让普通背景变得更有说服力。", student: "陈同学", result: "澳洲八大商科录取" },
-  { quote: "跨专业申请，也能转数据方向。", detail: "文科背景通过项目包装和技能路线设计，成功拿到数据分析方向录取。", student: "王同学", result: "数据分析硕士录取" }
-];
-
-export const faqs = [
-  { question: "留学申请需要提前多久准备？", answer: "建议至少提前 12-18 个月规划，便于完成背景提升、语言考试、选校定位与文书打磨。" },
-  { question: "如何选择适合自己的学校？", answer: "我们会综合学术背景、职业目标、预算、城市偏好与项目匹配度，建立冲刺、匹配、保底梯度。" },
-  { question: "申请过程中可以更换专业吗？", answer: "可以，但需要评估先修课程、经历关联度与职业叙事，避免降低申请材料的一致性。" },
-  { question: "签证办理需要多长时间？", answer: "不同国家周期不同，通常在拿到录取与关键文件后预留 4-8 周更稳妥。" }
-];
-
-export const footerColumns = [
-  { title: "服务", links: ["留学规划", "选校定位", "文书制作", "申请递交", "签证服务", "行前指导"] },
-  { title: "国家/地区", links: ["美国", "澳大利亚", "欧洲各国", "英国", "亚洲"] },
-  { title: "关于我们", links: ["公司简介", "顾问团队", "成功案例", "新闻资讯", "加入我们"] }
-];
-
-export const heroImage = "https://images.unsplash.com/photo-1496307653780-42ee777d4833?auto=format&fit=crop&w=1400&q=90";
