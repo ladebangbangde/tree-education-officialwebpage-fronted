@@ -163,6 +163,13 @@ export function AiEvaluationSection() {
   }, []);
 
   useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  useEffect(() => {
     const close = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
     };
@@ -288,65 +295,68 @@ export function AiEvaluationSection() {
 
       <AnimatePresence>
         {open ? (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[999] flex items-center justify-center overflow-y-auto bg-black/65 p-4 backdrop-blur-md" onClick={() => setOpen(false)}>
-            <motion.form
-              initial={{ opacity: 0, scale: 0.95, y: 14 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 14 }}
-              transition={{ duration: 0.2 }}
-              onClick={(e) => e.stopPropagation()}
-              onSubmit={submitLead}
-              className="relative my-4 w-full max-w-[760px] overflow-hidden rounded-[28px] border border-white/10 bg-[#090909] p-5 text-white shadow-[0_40px_120px_rgba(0,0,0,0.5)] md:p-6"
-            >
-              <button type="button" onClick={() => setOpen(false)} className="absolute right-4 top-4 z-10 flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/80 transition hover:bg-white/10">
-                <X className="size-4" />
-              </button>
+          <div className="fixed inset-0 z-[100000] h-[100dvh] w-screen overflow-y-auto bg-black/72 p-4 backdrop-blur-2xl" onClick={() => setOpen(false)}>
+            <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_50%_12%,rgba(255,255,255,0.14),rgba(0,0,0,0)_32%),linear-gradient(180deg,rgba(15,23,42,0.18),rgba(0,0,0,0.38))]" />
+            <div className="flex min-h-full items-center justify-center py-4">
+              <motion.form
+                initial={{ opacity: 0, scale: 0.95, y: 14 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 14 }}
+                transition={{ duration: 0.2 }}
+                onClick={(e) => e.stopPropagation()}
+                onSubmit={submitLead}
+                className="relative w-full max-w-[760px] overflow-hidden rounded-[28px] border border-white/10 bg-[#090909] p-5 text-white shadow-[0_40px_120px_rgba(0,0,0,0.5)] md:p-6"
+              >
+                <button type="button" onClick={() => setOpen(false)} className="absolute right-4 top-4 z-10 flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/80 transition hover:bg-white/10">
+                  <X className="size-4" />
+                </button>
 
-              <div className="mx-auto max-w-[660px] text-center">
-                <p className="text-xs tracking-[0.24em] text-white/45">CONSULTATION</p>
-                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.05em] md:text-3xl">开启你的留学规划</h3>
-                <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-white/58">填写基础信息后，我们会根据目标地区、预算和当前背景，为你安排更合适的顾问。</p>
-              </div>
-
-              <div className="mx-auto mt-6 grid max-w-[660px] gap-3 md:grid-cols-2">
-                <FormInput label="姓名" value={form.name} onChange={(value) => updateForm("name", value)} required />
-                <FormInput label="年龄" value={form.age} onChange={(value) => updateForm("age", value)} required />
-                <FormSelect label="学历" value={form.education} onChange={(value) => updateForm("education", value)} options={educationOptions} required />
-                <FormSelect label="所在省份" value={form.province} onChange={(value) => updateForm("province", value)} options={provinceOptions} required />
-                <FormSelect label="所在城市" value={form.city} onChange={(value) => updateForm("city", value)} options={cityOptions} required disabled={!form.province} />
-                <FormInput label="电话号码" value={form.phone} onChange={(value) => updateForm("phone", value)} required inputMode="tel" error={phoneError} />
-                <div>
-                  <label className="mb-2 block text-xs font-medium text-white/70">微信号</label>
-                  <input value={form.wechat} onChange={(event) => updateForm("wechat", event.target.value)} placeholder="选填，建议留下微信" className="h-11 w-full rounded-2xl border border-white/10 bg-white/[0.035] px-4 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-white/[0.06]" />
-                  <motion.p initial={{ opacity: 0.55 }} animate={{ opacity: [0.55, 1, 0.55] }} transition={{ duration: 2.2, repeat: Infinity }} className="mt-1.5 text-[11px] leading-4 text-blue-100/80">温馨建议：留下微信更方便发送选校清单。</motion.p>
+                <div className="mx-auto max-w-[660px] text-center">
+                  <p className="text-xs tracking-[0.24em] text-white/45">CONSULTATION</p>
+                  <h3 className="mt-3 text-2xl font-semibold tracking-[-0.05em] md:text-3xl">开启你的留学规划</h3>
+                  <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-white/58">填写基础信息后，我们会根据目标地区、预算和当前背景，为你安排更合适的顾问。</p>
                 </div>
-                <FormSelect label="意向区域" value={form.intentionRegionCode} onChange={(value) => updateForm("intentionRegionCode", value)} options={regionOptions} required />
-                <FormSelect label="留学预算" value={form.budget} onChange={(value) => updateForm("budget", value)} options={budgetOptions.map((item) => ({ label: item, value: item }))} required />
-                <div className="md:col-span-2">
-                  <label className="mb-2 block text-xs font-medium text-white/70">备注</label>
-                  <textarea rows={2} value={form.remark} onChange={(event) => updateForm("remark", event.target.value)} placeholder="可以补充目标专业、目前成绩、语言情况或其他顾虑" className="w-full rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-3 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-white/[0.06]" />
-                </div>
-              </div>
 
-              {(assignedConsultant?.qrUrl || message) ? <div className="mx-auto mt-4 max-w-[660px] rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4 text-center text-sm leading-6 text-white/72">
-                {message ? <p>{message}</p> : null}
-                {assignedConsultant?.qrUrl ? <div className="mt-4 grid gap-4 rounded-2xl bg-white/[0.04] p-4 sm:grid-cols-[120px_1fr] sm:text-left">
-                  <div className="relative mx-auto size-[120px] overflow-hidden rounded-2xl bg-white p-2 sm:mx-0">
-                    <Image src={assignedConsultant.qrUrl} alt={`${assignedConsultant.name || "顾问"} 企业微信二维码`} fill unoptimized className="object-contain p-2" />
+                <div className="mx-auto mt-6 grid max-w-[660px] gap-3 md:grid-cols-2">
+                  <FormInput label="姓名" value={form.name} onChange={(value) => updateForm("name", value)} required />
+                  <FormInput label="年龄" value={form.age} onChange={(value) => updateForm("age", value)} required />
+                  <FormSelect label="学历" value={form.education} onChange={(value) => updateForm("education", value)} options={educationOptions} required />
+                  <FormSelect label="所在省份" value={form.province} onChange={(value) => updateForm("province", value)} options={provinceOptions} required />
+                  <FormSelect label="所在城市" value={form.city} onChange={(value) => updateForm("city", value)} options={cityOptions} required disabled={!form.province} />
+                  <FormInput label="电话号码" value={form.phone} onChange={(value) => updateForm("phone", value)} required inputMode="tel" error={phoneError} />
+                  <div>
+                    <label className="mb-2 block text-xs font-medium text-white/70">微信号</label>
+                    <input value={form.wechat} onChange={(event) => updateForm("wechat", event.target.value)} placeholder="选填，建议留下微信" className="h-11 w-full rounded-2xl border border-white/10 bg-white/[0.035] px-4 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-white/[0.06]" />
+                    <motion.p initial={{ opacity: 0.55 }} animate={{ opacity: [0.55, 1, 0.55] }} transition={{ duration: 2.2, repeat: Infinity }} className="mt-1.5 text-[11px] leading-4 text-blue-100/80">温馨建议：留下微信更方便发送选校清单。</motion.p>
                   </div>
-                  <div className="flex flex-col justify-center">
-                    <p className="text-base font-semibold text-white">{assignedConsultant.name || "专属顾问"}</p>
-                    <p className="mt-1 text-xs text-blue-100/80">{assignedConsultant.publicTitle || `${assignedConsultant.regionName || "留学"}规划顾问`}</p>
-                    <p className="mt-2 text-xs leading-5 text-white/58">请扫码添加企业微信，顾问会根据你的信息继续沟通方案。</p>
+                  <FormSelect label="意向区域" value={form.intentionRegionCode} onChange={(value) => updateForm("intentionRegionCode", value)} options={regionOptions} required />
+                  <FormSelect label="留学预算" value={form.budget} onChange={(value) => updateForm("budget", value)} options={budgetOptions.map((item) => ({ label: item, value: item }))} required />
+                  <div className="md:col-span-2">
+                    <label className="mb-2 block text-xs font-medium text-white/70">备注</label>
+                    <textarea rows={2} value={form.remark} onChange={(event) => updateForm("remark", event.target.value)} placeholder="可以补充目标专业、目前成绩、语言情况或其他顾虑" className="w-full rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-3 text-sm text-white outline-none transition focus:border-blue-400/60 focus:bg-white/[0.06]" />
                   </div>
+                </div>
+
+                {(assignedConsultant?.qrUrl || message) ? <div className="mx-auto mt-4 max-w-[660px] rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4 text-center text-sm leading-6 text-white/72">
+                  {message ? <p>{message}</p> : null}
+                  {assignedConsultant?.qrUrl ? <div className="mt-4 grid gap-4 rounded-2xl bg-white/[0.04] p-4 sm:grid-cols-[120px_1fr] sm:text-left">
+                    <div className="relative mx-auto size-[120px] overflow-hidden rounded-2xl bg-white p-2 sm:mx-0">
+                      <Image src={assignedConsultant.qrUrl} alt={`${assignedConsultant.name || "顾问"} 企业微信二维码`} fill unoptimized className="object-contain p-2" />
+                    </div>
+                    <div className="flex flex-col justify-center">
+                      <p className="text-base font-semibold text-white">{assignedConsultant.name || "专属顾问"}</p>
+                      <p className="mt-1 text-xs text-blue-100/80">{assignedConsultant.publicTitle || `${assignedConsultant.regionName || "留学"}规划顾问`}</p>
+                      <p className="mt-2 text-xs leading-5 text-white/58">请扫码添加企业微信，顾问会根据你的信息继续沟通方案。</p>
+                    </div>
+                  </div> : null}
                 </div> : null}
-              </div> : null}
 
-              <button type="submit" disabled={submitting} className="mx-auto mt-5 flex h-14 w-full max-w-[360px] items-center justify-center rounded-full bg-white px-8 text-base font-semibold text-[#050505] shadow-[0_0_44px_rgba(255,255,255,0.18)] transition hover:scale-[1.015] disabled:cursor-not-allowed disabled:opacity-60">
-                {submitting ? "提交中..." : "提交咨询信息"}
-              </button>
-            </motion.form>
-          </motion.div>
+                <button type="submit" disabled={submitting} className="mx-auto mt-5 flex h-14 w-full max-w-[360px] items-center justify-center rounded-full bg-white px-8 text-base font-semibold text-[#050505] shadow-[0_0_44px_rgba(255,255,255,0.18)] transition hover:scale-[1.015] disabled:cursor-not-allowed disabled:opacity-60">
+                  {submitting ? "提交中..." : "提交咨询信息"}
+                </button>
+              </motion.form>
+            </div>
+          </div>
         ) : null}
       </AnimatePresence>
     </>
