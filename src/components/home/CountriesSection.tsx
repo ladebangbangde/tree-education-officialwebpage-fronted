@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { BriefcaseBusiness, Building2, CheckCircle2, GraduationCap, Home, Plane, Sparkles, TrendingUp, Users, Wallet, X } from "lucide-react";
 import { countries } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -23,6 +23,27 @@ type CountryDetail = {
   };
 };
 
+const detailDefaults: CountryDetail = {
+  study: {
+    headline: "把国家选择变成更清晰的申请路径。",
+    intro: "我们会结合你的学历背景、预算、语言能力和职业目标，判断这个国家是否真正适合你。",
+    cards: [
+      { icon: "users", title: "留学生情况", highlight: "先看适配", text: "不同国家的中国学生分布、热门专业和申请节奏都不同，需要根据个人背景判断竞争位置。" },
+      { icon: "sparkles", title: "申请优势", highlight: "路径清晰", text: "合理的国家选择可以降低不确定性，让选校、文书、预算和时间线更容易形成闭环。" },
+      { icon: "trending", title: "回国就业", highlight: "结果导向", text: "回国就业不只看国家和学校，更看专业、实习、项目经历和个人表达能力。" }
+    ]
+  },
+  work: {
+    headline: "海外务工要先确认合规路径，再谈收入和岗位。",
+    intro: "务工方向需要同时评估岗位真实性、收入结构、住宿条件、签证合规和长期发展空间。",
+    cards: [
+      { icon: "wallet", title: "月薪参考", highlight: "因人而异", text: "不同城市、行业、工时和合同类型差异很大，不能只看单一薪资数字。" },
+      { icon: "home", title: "吃住条件", highlight: "提前确认", text: "住宿、餐食、保险、通勤和扣费方式都要在出发前确认清楚。" },
+      { icon: "plane", title: "签证情况", highlight: "合规优先", text: "任何务工路径都必须匹配合法身份、雇主资质和当地政策。" }
+    ]
+  }
+};
+
 const details: Record<string, CountryDetail> = {
   US: {
     study: {
@@ -34,15 +55,7 @@ const details: Record<string, CountryDetail> = {
         { icon: "trending", title: "回国就业", highlight: "认可度强", text: "美国院校背景在互联网、金融、咨询、数据、科研方向认可度高，关键是把实习和项目沉淀成可讲清的能力证据。" }
       ]
     },
-    work: {
-      headline: "美国务工更适合高技能、专业型和长期规划人群。",
-      intro: "美国工作路径门槛高，强调身份、雇主、专业匹配和长期规划，不适合只追求短期现金收入的人。",
-      cards: [
-        { icon: "wallet", title: "月薪参考", highlight: "高上限", text: "技术、工程、护理、数据等岗位收入上限高，但城市、身份、学历和雇主差异很大，需要按个人背景评估。" },
-        { icon: "home", title: "吃住条件", highlight: "成本较高", text: "大城市租金压力明显，生活成本高；如果是校内、实习或雇主项目，需要重点确认住宿和保险安排。" },
-        { icon: "plane", title: "签证情况", highlight: "合规优先", text: "务工必须匹配合法身份和雇主流程，不能用旅游或短期访问身份从事非法工作。" }
-      ]
-    }
+    work: detailDefaults.work
   },
   AU: {
     study: {
@@ -54,15 +67,7 @@ const details: Record<string, CountryDetail> = {
         { icon: "trending", title: "回国就业", highlight: "实用型认可", text: "澳洲学历在商科、会计、数据、教育、工程方向认可稳定，回国就业更看重实习、证书和英语沟通能力。" }
       ]
     },
-    work: {
-      headline: "澳洲务工关注技能、语言和合规岗位匹配。",
-      intro: "澳洲工作路径常见于服务业、护理、蓝领技术、农业、酒店和部分专业岗位，收入和生活成本都需要一起测算。",
-      cards: [
-        { icon: "wallet", title: "月薪参考", highlight: "时薪制常见", text: "服务、仓储、护理辅助、技术类岗位多按小时计算，实际月收入受工时、地区和雇主影响。" },
-        { icon: "home", title: "吃住条件", highlight: "视岗位而定", text: "部分偏远地区或雇主项目可能提供住宿或住宿补贴，城市岗位通常需自理住宿。" },
-        { icon: "plane", title: "签证情况", highlight: "路径要提前设计", text: "学生、毕业工签、技术评估和雇主担保等路径差异大，必须结合年龄、语言、职业清单和学历评估。" }
-      ]
-    }
+    work: detailDefaults.work
   },
   UK: {
     study: {
@@ -74,15 +79,7 @@ const details: Record<string, CountryDetail> = {
         { icon: "trending", title: "回国就业", highlight: "名校辨识度高", text: "英国院校在金融、咨询、传媒、教育、互联网运营等方向辨识度强，回国时更需要补足实习和项目成果。" }
       ]
     },
-    work: {
-      headline: "英国务工更适合有学历路径或明确职业技能的人。",
-      intro: "英国岗位环境规范，但签证和雇主资质要求明确。想长期留下，需要提前设计学习、毕业签和雇主路径。",
-      cards: [
-        { icon: "wallet", title: "月薪参考", highlight: "岗位差异大", text: "服务业、护理、技术、金融、IT岗位差异明显，伦敦收入更高但生活成本也更高。" },
-        { icon: "home", title: "吃住条件", highlight: "住宿成本需重点评估", text: "英国多数岗位住宿自理，伦敦及热门城市租金压力明显，预算规划非常重要。" },
-        { icon: "plane", title: "签证情况", highlight: "雇主资质关键", text: "长期工作通常需要符合签证类别和雇主资质要求，不能只看岗位薪资，还要看身份路径是否闭环。" }
-      ]
-    }
+    work: detailDefaults.work
   },
   FR: {
     study: {
@@ -94,15 +91,7 @@ const details: Record<string, CountryDetail> = {
         { icon: "trending", title: "回国就业", highlight: "品牌行业加分", text: "法国背景在奢侈品、时尚、艺术、文化传播、国际贸易等方向有明显标签感，回国就业要突出作品集和实习。" }
       ]
     },
-    work: {
-      headline: "法国务工看重语言、合同类型和行业匹配。",
-      intro: "法国工作生活品质强，但语言和合规要求不可忽视。适合有餐饮、酒店、护理、技术或品牌零售背景的人群做路径评估。",
-      cards: [
-        { icon: "wallet", title: "月薪参考", highlight: "稳定但不盲目夸大", text: "基础岗位收入通常与地区、行业、工时和合同相关，巴黎机会多但成本更高。" },
-        { icon: "home", title: "吃住条件", highlight: "住宿通常自理", text: "大城市住宿紧张，雇主包住并不普遍，必须在出发前确认住宿、保险和通勤。" },
-        { icon: "plane", title: "签证情况", highlight: "合同与身份绑定", text: "务工路径需要匹配合法签证、雇佣合同和当地规定，法语能力越强，选择面越大。" }
-      ]
-    }
+    work: detailDefaults.work
   },
   IT: {
     study: {
@@ -114,15 +103,7 @@ const details: Record<string, CountryDetail> = {
         { icon: "trending", title: "回国就业", highlight: "作品集是核心", text: "回国进入设计、品牌、建筑、艺术教育等方向时，院校背景之外，更要靠作品集、项目经历和审美表达。" }
       ]
     },
-    work: {
-      headline: "意大利务工适合餐饮、制造、服装、护理和基础服务方向。",
-      intro: "意大利机会更偏向区域和行业匹配，语言、合同稳定性和雇主可靠性是关键。",
-      cards: [
-        { icon: "wallet", title: "月薪参考", highlight: "因地区差异明显", text: "北部城市和产业区机会更多，收入受岗位、工时、语言和合法合同影响，不适合只看单一数字。" },
-        { icon: "home", title: "吃住条件", highlight: "需提前确认", text: "餐饮、农业、工厂类岗位有时提供住宿或协助找房，但必须确认费用、条件和合同细节。" },
-        { icon: "plane", title: "签证情况", highlight: "合规雇佣优先", text: "务工必须走合法签证和雇佣路径，不能依赖口头承诺，出发前要核对雇主、合同和保险。" }
-      ]
-    }
+    work: detailDefaults.work
   },
   DE: {
     study: {
@@ -134,15 +115,7 @@ const details: Record<string, CountryDetail> = {
         { icon: "trending", title: "回国就业", highlight: "工程标签明显", text: "德国背景在汽车、制造、工程、供应链、工业软件等方向认可度较强，回国就业要突出项目和技术能力。" }
       ]
     },
-    work: {
-      headline: "德国务工重点看职业资质、语言和长期稳定性。",
-      intro: "德国对技能型、护理、工程和技术岗位有明确需求，但资质认证、语言和合同合规非常重要。",
-      cards: [
-        { icon: "wallet", title: "月薪参考", highlight: "技能越强越稳定", text: "护理、技工、工程、IT等岗位收入和发展空间更稳定，基础岗位则更依赖语言、工时和雇主条件。" },
-        { icon: "home", title: "吃住条件", highlight: "部分项目可协助", text: "部分护理、技工或雇主项目会协助住宿，但不应默认包吃住，必须看合同和当地成本。" },
-        { icon: "plane", title: "签证情况", highlight: "资质认证关键", text: "职业资格、语言证明、雇主合同和签证类别需要提前匹配，护理和技工路径尤其要重视认证周期。" }
-      ]
-    }
+    work: detailDefaults.work
   },
   ES: {
     study: {
@@ -154,21 +127,13 @@ const details: Record<string, CountryDetail> = {
         { icon: "trending", title: "回国就业", highlight: "西语是差异化", text: "回国在外贸、跨境、电商、旅游、教育、品牌市场等方向，西语和跨文化经历会形成差异化标签。" }
       ]
     },
-    work: {
-      headline: "西班牙务工适合服务、餐饮、旅游、护理和基础岗位路径。",
-      intro: "西班牙工作机会和地区、语言、行业高度相关。适合愿意学习西语、接受服务行业节奏的人群。",
-      cards: [
-        { icon: "wallet", title: "月薪参考", highlight: "看城市与工时", text: "旅游城市和服务行业机会较多，实际收入受季节、工时、语言和合同影响较大。" },
-        { icon: "home", title: "吃住条件", highlight: "旺季岗位更灵活", text: "餐饮、酒店和旅游岗位有时会提供住宿或协助，但需要提前确认住宿费用和工作时长。" },
-        { icon: "plane", title: "签证情况", highlight: "不能脱离合同", text: "务工需要合法身份、合同和保险安排；西语水平越好，雇主沟通和岗位选择空间越大。" }
-      ]
-    }
+    work: detailDefaults.work
   }
 };
 
-function iconFor(type: string) {
+function iconFor(type: string): ReactNode {
   const cls = "size-4";
-  const map: Record<string, JSX.Element> = {
+  const map: Record<string, ReactNode> = {
     users: <Users className={cls} />,
     sparkles: <Sparkles className={cls} />,
     trending: <TrendingUp className={cls} />,
@@ -184,7 +149,7 @@ export function CountriesSection() {
   const [selected, setSelected] = useState<Country | null>(null);
   const [tab, setTab] = useState<DetailTab>("study");
 
-  const activeDetail = useMemo(() => selected ? details[selected.code]?.[tab] : null, [selected, tab]);
+  const activeDetail = useMemo(() => selected ? (details[selected.code]?.[tab] || detailDefaults[tab]) : null, [selected, tab]);
 
   const openCountry = (country: Country) => {
     setSelected(country);
@@ -192,32 +157,13 @@ export function CountriesSection() {
   };
 
   return (
-    <motion.section
-      id="countries"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7 }}
-    >
+    <motion.section id="countries" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.7 }}>
       <SectionHeader title="热门留学目的地" />
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {countries.map((country, index) => (
-          <motion.button
-            type="button"
-            onClick={() => openCountry(country)}
-            whileHover={{ y: -4 }}
-            whileTap={{ scale: 0.985 }}
-            key={country.name}
-            className={`group relative min-h-[240px] overflow-hidden rounded-[20px] bg-white text-left shadow-[0_10px_30px_rgba(0,0,0,0.04)] outline-none ring-0 ${index === 0 ? "xl:col-span-2" : ""}`}
-          >
-            <Image
-              src={country.image}
-              alt={`${country.name} ${country.english} 地标城市`}
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className="object-cover saturate-[0.78] contrast-[0.96] transition duration-700 group-hover:scale-105"
-            />
+          <motion.button type="button" onClick={() => openCountry(country)} whileHover={{ y: -4 }} whileTap={{ scale: 0.985 }} key={country.name} className={`group relative min-h-[240px] overflow-hidden rounded-[20px] bg-white text-left shadow-[0_10px_30px_rgba(0,0,0,0.04)] outline-none ${index === 0 ? "xl:col-span-2" : ""}`}>
+            <Image src={country.image} alt={`${country.name} ${country.english} 地标城市`} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover saturate-[0.78] contrast-[0.96] transition duration-700 group-hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/18 to-transparent" />
             <motion.div layoutId={`country-icon-${country.code}`} className="absolute left-5 top-5 flex size-14 items-center justify-center rounded-2xl bg-white/90 text-3xl shadow-[0_14px_34px_rgba(0,0,0,0.16)] backdrop-blur">
               {country.icon}
@@ -233,27 +179,11 @@ export function CountriesSection() {
 
       <AnimatePresence>
         {selected && activeDetail ? (
-          <motion.div
-            className="fixed inset-0 z-[10000] overflow-y-auto bg-[#050505]/72 p-4 backdrop-blur-xl md:p-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              className="mx-auto min-h-[82vh] max-w-5xl overflow-hidden rounded-[34px] border border-white/20 bg-[#F5F5F7] shadow-[0_40px_120px_rgba(0,0,0,0.36)]"
-              initial={{ opacity: 0, scale: 0.92, y: 34 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: 18 }}
-              transition={{ duration: 0.38, ease: "easeOut" }}
-            >
+          <motion.div className="fixed inset-0 z-[10000] overflow-y-auto bg-[#050505]/72 p-4 backdrop-blur-xl md:p-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <motion.div className="mx-auto min-h-[82vh] max-w-5xl overflow-hidden rounded-[34px] border border-white/20 bg-[#F5F5F7] shadow-[0_40px_120px_rgba(0,0,0,0.36)]" initial={{ opacity: 0, scale: 0.92, y: 34 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96, y: 18 }} transition={{ duration: 0.38, ease: "easeOut" }}>
               <div className="relative min-h-[280px] overflow-hidden bg-black p-6 text-white md:p-8">
-                <Image src={selected.image} alt={`${selected.name}详情背景`} fill sizes="100vw" className="object-cover opacity-48" />
-                <motion.div
-                  className="absolute left-8 top-8 h-44 w-44 rounded-full bg-white/25 blur-3xl"
-                  initial={{ scale: 0.2, opacity: 0 }}
-                  animate={{ scale: 2.6, opacity: 0.55 }}
-                  transition={{ duration: 0.75, ease: "easeOut" }}
-                />
+                <Image src={selected.image} alt={`${selected.name}详情背景`} fill sizes="100vw" className="object-cover opacity-50" />
+                <motion.div className="absolute left-8 top-8 h-44 w-44 rounded-full bg-white/25 blur-3xl" initial={{ scale: 0.2, opacity: 0 }} animate={{ scale: 2.6, opacity: 0.55 }} transition={{ duration: 0.75, ease: "easeOut" }} />
                 <div className="absolute inset-0 bg-gradient-to-br from-black/78 via-black/44 to-black/22" />
                 <button onClick={() => setSelected(null)} className="absolute right-5 top-5 z-10 flex size-10 items-center justify-center rounded-full bg-white/12 text-white backdrop-blur transition hover:bg-white/20" aria-label="关闭国家详情">
                   <X className="size-5" />
@@ -271,31 +201,15 @@ export function CountriesSection() {
                   </div>
 
                   <div className="relative grid max-w-xl grid-cols-2 rounded-full border border-white/18 bg-white/12 p-1.5 backdrop-blur-xl">
-                    <motion.div
-                      className="absolute bottom-1.5 top-1.5 rounded-full bg-white shadow-[0_12px_30px_rgba(0,0,0,0.18)]"
-                      initial={false}
-                      animate={{ left: tab === "study" ? "6px" : "calc(50% + 0px)", width: "calc(50% - 6px)" }}
-                      transition={{ type: "spring", stiffness: 360, damping: 34 }}
-                    />
-                    <button onClick={() => setTab("study")} className={`relative z-10 flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition ${tab === "study" ? "text-[#0A0A0A]" : "text-white/78"}`}>
-                      <GraduationCap className="size-4" /> 留学
-                    </button>
-                    <button onClick={() => setTab("work")} className={`relative z-10 flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition ${tab === "work" ? "text-[#0A0A0A]" : "text-white/78"}`}>
-                      <Building2 className="size-4" /> 务工
-                    </button>
+                    <motion.div className="absolute bottom-1.5 top-1.5 rounded-full bg-white shadow-[0_12px_30px_rgba(0,0,0,0.18)]" initial={false} animate={{ left: tab === "study" ? "6px" : "calc(50% + 0px)", width: "calc(50% - 6px)" }} transition={{ type: "spring", stiffness: 360, damping: 34 }} />
+                    <button onClick={() => setTab("study")} className={`relative z-10 flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition ${tab === "study" ? "text-[#0A0A0A]" : "text-white/78"}`}><GraduationCap className="size-4" /> 留学</button>
+                    <button onClick={() => setTab("work")} className={`relative z-10 flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition ${tab === "work" ? "text-[#0A0A0A]" : "text-white/78"}`}><Building2 className="size-4" /> 务工</button>
                   </div>
                 </div>
               </div>
 
               <AnimatePresence mode="wait">
-                <motion.div
-                  key={`${selected.code}-${tab}`}
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.28 }}
-                  className="p-6 md:p-8"
-                >
+                <motion.div key={`${selected.code}-${tab}`} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.28 }} className="p-6 md:p-8">
                   <div className="max-w-3xl">
                     <p className="inline-flex items-center gap-2 rounded-full bg-black px-3 py-1 text-xs font-medium text-white"><Sparkles className="size-3.5" /> {tab === "study" ? "留学规划重点" : "海外务工重点"}</p>
                     <h4 className="mt-4 text-2xl font-semibold tracking-[-0.05em] text-[#0A0A0A] md:text-4xl">{activeDetail.headline}</h4>
@@ -304,22 +218,12 @@ export function CountriesSection() {
 
                   <div className="mt-7 grid gap-4 md:grid-cols-3">
                     {activeDetail.cards.map((card, index) => (
-                      <motion.div
-                        key={card.title}
-                        initial={{ opacity: 0, y: 18 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.06, duration: 0.28 }}
-                        className="group rounded-[24px] border border-[#E5E7EB] bg-white p-5 shadow-[0_10px_30px_rgba(0,0,0,0.04)]"
-                      >
+                      <motion.div key={card.title} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.06, duration: 0.28 }} className="group rounded-[24px] border border-[#E5E7EB] bg-white p-5 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
                         <div className="flex size-10 items-center justify-center rounded-2xl bg-[#0A0A0A] text-white transition duration-300 group-hover:scale-110">
                           {iconFor(card.icon)}
                         </div>
                         <h5 className="mt-4 text-base font-semibold tracking-[-0.03em] text-[#0A0A0A]">{card.title}</h5>
-                        <motion.p
-                          className="mt-3 inline-flex rounded-full bg-[#F5F5F7] px-3 py-1 text-xs font-semibold text-[#0A0A0A]"
-                          animate={{ boxShadow: ["0 0 0 rgba(0,0,0,0)", "0 10px 26px rgba(0,0,0,0.10)", "0 0 0 rgba(0,0,0,0)"] }}
-                          transition={{ duration: 2.2, repeat: Infinity, delay: index * 0.2 }}
-                        >
+                        <motion.p className="mt-3 inline-flex rounded-full bg-[#F5F5F7] px-3 py-1 text-xs font-semibold text-[#0A0A0A]" animate={{ boxShadow: ["0 0 0 rgba(0,0,0,0)", "0 10px 26px rgba(0,0,0,0.10)", "0 0 0 rgba(0,0,0,0)"] }} transition={{ duration: 2.2, repeat: Infinity, delay: index * 0.2 }}>
                           {card.highlight}
                         </motion.p>
                         <p className="mt-4 text-sm leading-7 text-[#0A0A0A]/72">{card.text}</p>
@@ -327,9 +231,7 @@ export function CountriesSection() {
                     ))}
                   </div>
 
-                  <div className="mt-7 rounded-[24px] border border-[#E5E7EB] bg-white p-5 text-sm leading-7 text-[#6B7280]">
-                    <strong className="text-[#0A0A0A]">提醒：</strong> 页面内容用于前期方向了解，具体申请条件、岗位收入、签证材料和雇佣要求，需要结合个人背景、城市、学校、雇主和当年政策做一对一评估。
-                  </div>
+                  <div className="mt-7 rounded-[24px] border border-[#E5E7EB] bg-white p-5 text-sm leading-7 text-[#6B7280]"><strong className="text-[#0A0A0A]">提醒：</strong> 页面内容用于前期方向了解，具体申请条件、岗位收入、签证材料和雇佣要求，需要结合个人背景、城市、学校、雇主和当年政策做一对一评估。</div>
                 </motion.div>
               </AnimatePresence>
             </motion.div>
