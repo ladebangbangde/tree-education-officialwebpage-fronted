@@ -13,14 +13,14 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#E5E7EB]/80 bg-white/78 backdrop-blur-2xl">
-      <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:px-8">
-        <a href="#home" className="group flex items-center gap-3 text-[#0A0A0A]" aria-label="吴桐树官网首页">
-          <span className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_14px_34px_rgba(0,0,0,0.10)]">
-            <Image src={logoPath} alt="吴桐树 Logo" fill sizes="44px" className="object-contain p-1.5" priority />
+      <div className="mx-auto flex h-[88px] max-w-[1440px] items-center justify-between px-5 md:px-8">
+        <a href="#home" className="group flex items-center gap-4 text-[#0A0A0A]" aria-label="吴桐树官网首页">
+          <span className="relative flex h-[68px] w-[68px] shrink-0 items-center justify-center overflow-hidden rounded-[24px] border border-[#E5E7EB] bg-white shadow-[0_10px_28px_rgba(0,0,0,0.08)] transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_16px_40px_rgba(0,0,0,0.12)] md:h-[72px] md:w-[72px]">
+            <Image src={logoPath} alt="吴桐树 Logo" fill sizes="72px" className="scale-[2.65] object-contain" priority />
           </span>
           <span className="leading-none">
-            <span className="block text-lg font-semibold tracking-[-0.05em]">吴桐树</span>
-            <span className="mt-1 hidden text-[11px] font-medium tracking-[0.18em] text-[#6B7280] sm:block">TREE EDUCATION</span>
+            <span className="block text-2xl font-semibold tracking-[-0.06em] md:text-[28px]">吴桐树</span>
+            <span className="mt-2 hidden text-[15px] font-medium tracking-[0.28em] text-[#6B7280] sm:block">TREE EDUCATION</span>
           </span>
         </a>
 
