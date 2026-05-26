@@ -13,7 +13,7 @@ export function ConsultantsPanel() {
         {consultants.map((person) => (
           <motion.article whileHover={{ y: -4 }} key={person.name} className="overflow-hidden rounded-[20px] border border-[#E5E7EB] bg-[#F5F5F7]">
             <div className="relative h-48 overflow-hidden bg-[#E5E7EB]">
-              <Image src={person.image} alt={`${person.name} 顾问肖像`} fill sizes="(max-width: 768px) 50vw, 18vw" className="object-cover object-top grayscale saturate-[0.55] transition duration-700 hover:scale-105" />
+              <Image src={person.image} alt={`${person.name} 顾问肖像`} fill sizes="(max-width: 768px) 50vw, 18vw" className="object-cover object-top transition duration-700 hover:scale-105" />
             </div>
             <div className="p-4"><h3 className="font-semibold tracking-[-0.03em]">{person.name}</h3><p className="mt-1 text-sm text-[#6B7280]">{person.role}</p><p className="mt-3 text-xs leading-5 text-[#0A0A0A]/75">{person.expertise}</p></div>
           </motion.article>
