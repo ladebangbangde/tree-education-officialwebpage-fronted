@@ -75,8 +75,8 @@ export const partners = [
 ];
 
 export const consultants = [
-  { name: "Jora", role: "澳洲留学规划顾问", expertise: "负责澳洲方向。熟悉澳洲八大、商科、数据与工程申请路径，擅长把普通背景拆成清晰可执行的申请时间线。", image: "/pics/consultant/Jora.png" },
-  { name: "Christine", role: "英国留学规划顾问", expertise: "负责英国方向。深耕英国硕士申请，擅长商科、传媒、教育与跨专业方案设计。", image: "/pics/consultant/Christine.png" },
+  { name: "Jora", role: "英国留学规划顾问", expertise: "负责英国方向。深耕英国硕士申请，擅长商科、传媒、教育与跨专业方案设计。", image: "/pics/consultant/Jora.png" },
+  { name: "Christine", role: "澳洲留学规划顾问", expertise: "负责澳洲方向。熟悉澳洲八大、商科、数据与工程申请路径，擅长把普通背景拆成清晰可执行的申请时间线。", image: "/pics/consultant/Christine.png" },
   { name: "Irene", role: "欧洲留学规划顾问", expertise: "负责欧洲方向。覆盖德国、法国、荷兰、爱尔兰等项目，擅长课程匹配和材料逻辑搭建。", image: "/pics/consultant/Ierene.png" },
   { name: "Dango", role: "美国留学规划顾问", expertise: "负责美国方向。熟悉研究生申请节奏，擅长选校梯度、背景梳理与长期规划。", image: "/pics/consultant/Dango.png" }
 ];
