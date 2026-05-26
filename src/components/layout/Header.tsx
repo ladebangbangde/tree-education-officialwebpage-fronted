@@ -1,9 +1,12 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { navItems } from "@/lib/data";
+
+const logoPath = "/pics/logo/tree_education_studio_logo.png";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -11,8 +14,14 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-[#E5E7EB]/80 bg-white/78 backdrop-blur-2xl">
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:px-8">
-        <a href="#home" className="text-lg font-semibold tracking-[-0.04em] text-[#0A0A0A]">
-          吴桐树
+        <a href="#home" className="group flex items-center gap-3 text-[#0A0A0A]" aria-label="吴桐树官网首页">
+          <span className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_14px_34px_rgba(0,0,0,0.10)]">
+            <Image src={logoPath} alt="吴桐树 Logo" fill sizes="44px" className="object-contain p-1.5" priority />
+          </span>
+          <span className="leading-none">
+            <span className="block text-lg font-semibold tracking-[-0.05em]">吴桐树</span>
+            <span className="mt-1 hidden text-[11px] font-medium tracking-[0.18em] text-[#6B7280] sm:block">TREE EDUCATION</span>
+          </span>
         </a>
 
         <nav className="hidden items-center gap-7 lg:flex">
