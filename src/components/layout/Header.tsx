@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { navItems } from "@/lib/data";
 
-const logoPath = "/pics/logo/tree_education_studio_logo.png";
+const logoPath = "/pics/logo/tree_education_logo.png";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -15,8 +15,8 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-[#E5E7EB]/80 bg-white/78 backdrop-blur-2xl">
       <div className="mx-auto flex h-[88px] max-w-[1440px] items-center justify-between px-5 md:px-8">
         <a href="#home" className="group flex items-center gap-4 text-[#0A0A0A]" aria-label="吴桐树官网首页">
-          <span className="relative flex h-[68px] w-[68px] shrink-0 items-center justify-center overflow-hidden rounded-[24px] border border-[#E5E7EB] bg-white shadow-[0_10px_28px_rgba(0,0,0,0.08)] transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_16px_40px_rgba(0,0,0,0.12)] md:h-[72px] md:w-[72px]">
-            <Image src={logoPath} alt="吴桐树 Logo" fill sizes="72px" className="scale-[2.65] object-contain" priority />
+          <span className="relative flex h-[64px] w-[154px] shrink-0 items-center justify-center overflow-hidden rounded-[24px] border border-[#E5E7EB] bg-white shadow-[0_10px_28px_rgba(0,0,0,0.08)] transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_16px_40px_rgba(0,0,0,0.12)] md:h-[68px] md:w-[166px]">
+            <Image src={logoPath} alt="吴桐树 Logo" fill sizes="166px" className="scale-[2.35] object-contain" priority />
           </span>
           <span className="leading-none">
             <span className="block text-2xl font-semibold tracking-[-0.06em] md:text-[28px]">吴桐树</span>
