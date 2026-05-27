@@ -15,7 +15,7 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-[#E5E7EB]/80 bg-white/78 backdrop-blur-2xl">
       <div className="mx-auto flex h-[74px] max-w-[1440px] items-center justify-between px-5 md:px-8">
         <a href="#home" className="group flex items-center gap-3 text-[#0A0A0A]" aria-label="吴桐树官网首页">
-          <span className="relative flex h-[48px] w-[104px] shrink-0 items-center justify-center overflow-hidden rounded-[18px] border border-[#E5E7EB] bg-white shadow-[0_8px_22px_rgba(0,0,0,0.07)] transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_12px_30px_rgba(0,0,0,0.10)] md:h-[52px] md:w-[116px]">
+          <span className="relative flex h-[48px] w-[104px] shrink-0 items-center justify-center overflow-visible rounded-[18px] border border-transparent bg-transparent transition duration-300 group-hover:-translate-y-0.5 md:h-[52px] md:w-[116px]">
             <Image src={logoPath} alt="吴桐树 Logo" fill sizes="116px" className="scale-[1.72] object-contain" priority />
           </span>
           <span className="leading-none">
