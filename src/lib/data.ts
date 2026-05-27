@@ -6,7 +6,7 @@ export const navItems = [
   { label: "关于我们", href: "#consultants" }
 ];
 
-export const heroImage = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85";
+export const heroImage = "https://images.unsplash.com/photo-1496307653780-42ee777d4833?auto=format&fit=crop&w=1600&q=90";
 
 export const whyUsItems = [
   { icon: "landmark", title: "名校申请经验", description: "覆盖英美澳加日与欧洲热门院校申请路径。" },
