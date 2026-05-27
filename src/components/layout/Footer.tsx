@@ -1,11 +1,15 @@
-import { footerColumns } from "@/lib/data";
+const footerColumns = [
+  { title: "服务", links: ["出国规划", "目标定位", "材料制作", "申请递交", "签证服务", "行前指导"] },
+  { title: "国家/地区", links: ["英国", "美国", "澳洲", "欧洲", "日本", "更多国家"] },
+  { title: "关于我们", links: ["公司简介", "顾问团队", "成功案例", "新闻资讯", "加入我们"] }
+];
 
 export function Footer() {
   return (
     <footer className="rounded-[28px] border border-[#E5E7EB] bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] md:p-8">
       <div className="mb-8">
         <p className="text-xl font-semibold tracking-[-0.04em]">吴桐树</p>
-        <p className="mt-3 max-w-sm text-sm leading-6 text-[#6B7280]">专注全球留学申请规划，助力学生走向世界名校。</p>
+        <p className="mt-3 max-w-sm text-sm leading-6 text-[#6B7280]">专注全球留学与海外工作规划，助力客户走向世界。</p>
       </div>
 
       <div className="grid gap-7 sm:grid-cols-2 xl:grid-cols-3">
