@@ -181,8 +181,8 @@ export function CountriesSection() {
             <motion.button type="button" onClick={() => openCountry(country)} whileHover={{ y: -4 }} whileTap={{ scale: 0.985 }} key={country.name} className={`group relative min-h-[240px] overflow-hidden rounded-[20px] bg-white text-left shadow-[0_10px_30px_rgba(0,0,0,0.04)] outline-none ${wideCard ? "xl:col-span-2" : ""}`}>
               <Image src={country.image} alt={`${country.name} ${country.english} 地标城市`} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover saturate-[0.78] contrast-[0.96] transition duration-700 group-hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/18 to-transparent" />
-              <motion.div layoutId={`country-icon-${country.code}`} className="absolute left-5 top-5 flex size-14 items-center justify-center rounded-2xl bg-white/90 text-3xl shadow-[0_14px_34px_rgba(0,0,0,0.16)] backdrop-blur">
-                {country.icon}
+              <motion.div className="absolute left-5 top-5 flex size-14 items-center justify-center rounded-2xl bg-white/90 text-3xl shadow-[0_14px_34px_rgba(0,0,0,0.16)] backdrop-blur">
+                <span className="leading-none">{country.icon}</span>
               </motion.div>
               <div className="absolute inset-x-0 bottom-0 p-5 text-white">
                 <h3 className="text-2xl font-semibold tracking-[-0.04em]">{country.name}</h3>
@@ -196,8 +196,22 @@ export function CountriesSection() {
 
       <AnimatePresence>
         {selected && activeDetail ? (
-          <motion.div className="fixed inset-0 z-[10000] overflow-y-auto bg-[#050505]/72 p-4 backdrop-blur-xl md:p-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <motion.div className="mx-auto min-h-[82vh] max-w-5xl overflow-hidden rounded-[34px] border border-white/20 bg-[#F5F5F7]/92 shadow-[0_40px_120px_rgba(0,0,0,0.36)] backdrop-blur-2xl" initial={{ opacity: 0, scale: 0.92, y: 34 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96, y: 18 }} transition={{ duration: 0.38, ease: "easeOut" }}>
+          <motion.div
+            className="fixed inset-0 z-[10000] cursor-pointer overflow-y-auto bg-[#050505]/72 p-4 backdrop-blur-xl md:p-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelected(null)}
+            role="presentation"
+          >
+            <motion.div
+              className="mx-auto min-h-[82vh] max-w-5xl cursor-default overflow-hidden rounded-[34px] border border-white/20 bg-[#F5F5F7]/92 shadow-[0_40px_120px_rgba(0,0,0,0.36)] backdrop-blur-2xl"
+              initial={{ opacity: 0, scale: 0.92, y: 34 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 18 }}
+              transition={{ duration: 0.38, ease: "easeOut" }}
+              onClick={(event) => event.stopPropagation()}
+            >
               <div className="relative min-h-[280px] overflow-hidden bg-black p-6 text-white md:p-8">
                 <Image src={selected.image} alt={`${selected.name}详情背景`} fill sizes="100vw" className="object-cover opacity-50" />
                 <motion.div className="absolute left-8 top-8 h-44 w-44 rounded-full bg-white/25 blur-3xl" initial={{ scale: 0.2, opacity: 0 }} animate={{ scale: 2.6, opacity: 0.55 }} transition={{ duration: 0.75, ease: "easeOut" }} />
@@ -208,9 +222,9 @@ export function CountriesSection() {
 
                 <div className="relative z-10 flex min-h-[220px] flex-col justify-between gap-8">
                   <div className="flex items-start gap-4">
-                    <motion.div layoutId={`country-icon-${selected.code}`} className="flex size-20 items-center justify-center rounded-[28px] bg-white text-5xl shadow-[0_20px_50px_rgba(0,0,0,0.18)]">
-                      {selected.icon}
-                    </motion.div>
+                    <div className="flex size-20 shrink-0 items-center justify-center rounded-[28px] bg-white text-5xl shadow-[0_20px_50px_rgba(0,0,0,0.18)]">
+                      <span className="leading-none">{selected.icon}</span>
+                    </div>
                     <div>
                       <p className="text-sm font-medium uppercase tracking-[0.35em] text-white/60">{selected.english}</p>
                       <h3 className="mt-2 text-4xl font-semibold tracking-[-0.06em] md:text-6xl">{selected.name}</h3>
