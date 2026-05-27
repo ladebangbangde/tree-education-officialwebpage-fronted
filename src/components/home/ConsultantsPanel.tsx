@@ -50,9 +50,9 @@ function AvatarBlock({ person }: { person: ConsultantCard }) {
 
   if (!avatar || failed) {
     return (
-      <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,#F5F5F7,#E5E7EB)] px-5 text-center">
+      <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,rgba(255,255,255,0.82),rgba(229,231,235,0.42))] px-5 text-center backdrop-blur-xl">
         <div>
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white text-lg font-semibold text-[#0A0A0A] shadow-[0_8px_22px_rgba(0,0,0,0.06)]">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/80 bg-white/70 text-lg font-semibold text-[#0A0A0A] shadow-[0_10px_26px_rgba(0,0,0,0.08)] backdrop-blur-xl">
             {person.name?.slice(0, 1) || "顾"}
           </div>
           <p className="mt-3 text-xs font-medium text-[#6B7280]">头像待顾问在 OA 上传</p>
@@ -104,66 +104,72 @@ export function ConsultantsPanel() {
   const displayConsultantCount = consultants.length + CONSULTANT_DISPLAY_COUNT_OFFSET;
 
   return (
-    <motion.section initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.7 }} className="rounded-[28px] border border-[#E5E7EB] bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] md:p-8">
-      <div className="flex items-start justify-between gap-4">
+    <motion.section initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.7 }} className="relative overflow-hidden rounded-[28px] border border-white/70 bg-white/58 p-6 shadow-[0_18px_60px_rgba(0,0,0,0.08)] backdrop-blur-2xl md:p-8">
+      <div className="pointer-events-none absolute -right-12 -top-16 h-48 w-48 rounded-full bg-[#2563EB]/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-20 left-8 h-56 w-56 rounded-full bg-black/5 blur-3xl" />
+
+      <div className="relative z-10 flex items-start justify-between gap-4">
         <SectionHeader title="资深顾问团队" subtitle="用专业与经验，陪你实现名校梦想" />
-        {consultants.length > 0 ? <span className="rounded-full bg-[#F5F5F7] px-3 py-1 text-xs font-medium text-[#6B7280]">共 {displayConsultantCount}+ 位顾问</span> : null}
+        {consultants.length > 0 ? <span className="rounded-full border border-white/80 bg-white/60 px-3 py-1 text-xs font-medium text-[#6B7280] shadow-[0_8px_22px_rgba(0,0,0,0.04)] backdrop-blur-xl">共 {displayConsultantCount}+ 位顾问</span> : null}
       </div>
 
-      {loading ? (
-        <div className="grid gap-4 sm:grid-cols-2">
-          {Array.from({ length: DEFAULT_VISIBLE_COUNT }).map((_, index) => (
-            <div key={index} className="h-[330px] animate-pulse rounded-[20px] bg-[#F5F5F7]" />
-          ))}
-        </div>
-      ) : consultants.length === 0 ? (
-        <div className="rounded-[20px] border border-dashed border-[#D1D5DB] bg-[#F5F5F7] p-6 text-sm leading-6 text-[#6B7280]">
-          暂未读取到顾问信息。请先在 OA 后台维护顾问档案、擅长地区，并由顾问本人上传官网头像。
-        </div>
-      ) : (
-        <>
-          <motion.div layout className="grid gap-4 sm:grid-cols-2">
-            <AnimatePresence initial={false}>
-              {visibleConsultants.map((person) => (
-                <motion.article
-                  layout
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.28 }}
-                  whileHover={{ y: -4 }}
-                  key={`${person.userId || person.name}-${person.regionCode || "region"}`}
-                  className="overflow-hidden rounded-[20px] border border-[#E5E7EB] bg-[#F5F5F7]"
-                >
-                  <div className="relative h-48 overflow-hidden bg-[#E5E7EB]">
-                    <AvatarBlock person={person} />
-                  </div>
-                  <div className="p-4">
-                    <div className="flex items-center justify-between gap-3">
-                      <h3 className="font-semibold tracking-[-0.03em]">{person.name}</h3>
-                      {person.regionName ? <span className="rounded-full bg-white px-2.5 py-1 text-[11px] font-medium text-[#6B7280]">{person.regionName}</span> : null}
+      <div className="relative z-10">
+        {loading ? (
+          <div className="grid gap-4 sm:grid-cols-2">
+            {Array.from({ length: DEFAULT_VISIBLE_COUNT }).map((_, index) => (
+              <div key={index} className="h-[330px] animate-pulse rounded-[20px] border border-white/70 bg-white/50 backdrop-blur-xl" />
+            ))}
+          </div>
+        ) : consultants.length === 0 ? (
+          <div className="rounded-[20px] border border-dashed border-white/80 bg-white/54 p-6 text-sm leading-6 text-[#6B7280] backdrop-blur-xl">
+            暂未读取到顾问信息。请先在 OA 后台维护顾问档案、擅长地区，并由顾问本人上传官网头像。
+          </div>
+        ) : (
+          <>
+            <motion.div layout className="grid gap-4 sm:grid-cols-2">
+              <AnimatePresence initial={false}>
+                {visibleConsultants.map((person) => (
+                  <motion.article
+                    layout
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -12 }}
+                    transition={{ duration: 0.28 }}
+                    whileHover={{ y: -4 }}
+                    key={`${person.userId || person.name}-${person.regionCode || "region"}`}
+                    className="overflow-hidden rounded-[22px] border border-white/75 bg-white/48 shadow-[0_16px_45px_rgba(0,0,0,0.08)] backdrop-blur-2xl transition duration-300 hover:bg-white/62 hover:shadow-[0_24px_70px_rgba(0,0,0,0.12)]"
+                  >
+                    <div className="relative h-48 overflow-hidden bg-white/36">
+                      <AvatarBlock person={person} />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/18 via-transparent to-white/8" />
                     </div>
-                    <p className="mt-1 text-sm text-[#6B7280]">{person.publicTitle || `${person.regionName || "留学"}规划顾问`}</p>
-                    <p className="mt-3 text-xs leading-5 text-[#0A0A0A]/75">{person.publicBio || "资深留学规划顾问，擅长结合学生背景制定清晰可执行的申请方案。"}</p>
-                  </div>
-                </motion.article>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+                    <div className="p-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <h3 className="font-semibold tracking-[-0.03em] text-[#0A0A0A]">{person.name}</h3>
+                        {person.regionName ? <span className="rounded-full border border-white/80 bg-white/58 px-2.5 py-1 text-[11px] font-medium text-[#6B7280] backdrop-blur-xl">{person.regionName}</span> : null}
+                      </div>
+                      <p className="mt-1 text-sm text-[#6B7280]">{person.publicTitle || `${person.regionName || "留学"}规划顾问`}</p>
+                      <p className="mt-3 rounded-2xl border border-white/60 bg-white/36 p-3 text-xs leading-5 text-[#0A0A0A]/75 backdrop-blur-xl">{person.publicBio || "资深留学规划顾问，擅长结合学生背景制定清晰可执行的申请方案。"}</p>
+                    </div>
+                  </motion.article>
+                ))}
+              </AnimatePresence>
+            </motion.div>
 
-          {hasMore ? (
-            <div className="mt-5 flex justify-center">
-              <button
-                type="button"
-                onClick={() => setExpanded((value) => !value)}
-                className="rounded-full border border-[#E5E7EB] bg-white px-5 py-2.5 text-sm font-medium text-[#0A0A0A] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)]"
-              >
-                {expanded ? "收起顾问" : `查看更多顾问（${consultants.length - DEFAULT_VISIBLE_COUNT}）`}
-              </button>
-            </div>
-          ) : null}
-        </>
-      )}
+            {hasMore ? (
+              <div className="mt-5 flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => setExpanded((value) => !value)}
+                  className="rounded-full border border-white/80 bg-white/58 px-5 py-2.5 text-sm font-medium text-[#0A0A0A] shadow-[0_10px_26px_rgba(0,0,0,0.06)] backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:bg-white/80 hover:shadow-[0_16px_34px_rgba(0,0,0,0.10)]"
+                >
+                  {expanded ? "收起顾问" : `查看更多顾问（${consultants.length - DEFAULT_VISIBLE_COUNT}）`}
+                </button>
+              </div>
+            ) : null}
+          </>
+        )}
+      </div>
     </motion.section>
   );
 }
