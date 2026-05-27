@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -55,17 +56,6 @@ export function GlobalLoadingOverlay() {
     };
   }, []);
 
-  const maskStyle = {
-    WebkitMaskImage: `url(${logoPath})`,
-    maskImage: `url(${logoPath})`,
-    WebkitMaskRepeat: "no-repeat",
-    maskRepeat: "no-repeat",
-    WebkitMaskPosition: "center",
-    maskPosition: "center",
-    WebkitMaskSize: "178% auto",
-    maskSize: "178% auto"
-  } as const;
-
   return (
     <AnimatePresence>
       {visible ? (
@@ -74,50 +64,47 @@ export function GlobalLoadingOverlay() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.22 }}
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-white/8 px-6 backdrop-blur-md"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-transparent px-6 backdrop-blur-[2px]"
         >
           <motion.div
             initial={{ y: 16, scale: 0.96, opacity: 0 }}
             animate={{ y: 0, scale: 1, opacity: 1 }}
             exit={{ y: -10, scale: 0.98, opacity: 0 }}
             transition={{ duration: 0.34, ease: "easeOut" }}
-            className="flex flex-col items-center gap-6 rounded-[34px] bg-white/10 px-8 py-7 backdrop-blur-sm"
+            className="flex flex-col items-center gap-5 bg-transparent"
           >
-            <div className="relative h-[150px] w-[220px] overflow-visible">
-              <div className="absolute inset-0 overflow-visible bg-transparent">
-                <div className="absolute inset-0 opacity-[0.07]" style={maskStyle}>
-                  <div className="h-full w-full bg-[#0A0A0A]" />
-                </div>
-
-                <motion.div
-                  className="absolute inset-0 overflow-hidden"
-                  initial={{ clipPath: "inset(0 100% 0 0)" }}
-                  animate={{ clipPath: ["inset(0 100% 0 0)", "inset(0 0% 0 0)", "inset(0 0% 0 0)"] }}
-                  transition={{ duration: 1.26, times: [0, 0.76, 1], repeat: Infinity, repeatDelay: 0.52, ease: "easeInOut" }}
-                >
-                  <div className="absolute inset-0" style={maskStyle}>
-                    <div className="h-full w-full bg-[#0A0A0A]" />
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="pointer-events-none absolute inset-y-0 left-0 w-[58px] bg-[linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.72),rgba(255,255,255,0))] blur-[1px]"
-                  initial={{ x: -72, opacity: 0 }}
-                  animate={{ x: [-72, 232, 232], opacity: [0, 1, 0] }}
-                  transition={{ duration: 1.26, times: [0, 0.72, 1], repeat: Infinity, repeatDelay: 0.52, ease: "easeInOut" }}
+            <div className="relative h-[150px] w-[220px] overflow-visible bg-transparent">
+              <motion.div
+                className="relative h-full w-full bg-transparent"
+                animate={{ scale: [0.985, 1.015, 0.985] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <Image
+                  src={logoPath}
+                  alt="吴桐树 Logo"
+                  fill
+                  priority
+                  sizes="220px"
+                  className="scale-[1.72] object-contain drop-shadow-[0_18px_40px_rgba(0,0,0,0.18)]"
                 />
 
                 <motion.div
-                  className="absolute top-[58px] h-2 w-2 rounded-full bg-[#0A0A0A] shadow-[0_0_18px_rgba(0,0,0,0.45)]"
-                  initial={{ x: 20, opacity: 0, scale: 0.65 }}
-                  animate={{ x: [20, 190, 190], opacity: [0, 1, 0], scale: [0.65, 1, 0.65] }}
-                  transition={{ duration: 1.26, times: [0, 0.72, 1], repeat: Infinity, repeatDelay: 0.52, ease: "easeInOut" }}
+                  className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[68px] bg-[linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.82),rgba(255,255,255,0))] blur-[1px]"
+                  initial={{ x: -88, opacity: 0 }}
+                  animate={{ x: [-88, 244, 244], opacity: [0, 1, 0] }}
+                  transition={{
+                    duration: 1.28,
+                    times: [0, 0.72, 1],
+                    repeat: Infinity,
+                    repeatDelay: 0.52,
+                    ease: "easeInOut"
+                  }}
                 />
-              </div>
+              </motion.div>
 
               <motion.div
-                className="absolute -bottom-2 left-1/2 h-5 w-36 -translate-x-1/2 rounded-full bg-black/10 blur-xl"
-                animate={{ scaleX: [0.65, 1, 0.65], opacity: [0.12, 0.28, 0.12] }}
+                className="absolute -bottom-3 left-1/2 h-5 w-36 -translate-x-1/2 rounded-full bg-black/10 blur-xl"
+                animate={{ scaleX: [0.65, 1, 0.65], opacity: [0.1, 0.24, 0.1] }}
                 transition={{ duration: 1.78, repeat: Infinity, ease: "easeInOut" }}
               />
             </div>
