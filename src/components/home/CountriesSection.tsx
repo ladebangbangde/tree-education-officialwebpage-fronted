@@ -161,20 +161,23 @@ export function CountriesSection() {
       <SectionHeader title="热门留学目的地" />
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {countries.map((country, index) => (
-          <motion.button type="button" onClick={() => openCountry(country)} whileHover={{ y: -4 }} whileTap={{ scale: 0.985 }} key={country.name} className={`group relative min-h-[240px] overflow-hidden rounded-[20px] bg-white text-left shadow-[0_10px_30px_rgba(0,0,0,0.04)] outline-none ${index === 0 ? "xl:col-span-2" : ""}`}>
-            <Image src={country.image} alt={`${country.name} ${country.english} 地标城市`} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover saturate-[0.78] contrast-[0.96] transition duration-700 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/18 to-transparent" />
-            <motion.div layoutId={`country-icon-${country.code}`} className="absolute left-5 top-5 flex size-14 items-center justify-center rounded-2xl bg-white/90 text-3xl shadow-[0_14px_34px_rgba(0,0,0,0.16)] backdrop-blur">
-              {country.icon}
-            </motion.div>
-            <div className="absolute inset-x-0 bottom-0 p-5 text-white">
-              <h3 className="text-2xl font-semibold tracking-[-0.04em]">{country.name}</h3>
-              <p className="mt-1 text-sm text-white/70">{country.english}</p>
-              <p className="mt-3 inline-flex items-center rounded-full bg-white/16 px-3 py-1 text-xs font-medium text-white/88 backdrop-blur">点击查看留学 / 务工路径</p>
-            </div>
-          </motion.button>
-        ))}
+        {countries.map((country, index) => {
+          const wideCard = index === 0 || index === countries.length - 1;
+          return (
+            <motion.button type="button" onClick={() => openCountry(country)} whileHover={{ y: -4 }} whileTap={{ scale: 0.985 }} key={country.name} className={`group relative min-h-[240px] overflow-hidden rounded-[20px] bg-white text-left shadow-[0_10px_30px_rgba(0,0,0,0.04)] outline-none ${wideCard ? "xl:col-span-2" : ""}`}>
+              <Image src={country.image} alt={`${country.name} ${country.english} 地标城市`} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover saturate-[0.78] contrast-[0.96] transition duration-700 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/18 to-transparent" />
+              <motion.div layoutId={`country-icon-${country.code}`} className="absolute left-5 top-5 flex size-14 items-center justify-center rounded-2xl bg-white/90 text-3xl shadow-[0_14px_34px_rgba(0,0,0,0.16)] backdrop-blur">
+                {country.icon}
+              </motion.div>
+              <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+                <h3 className="text-2xl font-semibold tracking-[-0.04em]">{country.name}</h3>
+                <p className="mt-1 text-sm text-white/70">{country.english}</p>
+                <p className="mt-3 inline-flex items-center rounded-full bg-white/16 px-3 py-1 text-xs font-medium text-white/88 backdrop-blur">点击查看留学 / 务工路径</p>
+              </div>
+            </motion.button>
+          );
+        })}
       </div>
 
       <AnimatePresence>
