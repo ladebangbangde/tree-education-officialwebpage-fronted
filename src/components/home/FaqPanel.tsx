@@ -3,8 +3,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
-import { faqs } from "@/lib/data";
+import { faqItems } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+
+const faqs = faqItems.map((item) => ({
+  question: item.q,
+  answer: item.a
+}));
 
 export function FaqPanel() {
   const [active, setActive] = useState(0);
