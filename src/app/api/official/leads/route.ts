@@ -15,6 +15,7 @@ type OfficialLeadPayload = {
   budget?: string;
   remark?: string;
   source?: string;
+  leadRole?: "student" | "worker";
 };
 
 const requiredFields: Array<keyof OfficialLeadPayload> = ["name", "phone", "intentionRegionCode", "budget"];
@@ -31,6 +32,10 @@ function getBackendBaseUrl() {
 
 function text(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
+}
+
+function role(value: unknown): "student" | "worker" {
+  return value === "worker" ? "worker" : "student";
 }
 
 function maskPhone(phone: string) {
@@ -58,7 +63,8 @@ export async function POST(request: NextRequest) {
     intentionRegionName: text(body.intentionRegionName),
     budget: text(body.budget),
     remark: text(body.remark),
-    source: text(body.source) || "official_website_home_consultation"
+    source: text(body.source) || "official_website_home_consultation",
+    leadRole: role(body.leadRole)
   };
 
   const missing = requiredFields.filter((field) => !payload[field]);
@@ -91,6 +97,7 @@ export async function POST(request: NextRequest) {
         status: response.status,
         targetUrl,
         phone: maskPhone(payload.phone || ""),
+        leadRole: payload.leadRole,
         responseBody
       });
       return NextResponse.json({ success: false, message: responseBody?.message || "线索提交失败，请稍后重试" }, { status: response.status });
@@ -101,6 +108,7 @@ export async function POST(request: NextRequest) {
     console.error("[official-leads-proxy] backend unavailable", {
       targetUrl,
       phone: maskPhone(payload.phone || ""),
+      leadRole: payload.leadRole,
       error: error instanceof Error ? error.message : String(error)
     });
     return NextResponse.json({ success: false, message: "官网线索服务暂时不可用，请联系顾问或稍后重试" }, { status: 502 });
