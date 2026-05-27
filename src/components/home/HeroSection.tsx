@@ -48,15 +48,15 @@ export function HeroSection() {
             </p>
 
             <h1 className="text-balance text-5xl font-semibold leading-[0.95] tracking-[-0.07em] text-[#0A0A0A] md:text-7xl xl:text-8xl">
-              让世界名校
+              让世界
               <br />
               为你打开
             </h1>
 
             <p className="mt-7 max-w-lg text-base leading-8 text-[#6B7280] md:text-lg">
-              我们专注全球留学申请规划
+              我们提供留学与海外工作规划
               <br className="hidden sm:block" />
-              从适配定位到录取落地，一站式陪伴你的留学之路
+              从目标定位到落地执行，一站式陪伴你的出国之路
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -107,8 +107,8 @@ export function HeroSection() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/20" />
 
           <div className="absolute bottom-5 left-5 rounded-2xl border border-white/30 bg-white/75 p-4 backdrop-blur-xl">
-            <p className="text-xs text-[#6B7280]">Admission planning</p>
-            <p className="mt-1 text-sm font-semibold">Global · Data-driven · Precise</p>
+            <p className="text-xs text-[#6B7280]">Global planning</p>
+            <p className="mt-1 text-sm font-semibold">专业的出国服务</p>
           </div>
         </motion.div>
       </div>
