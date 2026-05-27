@@ -17,9 +17,9 @@ export const whyUsItems = [
 ];
 
 export const services = [
-  { icon: "route", title: "留学规划", description: "建立时间线与目标路径" },
-  { icon: "target", title: "选校定位", description: "匹配梯度院校与项目" },
-  { icon: "pen", title: "文书制作", description: "挖掘个人叙事与亮点" },
+  { icon: "route", title: "出国规划", description: "建立出国目标与时间线" },
+  { icon: "target", title: "目标定位", description: "匹配留学、工作或复合路径" },
+  { icon: "pen", title: "材料制作", description: "整理个人背景与申请亮点" },
   { icon: "send", title: "申请递交", description: "把控材料与节点进度" },
   { icon: "badge", title: "签证服务", description: "材料审核与面签辅导" },
   { icon: "plane", title: "行前指导", description: "住宿、注册与落地事项" }
@@ -71,24 +71,18 @@ export const partners = [
   { name: "University of Sydney", english: "悉尼大学", badge: "澳洲八大", rank: "澳洲名校", logo: "/pics/悉尼大学.png", intro: "澳洲历史悠久的综合型大学，商科、工程、计算机、传媒、教育和健康科学方向选择丰富。" },
   { name: "Stanford University", english: "斯坦福大学", badge: "美国顶尖", rank: "美国名校", logo: "/pics/斯坦福大学.png", intro: "位于硅谷核心创新生态，适合计算机、工程、创业、商业分析、教育科技和交叉学科方向。" },
   { name: "National University of Singapore", english: "新加坡国立大学", badge: "亚洲名校", rank: "亚洲名校", logo: "/pics/新加坡国立.png", intro: "亚洲高认可度综合型大学，适合计算机、数据、金融、工程、公共政策和商业管理方向。" },
-  { name: "University of Oxford", english: "牛津大学", badge: "英国顶尖", rank: "英国名校", logo: "/pics/牛津大学.png", intro: "英国顶尖研究型大学，适合高端学术型申请，重视研究潜力、学术表达和长期发展目标。" },
-  { name: "Massachusetts Institute of Technology", english: "麻省理工学院", badge: "理工顶尖", rank: "美国名校", logo: "/pics/麻省理工.png", intro: "全球理工与科技创新代表院校，适合工程、计算机、人工智能、数据科学、金融科技和创业方向。" }
+  { name: "University of Oxford", english: "牛津大学", badge: "英国顶尖", rank: "英国名校", logo: "/pics/牛津大学.png", intro: "英国顶尖研究型大学，适合高端学术规划、研究型项目和跨学科方向。" },
+  { name: "Imperial College London", english: "帝国理工学院", badge: "理工强校", rank: "英国名校", logo: "/pics/帝国理工.png", intro: "工程、计算机、数据、医学和商科方向优势突出，适合理工与创新型背景学生。" }
 ];
 
 export const testimonials = [
-  { student: "林同学", result: "曼彻斯特大学 Offer", quote: "原来普通经历也能写出申请优势。", detail: "顾问不是简单帮我润色，而是重新拆解经历，把每段实习和项目都变成有逻辑的申请材料。" },
-  { student: "陈同学", result: "悉尼大学 Offer", quote: "低GPA不是终点，关键是解释和策略。", detail: "我最担心成绩和院校背景，但方案把我的商业经历讲清楚了，最后拿到了很满意的结果。" },
-  { student: "王同学", result: "新加坡国立大学 Offer", quote: "跨专业终于讲得通了。", detail: "从文科转数据最难的是说服学校，我的项目和补课计划被梳理得很清晰。" }
+  { name: "Chen", country: "UK", text: "从选校到文书都很清晰，最终拿到理想 offer。" },
+  { name: "Liu", country: "Australia", text: "顾问把时间线拆得很细，家长也能看懂每一步。" },
+  { name: "Wang", country: "US", text: "我的背景不算强，但方案让我更有方向。" }
 ];
 
-export const faqs = [
-  { question: "什么时候开始准备留学比较合适？", answer: "建议提前 6-12 个月开始准备，热门国家和专业建议更早规划语言、实习、文书和递交时间线。" },
-  { question: "成绩一般还有机会申请好学校吗？", answer: "可以，需要结合院校背景、均分、语言、实习、科研、作品集和专业匹配做整体评估。" },
-  { question: "可以同时申请多个国家吗？", answer: "可以，但不同国家材料逻辑和时间线不同，需要提前做优先级和预算规划。" }
-];
-
-export const footerColumns = [
-  { title: "服务", links: ["留学规划", "选校定位", "文书制作", "签证辅导"] },
-  { title: "目的地", links: ["英国", "美国", "澳大利亚", "法国", "德国", "意大利", "西班牙"] },
-  { title: "关于", links: ["顾问团队", "成功案例", "联系我们", "隐私政策"] }
+export const faqItems = [
+  { q: "什么时候开始准备比较合适？", a: "一般建议提前 8-18 个月规划，热门专业和名校申请越早越好。" },
+  { q: "没有语言成绩可以先申请吗？", a: "很多国家和院校支持有条件录取，具体要看学校、专业和申请季政策。" },
+  { q: "预算有限还能申请吗？", a: "可以，我们会结合国家、城市、学制、奖学金和住宿成本给出可执行方案。" }
 ];
