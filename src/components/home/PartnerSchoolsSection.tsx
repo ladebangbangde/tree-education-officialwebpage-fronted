@@ -1,8 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { partners } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+
+function PartnerLogo({ name, logo }: { name: string; logo?: string }) {
+  const [failed, setFailed] = useState(false);
+  const initials = name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase();
+
+  if (!logo || failed) {
+    return (
+      <div className="flex h-full w-full items-center justify-center rounded-xl bg-[#F5F5F7] text-sm font-semibold tracking-[-0.03em] text-[#0A0A0A]">
+        {initials || "U"}
+      </div>
+    );
+  }
+
+  return <img src={logo} alt={`${name}校徽`} className="h-full w-full object-contain" loading="lazy" onError={() => setFailed(true)} />;
+}
 
 export function PartnerSchoolsSection() {
   return (
@@ -24,8 +46,8 @@ export function PartnerSchoolsSection() {
             className="group overflow-hidden rounded-[24px] border border-[#E5E7EB] bg-[#F8F8FA] p-5 transition-all duration-300 hover:border-[#0A0A0A]/15 hover:bg-white hover:shadow-[0_20px_48px_rgba(0,0,0,0.08)]"
           >
             <div className="flex items-center gap-4">
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-[#E5E7EB] bg-white p-3 shadow-sm">
-                <img src={partner.logo} alt={`${partner.name}校徽`} className="h-full w-full object-contain" loading="lazy" />
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-[#E5E7EB] bg-white p-2 shadow-sm">
+                <PartnerLogo name={partner.name} logo={partner.logo} />
               </div>
 
               <div className="min-w-0 flex-1">
