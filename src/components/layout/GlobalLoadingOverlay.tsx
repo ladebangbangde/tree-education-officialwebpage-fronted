@@ -85,13 +85,13 @@ export function GlobalLoadingOverlay() {
           >
             <div className="relative h-[150px] w-[220px] overflow-visible">
               <motion.div
-                className="absolute inset-0 rounded-[30px] bg-white shadow-[0_28px_80px_rgba(0,0,0,0.10)]"
+                className="absolute inset-0 rounded-[30px] bg-transparent"
                 initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.36, ease: "easeOut" }}
               />
 
-              <div className="absolute inset-0 overflow-hidden rounded-[30px] border border-[#E5E7EB] bg-white">
+              <div className="absolute inset-0 overflow-visible rounded-[30px] bg-transparent">
                 <div className="absolute inset-0 opacity-[0.07]" style={maskStyle}>
                   <div className="h-full w-full bg-[#0A0A0A]" />
                 </div>
@@ -108,7 +108,7 @@ export function GlobalLoadingOverlay() {
                 </motion.div>
 
                 <motion.div
-                  className="pointer-events-none absolute inset-y-0 left-0 w-[58px] bg-[linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.98),rgba(255,255,255,0))] blur-[1px]"
+                  className="pointer-events-none absolute inset-y-0 left-0 w-[58px] bg-[linear-gradient(90deg,rgba(245,245,247,0),rgba(245,245,247,0.86),rgba(245,245,247,0))] blur-[1px]"
                   initial={{ x: -72, opacity: 0 }}
                   animate={{ x: [-72, 232, 232], opacity: [0, 1, 0] }}
                   transition={{ duration: 1.26, times: [0, 0.72, 1], repeat: Infinity, repeatDelay: 0.52, ease: "easeInOut" }}
