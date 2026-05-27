@@ -6,9 +6,20 @@ import { testimonials } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { useState } from "react";
 
+function normalizeTestimonial(item: (typeof testimonials)[number]) {
+  const legacy = item as unknown as { student?: string; quote?: string; detail?: string; result?: string };
+  const current = item as unknown as { name?: string; country?: string; text?: string };
+  return {
+    student: legacy.student || current.name || "客户",
+    quote: legacy.quote || current.text || "感谢吴桐树提供的专业服务。",
+    detail: legacy.detail || current.text || "顾问老师会根据背景、目标和预算，给出更清晰的出国规划路径。",
+    result: legacy.result || current.country || "出国规划"
+  };
+}
+
 export function TestimonialsPanel() {
   const [index, setIndex] = useState(0);
-  const item = testimonials[index];
+  const item = normalizeTestimonial(testimonials[index]);
 
   const prev = () => {
     setIndex((current) => (current === 0 ? testimonials.length - 1 : current - 1));
@@ -26,11 +37,11 @@ export function TestimonialsPanel() {
       transition={{ duration: 0.7 }}
       className="rounded-[28px] border border-[#E5E7EB] bg-white p-6 text-center shadow-[0_10px_30px_rgba(0,0,0,0.04)] md:p-10"
     >
-      <SectionHeader title="学生评价" />
+      <SectionHeader title="客户评价" />
 
       <AnimatePresence mode="wait">
         <motion.div
-          key={item.student}
+          key={`${item.student}-${index}`}
           initial={{ opacity: 0, x: 36 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -36 }}
@@ -64,6 +75,7 @@ export function TestimonialsPanel() {
         <button
           onClick={prev}
           className="flex size-12 items-center justify-center rounded-full border border-[#E5E7EB] transition hover:bg-[#F5F5F5]"
+          aria-label="上一条评价"
         >
           <ArrowLeft className="size-5" />
         </button>
@@ -71,6 +83,7 @@ export function TestimonialsPanel() {
         <button
           onClick={next}
           className="flex size-12 items-center justify-center rounded-full bg-[#050505] text-white transition hover:scale-105"
+          aria-label="下一条评价"
         >
           <ArrowRight className="size-5" />
         </button>
@@ -81,6 +94,7 @@ export function TestimonialsPanel() {
           <button
             key={dotIndex}
             onClick={() => setIndex(dotIndex)}
+            aria-label={`查看第 ${dotIndex + 1} 条评价`}
             className={dotIndex === index ? "h-2 w-10 rounded-full bg-[#0A0A0A]" : "size-2 rounded-full bg-[#D1D5DB]"}
           />
         ))}
