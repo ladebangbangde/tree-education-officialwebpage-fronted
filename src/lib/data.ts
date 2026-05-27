@@ -53,10 +53,10 @@ export type ShowcaseCase = {
 };
 
 export const offers: ShowcaseCase[] = [
-  { tag: "双非逆袭", student: "林同学", background: "双非财经类 · 均分82 · 两段普通市场实习", school: "University of Manchester", chinese: "曼彻斯特大学", rankLabel: "院校亮点", rank: "QS Top 35", programLabel: "录取方向", program: "MSc Marketing", result: "从只敢申QS100，到拿下曼大商科Offer", strategy: "把零散实习重构成品牌增长、用户洞察与数据复盘的商业故事线。", detail: "我们重新拆解实习内容，把社媒投放、用户访谈和销售数据复盘串成完整增长案例，最终材料呈现出清晰的商业判断力。", status: "Offer", highlights: ["重构2段实习", "文书主线升级", "申请梯度上移"] },
+  { tag: "双非逆袭", student: "林同学", background: "双非财经类 · 均分82 · 两段普通市场实习", school: "University of Manchester", chinese: "曼彻斯特大学", rankLabel: "院校亮点", rank: "英国名校", programLabel: "录取方向", program: "MSc Marketing", result: "从只敢申普通院校，到拿下英国名校商科录取", strategy: "把零散实习重构成品牌增长、用户洞察与数据复盘的商业故事线。", detail: "我们重新拆解实习内容，把社媒投放、用户访谈和销售数据复盘串成完整增长案例，最终材料呈现出清晰的商业判断力。", status: "Offer", highlights: ["重构2段实习", "文书主线升级", "申请梯度上移"] },
   { tag: "低GPA突破", student: "陈同学", background: "三本院校 · GPA 3.1 · 有家族企业经历", school: "University of Sydney", chinese: "悉尼大学", rankLabel: "院校亮点", rank: "澳洲八大", programLabel: "录取方向", program: "Master of Commerce", result: "低起点背景，也能进入澳洲八大商科", strategy: "弱化单一分数短板，强化课程匹配、商业场景和未来职业规划。", detail: "把家族企业运营经历拆成供应链、客户维护、财务记录三个模块，再结合本科课程证明商科基础。", status: "Offer", highlights: ["低GPA解释策略", "家族企业经历提炼", "职业目标闭环"] },
-  { tag: "跨专业申请", student: "王同学", background: "文科背景 · 编程基础弱 · 想转数据分析", school: "University of Glasgow", chinese: "格拉斯哥大学", rankLabel: "院校亮点", rank: "QS Top 80", programLabel: "录取方向", program: "MSc Data Analytics", result: "文科生转数据方向，不靠空喊热爱也能讲通", strategy: "用可验证项目、补课计划和职业场景证明转专业可行性。", detail: "把论文研究里的定性分析转化为问题定义、数据整理、趋势观察和结论表达的方法迁移。", status: "Offer", highlights: ["跨专业逻辑搭建", "项目经历补强", "技能路径可验证"] },
-  { tag: "大龄重启", student: "赵同学", background: "工作5年 · 语言一般 · 想转教育管理", school: "University of Leeds", chinese: "利兹大学", rankLabel: "院校亮点", rank: "英国罗素集团", programLabel: "录取方向", program: "MA Education", result: "工作多年后重启申请，把年龄变成优势", strategy: "把工作年限转化为管理经验、沟通能力和长期职业稳定性。", detail: "把培训新人、跨部门协调和项目推进经验自然连接到教育管理，突出更成熟的职业目标。", status: "Offer", highlights: ["工作经历转优势", "教育管理叙事", "时间线重新设计"] }
+  { tag: "跨专业申请", student: "王同学", background: "文科背景 · 编程基础弱 · 想转数据分析", school: "National University of Singapore", chinese: "新加坡国立大学", rankLabel: "院校亮点", rank: "亚洲名校", programLabel: "录取方向", program: "Data / Analytics", result: "文科生转数据方向，不靠空喊热爱也能讲通", strategy: "用可验证项目、补课计划和职业场景证明转专业可行性。", detail: "把论文研究里的定性分析转化为问题定义、数据整理、趋势观察和结论表达的方法迁移。", status: "Offer", highlights: ["跨专业逻辑搭建", "项目经历补强", "技能路径可验证"] },
+  { tag: "高端冲刺", student: "赵同学", background: "985背景 · 科研项目 · 目标顶尖院校", school: "University of Oxford", chinese: "牛津大学", rankLabel: "院校亮点", rank: "英国顶尖", programLabel: "录取方向", program: "Social Science / Management", result: "高端申请更看重研究逻辑和长期叙事", strategy: "把课程、科研、实习和未来目标串成一条可信的学术成长线。", detail: "重点不是堆砌奖项，而是证明学生为什么适合这个项目，以及未来如何把专业训练转化为长期影响力。", status: "Offer", highlights: ["高端定位", "研究主线", "面试准备"] }
 ];
 
 export const workCases: ShowcaseCase[] = [
@@ -67,18 +67,18 @@ export const workCases: ShowcaseCase[] = [
 ];
 
 export const partners = [
-  { name: "University of Manchester", english: "曼彻斯特大学", rank: "35", logo: "https://logo.clearbit.com/manchester.ac.uk", intro: "英国罗素集团成员，商科、工程与计算机方向热门。" },
-  { name: "University of Sydney", english: "悉尼大学", rank: "19", logo: "https://logo.clearbit.com/sydney.edu.au", intro: "澳洲八大代表院校，商科、数据、教育和工程方向稳定。" },
-  { name: "University of Glasgow", english: "格拉斯哥大学", rank: "78", logo: "https://logo.clearbit.com/gla.ac.uk", intro: "英国老牌名校，适合商科、数据、人文与传媒方向规划。" },
-  { name: "University of Leeds", english: "利兹大学", rank: "75", logo: "https://logo.clearbit.com/leeds.ac.uk", intro: "英国罗素集团院校，教育、传媒、商科和工程方向选择丰富。" },
-  { name: "Monash University", english: "蒙纳士大学", rank: "42", logo: "https://logo.clearbit.com/monash.edu", intro: "澳洲八大之一，适合商科、IT、工程、教育和健康科学方向。" },
-  { name: "University of Bristol", english: "布里斯托大学", rank: "55", logo: "https://logo.clearbit.com/bristol.ac.uk", intro: "英国研究型名校，工程、计算机、管理与社会科学方向实力突出。" }
+  { name: "University of Melbourne", english: "墨尔本大学", badge: "澳洲八大", rank: "澳洲名校", logo: "/pics/墨尔本大学.png", intro: "澳大利亚代表性研究型大学，适合商科、数据、教育、法律、工程和生命科学等方向规划。" },
+  { name: "University of Sydney", english: "悉尼大学", badge: "澳洲八大", rank: "澳洲名校", logo: "/pics/悉尼大学.png", intro: "澳洲历史悠久的综合型大学，商科、工程、计算机、传媒、教育和健康科学方向选择丰富。" },
+  { name: "Stanford University", english: "斯坦福大学", badge: "美国顶尖", rank: "美国名校", logo: "/pics/斯坦福大学.png", intro: "位于硅谷核心创新生态，适合计算机、工程、创业、商业分析、教育科技和交叉学科方向。" },
+  { name: "National University of Singapore", english: "新加坡国立大学", badge: "亚洲名校", rank: "亚洲名校", logo: "/pics/新加坡国立.png", intro: "亚洲高认可度综合型大学，适合计算机、数据、金融、工程、公共政策和商业管理方向。" },
+  { name: "University of Oxford", english: "牛津大学", badge: "英国顶尖", rank: "英国名校", logo: "/pics/牛津大学.png", intro: "英国顶尖研究型大学，适合高端学术型申请，重视研究潜力、学术表达和长期发展目标。" },
+  { name: "Massachusetts Institute of Technology", english: "麻省理工学院", badge: "理工顶尖", rank: "美国名校", logo: "/pics/麻省理工.png", intro: "全球理工与科技创新代表院校，适合工程、计算机、人工智能、数据科学、金融科技和创业方向。" }
 ];
 
 export const testimonials = [
   { student: "林同学", result: "曼彻斯特大学 Offer", quote: "原来普通经历也能写出申请优势。", detail: "顾问不是简单帮我润色，而是重新拆解经历，把每段实习和项目都变成有逻辑的申请材料。" },
   { student: "陈同学", result: "悉尼大学 Offer", quote: "低GPA不是终点，关键是解释和策略。", detail: "我最担心成绩和院校背景，但方案把我的商业经历讲清楚了，最后拿到了很满意的结果。" },
-  { student: "王同学", result: "格拉斯哥大学 Offer", quote: "跨专业终于讲得通了。", detail: "从文科转数据最难的是说服学校，我的项目和补课计划被梳理得很清晰。" }
+  { student: "王同学", result: "新加坡国立大学 Offer", quote: "跨专业终于讲得通了。", detail: "从文科转数据最难的是说服学校，我的项目和补课计划被梳理得很清晰。" }
 ];
 
 export const faqs = [
