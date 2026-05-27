@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -19,7 +18,7 @@ export function GlobalLoadingOverlay() {
     timer.current = null;
   };
 
-  const scheduleHide = (delay = 820) => {
+  const scheduleHide = (delay = 920) => {
     clearTimer(hideTimer);
     hideTimer.current = window.setTimeout(() => {
       if (pendingFetchCount.current <= 0) setVisible(false);
@@ -28,7 +27,7 @@ export function GlobalLoadingOverlay() {
 
   useEffect(() => {
     setVisible(true);
-    scheduleHide(1280);
+    scheduleHide(1480);
   }, [pathname]);
 
   useEffect(() => {
@@ -43,11 +42,11 @@ export function GlobalLoadingOverlay() {
       } finally {
         pendingFetchCount.current = Math.max(0, pendingFetchCount.current - 1);
         clearTimer(showTimer);
-        if (pendingFetchCount.current === 0) scheduleHide(620);
+        if (pendingFetchCount.current === 0) scheduleHide(680);
       }
     };
 
-    const initialTimer = window.setTimeout(() => setVisible(false), 1600);
+    const initialTimer = window.setTimeout(() => setVisible(false), 1800);
     return () => {
       window.fetch = originalFetch;
       window.clearTimeout(initialTimer);
@@ -55,6 +54,17 @@ export function GlobalLoadingOverlay() {
       clearTimer(showTimer);
     };
   }, []);
+
+  const maskStyle = {
+    WebkitMaskImage: `url(${logoPath})`,
+    maskImage: `url(${logoPath})`,
+    WebkitMaskRepeat: "no-repeat",
+    maskRepeat: "no-repeat",
+    WebkitMaskPosition: "center",
+    maskPosition: "center",
+    WebkitMaskSize: "178% auto",
+    maskSize: "178% auto"
+  } as const;
 
   return (
     <AnimatePresence>
@@ -64,7 +74,7 @@ export function GlobalLoadingOverlay() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.22 }}
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#F5F5F7]/92 px-6 backdrop-blur-2xl"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#F5F5F7]/94 px-6 backdrop-blur-2xl"
         >
           <motion.div
             initial={{ y: 16, scale: 0.96, opacity: 0 }}
@@ -81,26 +91,41 @@ export function GlobalLoadingOverlay() {
                 transition={{ duration: 0.36, ease: "easeOut" }}
               />
 
-              <motion.div
-                className="absolute inset-0 overflow-hidden rounded-[30px] border border-[#E5E7EB] bg-white"
-                initial={{ clipPath: "inset(0 100% 0 0)" }}
-                animate={{ clipPath: ["inset(0 100% 0 0)", "inset(0 0% 0 0)", "inset(0 0% 0 0)"] }}
-                transition={{ duration: 1.16, times: [0, 0.78, 1], repeat: Infinity, repeatDelay: 0.48, ease: "easeInOut" }}
-              >
-                <Image src={logoPath} alt="吴桐树 Logo 书写中" fill sizes="220px" className="scale-[1.82] object-contain" priority />
-              </motion.div>
+              <div className="absolute inset-0 overflow-hidden rounded-[30px] border border-[#E5E7EB] bg-white">
+                <div className="absolute inset-0 opacity-[0.07]" style={maskStyle}>
+                  <div className="h-full w-full bg-[#0A0A0A]" />
+                </div>
 
-              <motion.div
-                className="pointer-events-none absolute inset-y-3 left-0 w-12 rounded-full bg-[linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.88),rgba(255,255,255,0))] blur-[1px]"
-                initial={{ x: -64, opacity: 0 }}
-                animate={{ x: [-64, 230, 230], opacity: [0, 1, 0] }}
-                transition={{ duration: 1.16, times: [0, 0.74, 1], repeat: Infinity, repeatDelay: 0.48, ease: "easeInOut" }}
-              />
+                <motion.div
+                  className="absolute inset-0 overflow-hidden"
+                  initial={{ clipPath: "inset(0 100% 0 0 round 30px)" }}
+                  animate={{ clipPath: ["inset(0 100% 0 0 round 30px)", "inset(0 0% 0 0 round 30px)", "inset(0 0% 0 0 round 30px)"] }}
+                  transition={{ duration: 1.26, times: [0, 0.76, 1], repeat: Infinity, repeatDelay: 0.52, ease: "easeInOut" }}
+                >
+                  <div className="absolute inset-0" style={maskStyle}>
+                    <div className="h-full w-full bg-[#0A0A0A]" />
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="pointer-events-none absolute inset-y-0 left-0 w-[58px] bg-[linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.98),rgba(255,255,255,0))] blur-[1px]"
+                  initial={{ x: -72, opacity: 0 }}
+                  animate={{ x: [-72, 232, 232], opacity: [0, 1, 0] }}
+                  transition={{ duration: 1.26, times: [0, 0.72, 1], repeat: Infinity, repeatDelay: 0.52, ease: "easeInOut" }}
+                />
+
+                <motion.div
+                  className="absolute top-[58px] h-2 w-2 rounded-full bg-[#0A0A0A] shadow-[0_0_18px_rgba(0,0,0,0.45)]"
+                  initial={{ x: 20, opacity: 0, scale: 0.65 }}
+                  animate={{ x: [20, 190, 190], opacity: [0, 1, 0], scale: [0.65, 1, 0.65] }}
+                  transition={{ duration: 1.26, times: [0, 0.72, 1], repeat: Infinity, repeatDelay: 0.52, ease: "easeInOut" }}
+                />
+              </div>
 
               <motion.div
                 className="absolute -bottom-2 left-1/2 h-5 w-36 -translate-x-1/2 rounded-full bg-black/10 blur-xl"
                 animate={{ scaleX: [0.65, 1, 0.65], opacity: [0.12, 0.28, 0.12] }}
-                transition={{ duration: 1.64, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 1.78, repeat: Infinity, ease: "easeInOut" }}
               />
             </div>
 
@@ -109,7 +134,7 @@ export function GlobalLoadingOverlay() {
                 className="text-sm font-semibold tracking-[-0.03em] text-[#0A0A0A]"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: [0, 1, 1], y: [8, 0, 0] }}
-                transition={{ duration: 1.16, times: [0, 0.55, 1], repeat: Infinity, repeatDelay: 0.48 }}
+                transition={{ duration: 1.26, times: [0, 0.55, 1], repeat: Infinity, repeatDelay: 0.52 }}
               >
                 吴桐树正在加载
               </motion.p>
@@ -117,7 +142,7 @@ export function GlobalLoadingOverlay() {
                 className="mt-1 text-xs font-medium tracking-[0.22em] text-[#6B7280]"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: [0, 0.72, 0.72] }}
-                transition={{ duration: 1.16, times: [0, 0.72, 1], repeat: Infinity, repeatDelay: 0.48 }}
+                transition={{ duration: 1.26, times: [0, 0.72, 1], repeat: Infinity, repeatDelay: 0.52 }}
               >
                 TREE EDUCATION
               </motion.p>
@@ -128,7 +153,7 @@ export function GlobalLoadingOverlay() {
                 className="h-full rounded-full bg-[#0A0A0A]"
                 initial={{ width: "0%" }}
                 animate={{ width: ["0%", "100%", "100%"] }}
-                transition={{ duration: 1.16, times: [0, 0.78, 1], repeat: Infinity, repeatDelay: 0.48, ease: "easeInOut" }}
+                transition={{ duration: 1.26, times: [0, 0.76, 1], repeat: Infinity, repeatDelay: 0.52, ease: "easeInOut" }}
               />
             </div>
           </motion.div>
