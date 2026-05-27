@@ -10,85 +10,99 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 type Country = (typeof countries)[number];
 type DetailTab = "study" | "work";
 
+type DetailCard = {
+  icon: "users" | "sparkles" | "trending" | "wallet" | "home" | "plane" | "briefcase";
+  title: string;
+  text: string;
+  highlight: string;
+  source?: string;
+};
+
 type CountryDetail = {
   study: {
     headline: string;
     intro: string;
-    cards: { icon: "users" | "sparkles" | "trending"; title: string; text: string; highlight: string }[];
+    cards: DetailCard[];
   };
   work: {
     headline: string;
     intro: string;
-    cards: { icon: "wallet" | "home" | "plane" | "briefcase"; title: string; text: string; highlight: string }[];
+    cards: DetailCard[];
   };
 };
+
+const workDefaultCards: DetailCard[] = [
+  { icon: "wallet", title: "收入与合同", highlight: "先核合同", source: "以雇主合同为准", text: "海外务工收入受城市、行业、工时、税费、住宿扣款和合同类型影响，不能只看单一月薪数字。" },
+  { icon: "home", title: "住宿与生活", highlight: "看净收入", source: "行前核验清单", text: "需要提前确认住宿、餐食、保险、通勤、押金、加班费和扣费方式，避免到岗后实际收入低于预期。" },
+  { icon: "plane", title: "签证与合规", highlight: "合规优先", source: "当地移民政策", text: "任何务工路径都必须匹配合法身份、雇主资质、岗位内容和当地政策，不能用旅游、短期访问等身份替代工作许可。" }
+];
 
 const detailDefaults: CountryDetail = {
   study: {
     headline: "把国家选择变成更清晰的申请路径。",
-    intro: "我们会结合你的学历背景、预算、语言能力和职业目标，判断这个国家是否真正适合你。",
+    intro: "我们会结合你的学历背景、预算、语言能力、专业方向和职业目标，判断这个国家是否真正适合你。",
     cards: [
-      { icon: "users", title: "留学生情况", highlight: "先看适配", text: "不同国家的中国学生分布、热门专业和申请节奏都不同，需要根据个人背景判断竞争位置。" },
-      { icon: "sparkles", title: "申请优势", highlight: "路径清晰", text: "合理的国家选择可以降低不确定性，让选校、文书、预算和时间线更容易形成闭环。" },
-      { icon: "trending", title: "回国就业", highlight: "结果导向", text: "回国就业不只看国家和学校，更看专业、实习、项目经历和个人表达能力。" }
+      { icon: "users", title: "留学生情况", highlight: "先看适配", source: "公开教育数据", text: "不同国家的中国学生规模、热门专业和申请节奏差异明显，需要根据个人背景判断竞争位置。" },
+      { icon: "sparkles", title: "申请优势", highlight: "路径清晰", source: "院校录取规则", text: "合理的国家选择可以降低不确定性，让选校、文书、预算和时间线更容易形成闭环。" },
+      { icon: "trending", title: "就业转化", highlight: "结果导向", source: "行业与雇主反馈", text: "回国就业不只看国家和学校，更看专业、实习、项目经历、语言能力和个人表达。" }
     ]
   },
   work: {
     headline: "海外务工要先确认合规路径，再谈收入和岗位。",
     intro: "务工方向需要同时评估岗位真实性、收入结构、住宿条件、签证合规和长期发展空间。",
-    cards: [
-      { icon: "wallet", title: "月薪参考", highlight: "因人而异", text: "不同城市、行业、工时和合同类型差异很大，不能只看单一薪资数字。" },
-      { icon: "home", title: "吃住条件", highlight: "提前确认", text: "住宿、餐食、保险、通勤和扣费方式都要在出发前确认清楚。" },
-      { icon: "plane", title: "签证情况", highlight: "合规优先", text: "任何务工路径都必须匹配合法身份、雇主资质和当地政策。" }
-    ]
+    cards: workDefaultCards
   }
 };
 
 const details: Record<string, CountryDetail> = {
   US: {
     study: {
-      headline: "把申请做成长期竞争力，而不是只冲一个排名。",
-      intro: "美国适合目标清晰、愿意长期积累科研、实习、项目和语言表达的学生。它的核心价值不只是名校光环，而是课程选择、校友网络和职业资源的组合。",
+      headline: "美国适合把申请做成长期竞争力，而不是只冲一个排名。",
+      intro: "美国院校层次和专业选择非常丰富，适合目标清晰、愿意长期积累科研、实习、项目和语言表达的学生。",
       cards: [
-        { icon: "users", title: "留学生画像", highlight: "多元竞争", text: "中国学生集中在商科、计算机、工程、数据、传媒等方向，竞争激烈，但也最容易通过项目经历和文书叙事拉开差距。" },
-        { icon: "sparkles", title: "申请优势", highlight: "路径灵活", text: "学校层次丰富，专业选择细，转专业、跨学科和研究型申请空间大，适合做个性化定位。" },
-        { icon: "trending", title: "回国就业", highlight: "认可度强", text: "美国院校背景在互联网、金融、咨询、数据、科研方向认可度高，关键是把实习和项目沉淀成可讲清的能力证据。" }
+        { icon: "users", title: "学生规模", highlight: "中国仍是核心来源", source: "IIE Open Doors 2024/25", text: "Open Doors 数据显示，美国 2024/25 学年国际学生总量超过 117 万，中国学生约 26.6 万，仍是最大来源地之一。" },
+        { icon: "sparkles", title: "申请优势", highlight: "专业颗粒度细", source: "院校项目设置", text: "美国项目选择细、研究资源强，适合计算机、工程、商科、数据、传媒、教育等方向做个性化定位。" },
+        { icon: "trending", title: "就业转化", highlight: "项目经历很关键", source: "OPT / 雇主筛选逻辑", text: "美国背景在科技、金融、咨询、科研方向辨识度高，但回国或留美都需要用实习、项目和能力证据支撑。" }
       ]
     },
     work: detailDefaults.work
   },
   AU: {
     study: {
-      headline: "澳洲适合想要稳妥路径、清晰时间线和学历认可的学生。",
+      headline: "澳大利亚适合想要稳妥路径、清晰时间线和学历认可的学生。",
       intro: "澳洲申请节奏相对清晰，八大与应用型院校层次完整，商科、IT、工程、教育、护理等方向长期受关注。",
       cards: [
-        { icon: "users", title: "留学生画像", highlight: "中国学生基数大", text: "中国学生在澳洲高校中占比较高，生活适应快，课程支持体系成熟，适合希望降低不确定性的家庭。" },
-        { icon: "sparkles", title: "申请优势", highlight: "录取路径清晰", text: "多数项目录取标准透明，开学季灵活，适合用均分、语言、专业背景做可控规划。" },
-        { icon: "trending", title: "回国就业", highlight: "实用型认可", text: "澳洲学历在商科、会计、数据、教育、工程方向认可稳定，回国就业更看重实习、证书和英语沟通能力。" }
+        { icon: "users", title: "学生规模", highlight: "中国生源基础大", source: "Australian Education data", text: "澳大利亚官方国际学生数据长期显示，中国是主要生源市场之一，院校支持体系和华人生活网络相对成熟。" },
+        { icon: "sparkles", title: "申请优势", highlight: "录取路径透明", source: "CRICOS / 院校录取要求", text: "多数项目会明确均分、专业背景、语言和开学季要求，适合用成绩与背景做可控规划。" },
+        { icon: "trending", title: "就业转化", highlight: "实用型认可", source: "澳洲职业与行业需求", text: "澳洲学历在商科、会计、数据、教育、工程和健康科学方向认可稳定，实习与证书会影响回国竞争力。" }
       ]
     },
-    work: detailDefaults.work
+    work: {
+      headline: "澳洲务工要重点确认签证、工时、行业资质和雇主真实性。",
+      intro: "澳洲生活成本和合规要求都不低，岗位选择不能只看时薪，必须同时看税后收入、住宿、保险和签证边界。",
+      cards: workDefaultCards
+    }
   },
   UK: {
     study: {
       headline: "英国适合追求效率、名校密度和硕士快速提升的学生。",
-      intro: "英国一年制硕士节奏快，名校密度高，特别适合希望在较短周期内完成学历升级和职业转向的人群。",
+      intro: "英国一年制硕士节奏快、名校密度高，适合希望在较短周期内完成学历升级、专业转向或职业包装的人群。",
       cards: [
-        { icon: "users", title: "留学生画像", highlight: "硕士申请热门", text: "中国学生集中在商科、传媒、教育、法律、计算机、数据等方向，申请节奏快，材料质量非常关键。" },
-        { icon: "sparkles", title: "申请优势", highlight: "时间效率高", text: "一年制硕士节省时间成本，学校梯度明确，适合用背景评估快速制定冲刺、稳妥和保底组合。" },
-        { icon: "trending", title: "回国就业", highlight: "名校辨识度高", text: "英国院校在金融、咨询、传媒、教育、互联网运营等方向辨识度强，回国时更需要补足实习和项目成果。" }
+        { icon: "users", title: "学生规模", highlight: "中国学生基数高", source: "HESA 2023/24", text: "英国高等教育统计数据显示，中国长期是英国非本土学生的重要来源，商科、传媒、教育、计算机和数据方向竞争集中。" },
+        { icon: "sparkles", title: "申请优势", highlight: "时间效率高", source: "英国硕士学制", text: "一年制硕士节省时间成本，学校梯度明确，适合快速制定冲刺、稳妥和保底组合。" },
+        { icon: "trending", title: "就业转化", highlight: "名校辨识度强", source: "雇主筛选偏好", text: "英国院校在金融、咨询、传媒、教育、互联网运营等方向辨识度强，回国时需要补足实习与项目成果。" }
       ]
     },
     work: detailDefaults.work
   },
   FR: {
     study: {
-      headline: "法国适合重视艺术、商科、工程和生活体验的学生。",
+      headline: "法国适合重视商科、艺术、工程和欧洲文化体验的学生。",
       intro: "法国拥有高商、工程师学院、公立大学和艺术院校体系，适合希望兼顾教育质量、文化体验和欧洲视野的学生。",
       cards: [
-        { icon: "users", title: "留学生画像", highlight: "艺术与商科热门", text: "中国学生常选择奢侈品管理、艺术设计、商科、工程、语言文化等方向，法语能力会显著提升生活和就业空间。" },
-        { icon: "sparkles", title: "申请优势", highlight: "教育资源丰富", text: "法国高商和艺术设计资源强，部分项目有英语授课，适合想进入品牌、时尚、文化、管理方向的学生。" },
-        { icon: "trending", title: "回国就业", highlight: "品牌行业加分", text: "法国背景在奢侈品、时尚、艺术、文化传播、国际贸易等方向有明显标签感，回国就业要突出作品集和实习。" }
+        { icon: "users", title: "学生规模", highlight: "欧洲热门目的地", source: "Campus France", text: "Campus France 统计显示，法国是欧洲重要留学目的地，中国学生集中在商科、工程、艺术设计、语言文化等方向。" },
+        { icon: "sparkles", title: "申请优势", highlight: "商科与艺术强", source: "高商 / 艺术院校体系", text: "法国高商、艺术设计和奢侈品管理资源突出，部分项目提供英语授课，适合品牌、时尚、文化和管理方向。" },
+        { icon: "trending", title: "就业转化", highlight: "行业标签明显", source: "品牌与文化产业", text: "法国背景在奢侈品、时尚、艺术、文化传播、国际贸易方向标签感强，作品集和实习经历尤其重要。" }
       ]
     },
     work: detailDefaults.work
@@ -98,9 +112,9 @@ const details: Record<string, CountryDetail> = {
       headline: "意大利适合艺术、设计、建筑、音乐和人文方向学生。",
       intro: "意大利的优势在于艺术底蕴、设计产业和相对有吸引力的学习成本，适合有作品、审美和专业表达的学生。",
       cards: [
-        { icon: "users", title: "留学生画像", highlight: "艺术设计集中", text: "中国学生常申请美院、音乐学院、设计、建筑、时尚管理等方向，作品集和语言准备决定竞争力。" },
-        { icon: "sparkles", title: "申请优势", highlight: "专业标签强", text: "设计、艺术、建筑、音乐等领域有天然品牌感，适合把个人作品和职业方向结合起来规划。" },
-        { icon: "trending", title: "回国就业", highlight: "作品集是核心", text: "回国进入设计、品牌、建筑、艺术教育等方向时，院校背景之外，更要靠作品集、项目经历和审美表达。" }
+        { icon: "users", title: "学生画像", highlight: "艺术设计集中", source: "意大利高教与艺术院校体系", text: "中国学生常申请美院、音乐学院、设计、建筑、时尚管理等方向，作品集和语言准备决定竞争力。" },
+        { icon: "sparkles", title: "申请优势", highlight: "专业标签强", source: "AFAM / 综合大学体系", text: "设计、艺术、建筑、音乐等领域有天然品牌感，适合把个人作品和职业方向结合起来规划。" },
+        { icon: "trending", title: "就业转化", highlight: "作品集是核心", source: "设计与创意行业", text: "回国进入设计、品牌、建筑、艺术教育等方向时，院校背景之外，更要靠作品集、项目经历和审美表达。" }
       ]
     },
     work: detailDefaults.work
@@ -110,9 +124,9 @@ const details: Record<string, CountryDetail> = {
       headline: "德国适合重视工程、制造、理工和长期职业发展的学生。",
       intro: "德国院校和产业联系紧密，适合理工科、机械、汽车、电子、计算机、管理等方向，规划重点是语言、课程匹配和长期职业路径。",
       cards: [
-        { icon: "users", title: "留学生画像", highlight: "理工导向强", text: "中国学生在工程、机械、车辆、自动化、计算机、管理类方向较多，德语能力会显著影响实习和就业。" },
-        { icon: "sparkles", title: "申请优势", highlight: "产业连接强", text: "德国制造、汽车、工程和应用科学体系成熟，适合想把专业学习和产业实践结合的学生。" },
-        { icon: "trending", title: "回国就业", highlight: "工程标签明显", text: "德国背景在汽车、制造、工程、供应链、工业软件等方向认可度较强，回国就业要突出项目和技术能力。" }
+        { icon: "users", title: "学生规模", highlight: "理工导向明显", source: "DAAD / Wissenschaft weltoffen", text: "德国国际学生规模持续增长，中国学生长期位居主要来源国之一，工程、机械、车辆、自动化和计算机方向关注度高。" },
+        { icon: "sparkles", title: "申请优势", highlight: "产业连接强", source: "德国应用科学与研究体系", text: "德国制造、汽车、工程和应用科学体系成熟，适合想把专业学习和产业实践结合的学生。" },
+        { icon: "trending", title: "就业转化", highlight: "工程标签明显", source: "制造业与工程雇主", text: "德国背景在汽车、制造、工程、供应链、工业软件等方向认可度较强，回国就业要突出项目和技术能力。" }
       ]
     },
     work: detailDefaults.work
@@ -122,9 +136,9 @@ const details: Record<string, CountryDetail> = {
       headline: "西班牙适合商科、旅游、语言、人文、艺术和体育管理方向。",
       intro: "西班牙生活氛围开放，学习成本相对友好，适合希望结合语言、文化、商科和欧洲体验的学生。",
       cards: [
-        { icon: "users", title: "留学生画像", highlight: "语言与商科并重", text: "中国学生常选择商科、旅游管理、语言文化、艺术、人文、体育管理等方向，西语能力会带来长期优势。" },
-        { icon: "sparkles", title: "申请优势", highlight: "成本友好", text: "相比部分热门国家，西班牙学习和生活成本更有吸引力，适合预算敏感但仍希望获得欧洲学历体验的学生。" },
-        { icon: "trending", title: "回国就业", highlight: "西语是差异化", text: "回国在外贸、跨境、电商、旅游、教育、品牌市场等方向，西语和跨文化经历会形成差异化标签。" }
+        { icon: "users", title: "学生画像", highlight: "语言与商科并重", source: "西班牙高等教育公开信息", text: "中国学生常选择商科、旅游管理、语言文化、艺术、人文、体育管理等方向，西语能力会带来长期优势。" },
+        { icon: "sparkles", title: "申请优势", highlight: "成本相对友好", source: "欧洲生活与学习成本比较", text: "相比部分热门英语国家，西班牙学习和生活成本更有吸引力，适合预算敏感但仍希望获得欧洲学历体验的学生。" },
+        { icon: "trending", title: "就业转化", highlight: "西语是差异化", source: "跨境贸易与语言岗位", text: "回国在外贸、跨境电商、旅游、教育、品牌市场等方向，西语和跨文化经历会形成差异化标签。" }
       ]
     },
     work: detailDefaults.work
@@ -173,7 +187,7 @@ export function CountriesSection() {
               <div className="absolute inset-x-0 bottom-0 p-5 text-white">
                 <h3 className="text-2xl font-semibold tracking-[-0.04em]">{country.name}</h3>
                 <p className="mt-1 text-sm text-white/70">{country.english}</p>
-                <p className="mt-3 inline-flex items-center rounded-full bg-white/16 px-3 py-1 text-xs font-medium text-white/88 backdrop-blur">点击查看留学 / 务工路径</p>
+                <p className="mt-3 inline-flex items-center rounded-full bg-white/16 px-3 py-1 text-xs font-medium text-white/88 backdrop-blur">点击查看数据支持的留学 / 务工路径</p>
               </div>
             </motion.button>
           );
@@ -183,7 +197,7 @@ export function CountriesSection() {
       <AnimatePresence>
         {selected && activeDetail ? (
           <motion.div className="fixed inset-0 z-[10000] overflow-y-auto bg-[#050505]/72 p-4 backdrop-blur-xl md:p-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <motion.div className="mx-auto min-h-[82vh] max-w-5xl overflow-hidden rounded-[34px] border border-white/20 bg-[#F5F5F7] shadow-[0_40px_120px_rgba(0,0,0,0.36)]" initial={{ opacity: 0, scale: 0.92, y: 34 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96, y: 18 }} transition={{ duration: 0.38, ease: "easeOut" }}>
+            <motion.div className="mx-auto min-h-[82vh] max-w-5xl overflow-hidden rounded-[34px] border border-white/20 bg-[#F5F5F7]/92 shadow-[0_40px_120px_rgba(0,0,0,0.36)] backdrop-blur-2xl" initial={{ opacity: 0, scale: 0.92, y: 34 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96, y: 18 }} transition={{ duration: 0.38, ease: "easeOut" }}>
               <div className="relative min-h-[280px] overflow-hidden bg-black p-6 text-white md:p-8">
                 <Image src={selected.image} alt={`${selected.name}详情背景`} fill sizes="100vw" className="object-cover opacity-50" />
                 <motion.div className="absolute left-8 top-8 h-44 w-44 rounded-full bg-white/25 blur-3xl" initial={{ scale: 0.2, opacity: 0 }} animate={{ scale: 2.6, opacity: 0.55 }} transition={{ duration: 0.75, ease: "easeOut" }} />
@@ -214,19 +228,22 @@ export function CountriesSection() {
               <AnimatePresence mode="wait">
                 <motion.div key={`${selected.code}-${tab}`} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.28 }} className="p-6 md:p-8">
                   <div className="max-w-3xl">
-                    <p className="inline-flex items-center gap-2 rounded-full bg-black px-3 py-1 text-xs font-medium text-white"><Sparkles className="size-3.5" /> {tab === "study" ? "留学规划重点" : "海外务工重点"}</p>
+                    <p className="inline-flex items-center gap-2 rounded-full bg-black px-3 py-1 text-xs font-medium text-white"><Sparkles className="size-3.5" /> {tab === "study" ? "数据支持的留学规划" : "合规优先的务工评估"}</p>
                     <h4 className="mt-4 text-2xl font-semibold tracking-[-0.05em] text-[#0A0A0A] md:text-4xl">{activeDetail.headline}</h4>
                     <p className="mt-4 text-sm leading-7 text-[#6B7280] md:text-base">{activeDetail.intro}</p>
                   </div>
 
                   <div className="mt-7 grid gap-4 md:grid-cols-3">
                     {activeDetail.cards.map((card, index) => (
-                      <motion.div key={card.title} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.06, duration: 0.28 }} className="group rounded-[24px] border border-[#E5E7EB] bg-white p-5 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
-                        <div className="flex size-10 items-center justify-center rounded-2xl bg-[#0A0A0A] text-white transition duration-300 group-hover:scale-110">
-                          {iconFor(card.icon)}
+                      <motion.div key={card.title} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.06, duration: 0.28 }} className="group rounded-[24px] border border-white/70 bg-white/72 p-5 shadow-[0_14px_40px_rgba(0,0,0,0.06)] backdrop-blur-xl">
+                        <div className="flex items-center justify-between gap-3">
+                          <div className="flex size-10 items-center justify-center rounded-2xl bg-[#0A0A0A] text-white transition duration-300 group-hover:scale-110">
+                            {iconFor(card.icon)}
+                          </div>
+                          {card.source ? <span className="rounded-full border border-[#E5E7EB] bg-white/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-[#6B7280]">{card.source}</span> : null}
                         </div>
                         <h5 className="mt-4 text-base font-semibold tracking-[-0.03em] text-[#0A0A0A]">{card.title}</h5>
-                        <motion.p className="mt-3 inline-flex rounded-full bg-[#F5F5F7] px-3 py-1 text-xs font-semibold text-[#0A0A0A]" animate={{ boxShadow: ["0 0 0 rgba(0,0,0,0)", "0 10px 26px rgba(0,0,0,0.10)", "0 0 0 rgba(0,0,0,0)"] }} transition={{ duration: 2.2, repeat: Infinity, delay: index * 0.2 }}>
+                        <motion.p className="mt-3 inline-flex rounded-full bg-[#F5F5F7]/90 px-3 py-1 text-xs font-semibold text-[#0A0A0A]" animate={{ boxShadow: ["0 0 0 rgba(0,0,0,0)", "0 10px 26px rgba(0,0,0,0.10)", "0 0 0 rgba(0,0,0,0)"] }} transition={{ duration: 2.2, repeat: Infinity, delay: index * 0.2 }}>
                           {card.highlight}
                         </motion.p>
                         <p className="mt-4 text-sm leading-7 text-[#0A0A0A]/72">{card.text}</p>
@@ -234,7 +251,7 @@ export function CountriesSection() {
                     ))}
                   </div>
 
-                  <div className="mt-7 rounded-[24px] border border-[#E5E7EB] bg-white p-5 text-sm leading-7 text-[#6B7280]"><strong className="text-[#0A0A0A]">提醒：</strong> 页面内容用于前期方向了解，具体申请条件、岗位收入、签证材料和雇佣要求，需要结合个人背景、城市、学校、雇主和当年政策做一对一评估。</div>
+                  <div className="mt-7 rounded-[24px] border border-[#E5E7EB] bg-white/70 p-5 text-sm leading-7 text-[#6B7280] backdrop-blur-xl"><strong className="text-[#0A0A0A]">提醒：</strong> 页面内容用于前期方向了解，具体申请条件、岗位收入、签证材料和雇佣要求，需要结合个人背景、城市、学校、雇主和当年政策做一对一评估。</div>
                 </motion.div>
               </AnimatePresence>
             </motion.div>
