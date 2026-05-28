@@ -15,8 +15,9 @@ type ConsultantCard = {
   priority?: number;
 };
 
-const DEFAULT_VISIBLE_COUNT = 4;
+const DEFAULT_VISIBLE_COUNT = 6;
 const CONSULTANT_DISPLAY_COUNT_OFFSET = 30;
+const AUTO_ROTATE_INTERVAL = 5200;
 
 function normalizeResponse(payload: any): ConsultantCard[] {
   const data = payload?.data || payload?.result || payload;
@@ -42,6 +43,14 @@ function isUploadedAvatar(url?: string) {
   if (!value) return false;
   // Static seed images are not treated as consultant-uploaded avatars.
   return !value.startsWith("/pics/consultant/");
+}
+
+function chunkConsultants(list: ConsultantCard[]) {
+  const pages: ConsultantCard[][] = [];
+  for (let index = 0; index < list.length; index += DEFAULT_VISIBLE_COUNT) {
+    pages.push(list.slice(index, index + DEFAULT_VISIBLE_COUNT));
+  }
+  return pages;
 }
 
 function AvatarBlock({ person }: { person: ConsultantCard }) {
@@ -75,7 +84,7 @@ function AvatarBlock({ person }: { person: ConsultantCard }) {
 export function ConsultantsPanel() {
   const [consultants, setConsultants] = useState<ConsultantCard[]>([]);
   const [loading, setLoading] = useState(true);
-  const [expanded, setExpanded] = useState(false);
+  const [pageIndex, setPageIndex] = useState(0);
 
   useEffect(() => {
     let alive = true;
@@ -84,7 +93,10 @@ export function ConsultantsPanel() {
       .then((res) => res.ok ? res.json() : Promise.reject(new Error(`HTTP ${res.status}`)))
       .then((payload) => {
         const list = normalizeResponse(payload);
-        if (alive) setConsultants(list);
+        if (alive) {
+          setConsultants(list);
+          setPageIndex(0);
+        }
       })
       .catch((error) => {
         console.warn("[ConsultantsPanel] failed to load consultants from public API", error);
@@ -96,12 +108,19 @@ export function ConsultantsPanel() {
     return () => { alive = false; };
   }, []);
 
-  const visibleConsultants = useMemo(
-    () => expanded ? consultants : consultants.slice(0, DEFAULT_VISIBLE_COUNT),
-    [consultants, expanded]
-  );
-  const hasMore = consultants.length > DEFAULT_VISIBLE_COUNT;
+  const consultantPages = useMemo(() => chunkConsultants(consultants), [consultants]);
+  const totalPages = consultantPages.length;
+  const shouldAutoRotate = totalPages > 1;
+  const visibleConsultants = consultantPages[pageIndex] || consultantPages[0] || [];
   const displayConsultantCount = consultants.length + CONSULTANT_DISPLAY_COUNT_OFFSET;
+
+  useEffect(() => {
+    if (!shouldAutoRotate) return;
+    const timer = window.setInterval(() => {
+      setPageIndex((value) => (value + 1) % totalPages);
+    }, AUTO_ROTATE_INTERVAL);
+    return () => window.clearInterval(timer);
+  }, [shouldAutoRotate, totalPages]);
 
   return (
     <motion.section initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.7 }} className="relative overflow-hidden rounded-[28px] border border-white/70 bg-white/58 p-6 shadow-[0_18px_60px_rgba(0,0,0,0.08)] backdrop-blur-2xl md:p-8">
@@ -115,7 +134,7 @@ export function ConsultantsPanel() {
 
       <div className="relative z-10">
         {loading ? (
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {Array.from({ length: DEFAULT_VISIBLE_COUNT }).map((_, index) => (
               <div key={index} className="h-[330px] animate-pulse rounded-[20px] border border-white/70 bg-white/50 backdrop-blur-xl" />
             ))}
@@ -126,15 +145,17 @@ export function ConsultantsPanel() {
           </div>
         ) : (
           <>
-            <motion.div layout className="grid gap-4 sm:grid-cols-2">
-              <AnimatePresence initial={false}>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={pageIndex}
+                initial={{ opacity: 0, x: 28 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -28 }}
+                transition={{ duration: 0.42, ease: "easeOut" }}
+                className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
+              >
                 {visibleConsultants.map((person) => (
                   <motion.article
-                    layout
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -12 }}
-                    transition={{ duration: 0.28 }}
                     whileHover={{ y: -4 }}
                     key={`${person.userId || person.name}-${person.regionCode || "region"}`}
                     className="overflow-hidden rounded-[22px] border border-white/75 bg-white/48 shadow-[0_16px_45px_rgba(0,0,0,0.08)] backdrop-blur-2xl transition duration-300 hover:bg-white/62 hover:shadow-[0_24px_70px_rgba(0,0,0,0.12)]"
@@ -153,18 +174,20 @@ export function ConsultantsPanel() {
                     </div>
                   </motion.article>
                 ))}
-              </AnimatePresence>
-            </motion.div>
+              </motion.div>
+            </AnimatePresence>
 
-            {hasMore ? (
-              <div className="mt-5 flex justify-center">
-                <button
-                  type="button"
-                  onClick={() => setExpanded((value) => !value)}
-                  className="rounded-full border border-white/80 bg-white/58 px-5 py-2.5 text-sm font-medium text-[#0A0A0A] shadow-[0_10px_26px_rgba(0,0,0,0.06)] backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:bg-white/80 hover:shadow-[0_16px_34px_rgba(0,0,0,0.10)]"
-                >
-                  {expanded ? "收起顾问" : `查看更多顾问（${consultants.length - DEFAULT_VISIBLE_COUNT}）`}
-                </button>
+            {shouldAutoRotate ? (
+              <div className="mt-5 flex items-center justify-center gap-2">
+                {consultantPages.map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    aria-label={`切换到第 ${index + 1} 组顾问`}
+                    onClick={() => setPageIndex(index)}
+                    className={`h-2.5 rounded-full transition-all duration-300 ${index === pageIndex ? "w-7 bg-[#0A0A0A]" : "w-2.5 bg-[#0A0A0A]/18 hover:bg-[#0A0A0A]/36"}`}
+                  />
+                ))}
               </div>
             ) : null}
           </>
