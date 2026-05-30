@@ -36,7 +36,7 @@ button { font: inherit; }
 .shadow-soft { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04); }
 .shadow-soft-hover { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08); }
 
-.fixed.inset-0 :is(h1, h2, h3, .split-contrast-title, [data-split-contrast-title="true"]) {
+.fixed.inset-0 :is(.split-contrast-title, [data-split-contrast-title="true"]) {
   color: #ffffff !important;
   mix-blend-mode: difference;
   text-shadow: none !important;
