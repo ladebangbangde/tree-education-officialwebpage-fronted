@@ -165,14 +165,19 @@ export function HeroSection() {
               className="group relative min-h-[360px] overflow-hidden bg-white p-9 text-left text-[#0A0A0A] transition hover:bg-[#F5F5F7] md:min-h-[430px]"
             >
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_28%,rgba(10,10,10,0.08),transparent_30%)]" />
-              <div className="relative flex h-full flex-col justify-between">
-                <p className="text-xs font-medium tracking-[0.24em] text-[#0A0A0A]/58">请问您出国的目的？</p>
-                <div>
-                  <p className="text-sm font-semibold tracking-[0.36em] text-[#0A0A0A]/58">WORK ABROAD</p>
-                  <h2 className="mt-5 text-6xl font-semibold tracking-[-0.08em] text-[#0A0A0A] md:text-7xl">务工</h2>
-                  <p className="mt-6 max-w-xs text-sm font-medium leading-7 text-[#0A0A0A]/72">适合海外岗位、技能就业、合规务工和收入路径评估。</p>
+              <div className="relative z-10 flex h-full flex-col justify-between">
+                <p className="text-xs font-medium tracking-[0.24em] text-[#0A0A0A]/58" style={{ color: "rgba(10,10,10,0.58)" }}>请问您出国的目的？</p>
+                <div className="relative z-10">
+                  <p className="text-sm font-semibold tracking-[0.36em] text-[#0A0A0A]/58" style={{ color: "rgba(10,10,10,0.58)" }}>WORK ABROAD</p>
+                  <div
+                    className="mt-5 block text-6xl font-semibold leading-none tracking-[-0.08em] md:text-7xl"
+                    style={{ color: "#0A0A0A", display: "block", opacity: 1, visibility: "visible", WebkitTextFillColor: "#0A0A0A" }}
+                  >
+                    务工
+                  </div>
+                  <p className="mt-6 max-w-xs text-sm font-medium leading-7 text-[#0A0A0A]/72" style={{ color: "rgba(10,10,10,0.72)" }}>适合海外岗位、技能就业、合规务工和收入路径评估。</p>
                 </div>
-                <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#0A0A0A]/80 transition group-hover:translate-x-1">选择务工 <ArrowUpRight className="size-4" /></span>
+                <span className="relative z-10 inline-flex items-center gap-2 text-sm font-semibold text-[#0A0A0A]/80 transition group-hover:translate-x-1" style={{ color: "rgba(10,10,10,0.8)" }}>选择务工 <ArrowUpRight className="size-4" /></span>
               </div>
             </button>
           </motion.div>
