@@ -17,7 +17,7 @@ type ConsultantCard = {
 
 const DEFAULT_VISIBLE_COUNT = 4;
 const CONSULTANT_DISPLAY_COUNT_OFFSET = 30;
-const AUTO_ROTATE_INTERVAL = 5200;
+const AUTO_ROTATE_INTERVAL = 10000;
 const DEFAULT_BIO = "资深留学规划顾问，擅长结合学生背景制定清晰可执行的申请方案。";
 const BIO_SCROLL_THRESHOLD = 52;
 
