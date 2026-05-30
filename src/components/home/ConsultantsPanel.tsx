@@ -22,18 +22,27 @@ const AUTO_ROTATE_INTERVAL = 5200;
 function normalizeResponse(payload: any): ConsultantCard[] {
   const data = payload?.data || payload?.result || payload;
   const list = Array.isArray(data) ? data : [];
+
   return list
-    .filter((item) => item && item.name)
-    .map((item) => ({
-      userId: item.userId,
-      name: item.name,
-      regionCode: item.regionCode,
-      regionName: item.regionName,
-      publicTitle: item.publicTitle,
-      publicBio: item.publicBio,
-      avatarUrl: item.avatarUrl,
-      priority: item.priority
-    }))
+    .map((item) => {
+      if (!item) return null;
+      const regions = Array.isArray(item.regions) ? item.regions : [];
+      const primaryRegion = regions[0] || {};
+      const name = item.name || item.consultantName || item.displayName;
+      if (!name) return null;
+
+      return {
+        userId: item.userId,
+        name,
+        regionCode: item.regionCode || primaryRegion.regionCode,
+        regionName: item.regionName || primaryRegion.regionName,
+        publicTitle: item.publicTitle,
+        publicBio: item.publicBio,
+        avatarUrl: item.avatarUrl,
+        priority: item.priority ?? primaryRegion.priority ?? item.sortOrder
+      } as ConsultantCard;
+    })
+    .filter((item): item is ConsultantCard => Boolean(item))
     .sort((a, b) => (a.priority ?? 999) - (b.priority ?? 999));
 }
 
@@ -141,7 +150,7 @@ export function ConsultantsPanel() {
           </div>
         ) : consultants.length === 0 ? (
           <div className="rounded-[20px] border border-dashed border-white/80 bg-white/54 p-6 text-sm leading-6 text-[#6B7280] backdrop-blur-xl">
-            暂未读取到顾问信息。请先在 OA 后台维护顾问档案、擅长地区，并由顾问本人上传官网头像。
+            暂未读取到顾问信息。请先在 OA 后台维护顾问档案、负责地区，并由顾问本人上传官网头像。
           </div>
         ) : (
           <>
