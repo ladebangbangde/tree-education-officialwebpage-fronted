@@ -331,34 +331,37 @@ export function AiEvaluationSection() {
                     <button type="button" onClick={() => setOpen(false)} className="absolute right-4 top-4 z-20 flex size-9 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:bg-white/20">
                       <X className="size-4" />
                     </button>
-                    <div className="pointer-events-none absolute inset-x-0 top-7 z-10 text-center">
-                      <motion.p initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.14, duration: 0.45 }} className="text-xs font-medium tracking-[0.28em] text-white/55">请问您出国目的是？</motion.p>
-                    </div>
                     <motion.button
                       type="button"
                       onClick={() => setLeadRole("student")}
-                      className="group relative min-h-[360px] overflow-hidden bg-[#050505] px-8 py-16 text-left text-white md:min-h-[440px]"
+                      className="group relative min-h-[360px] overflow-hidden bg-[#050505] px-8 py-12 text-left text-white md:min-h-[440px] md:py-14"
                       whileHover={{ scale: 1.015 }}
                       whileTap={{ scale: 0.99 }}
                     >
-                      <motion.div initial={{ opacity: 0, x: -36 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.22, duration: 0.68, ease: "easeOut" }} className="relative z-10 flex h-full flex-col justify-end">
-                        <p className="text-sm tracking-[0.32em] text-white/40">STUDY ABROAD</p>
-                        <h3 className="mt-4 text-7xl font-semibold tracking-[-0.1em] md:text-8xl">留学</h3>
-                        <p className="mt-5 max-w-xs text-sm leading-7 text-white/58">适合申请学校、提升学历、规划专业方向和长期职业竞争力。</p>
+                      <motion.div initial={{ opacity: 0, x: -36 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.12, duration: 0.56, ease: "easeOut" }} className="relative z-10 flex h-full flex-col justify-between">
+                        <p className="text-xs font-medium tracking-[0.28em] text-white/62">请问您出国的目的？</p>
+                        <div>
+                          <p className="text-sm tracking-[0.32em] text-white/40">STUDY ABROAD</p>
+                          <h3 className="mt-4 text-7xl font-semibold tracking-[-0.1em] text-white md:text-8xl">留学</h3>
+                          <p className="mt-5 max-w-xs text-sm leading-7 text-white/58">适合申请学校、提升学历、规划专业方向和长期职业竞争力。</p>
+                        </div>
                       </motion.div>
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_22%,rgba(255,255,255,0.18),transparent_35%)] opacity-70 transition group-hover:opacity-100" />
                     </motion.button>
                     <motion.button
                       type="button"
                       onClick={() => setLeadRole("worker")}
-                      className="group relative min-h-[360px] overflow-hidden bg-white px-8 py-16 text-left text-[#050505] md:min-h-[440px]"
+                      className="group relative min-h-[360px] overflow-hidden bg-white px-8 py-12 text-left text-[#050505] md:min-h-[440px] md:py-14"
                       whileHover={{ scale: 1.015 }}
                       whileTap={{ scale: 0.99 }}
                     >
-                      <motion.div initial={{ opacity: 0, x: 36 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.28, duration: 0.68, ease: "easeOut" }} className="relative z-10 flex h-full flex-col justify-end">
-                        <p className="text-sm tracking-[0.32em] text-black/38">WORK ABROAD</p>
-                        <h3 className="mt-4 text-7xl font-semibold tracking-[-0.1em] md:text-8xl">工作</h3>
-                        <p className="mt-5 max-w-xs text-sm leading-7 text-black/58">适合海外岗位、技能就业、合规务工和收入路径评估。</p>
+                      <motion.div initial={{ opacity: 0, x: 36 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.16, duration: 0.56, ease: "easeOut" }} className="relative z-10 flex h-full flex-col justify-between">
+                        <p className="text-xs font-medium tracking-[0.28em] text-[#050505]/62">请问您出国的目的？</p>
+                        <div>
+                          <p className="text-sm tracking-[0.32em] text-black/45">WORK ABROAD</p>
+                          <h3 className="mt-4 text-7xl font-semibold tracking-[-0.1em] text-[#050505] md:text-8xl">务工</h3>
+                          <p className="mt-5 max-w-xs text-sm leading-7 text-black/58">适合海外岗位、技能就业、合规务工和收入路径评估。</p>
+                        </div>
                       </motion.div>
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(0,0,0,0.08),transparent_36%)] opacity-80 transition group-hover:opacity-100" />
                     </motion.button>
