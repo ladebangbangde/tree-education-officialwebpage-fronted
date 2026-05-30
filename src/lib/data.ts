@@ -72,7 +72,7 @@ export const partners = [
   { name: "Stanford University", english: "斯坦福大学", badge: "美国顶尖", rank: "美国名校", logo: "/pics/斯坦福大学.png", intro: "位于硅谷核心创新生态，适合计算机、工程、创业、商业分析、教育科技和交叉学科方向。" },
   { name: "National University of Singapore", english: "新加坡国立大学", badge: "亚洲名校", rank: "亚洲名校", logo: "/pics/新加坡国立.png", intro: "亚洲高认可度综合型大学，适合计算机、数据、金融、工程、公共政策和商业管理方向。" },
   { name: "University of Oxford", english: "牛津大学", badge: "英国顶尖", rank: "英国名校", logo: "/pics/牛津大学.png", intro: "英国顶尖研究型大学，适合高端学术规划、研究型项目和跨学科方向。" },
-  { name: "Imperial College London", english: "帝国理工学院", badge: "理工强校", rank: "英国名校", logo: "/pics/帝国理工.png", intro: "工程、计算机、数据、医学和商科方向优势突出，适合理工与创新型背景学生。" }
+  { name: "Massachusetts Institute of Technology", english: "麻省理工学院", badge: "美国顶尖", rank: "美国名校", logo: "/pics/麻省理工.png", intro: "世界级理工与创新型大学，适合计算机、工程、人工智能、数据科学、金融科技和跨学科研究方向。" }
 ];
 
 export const testimonials = [
